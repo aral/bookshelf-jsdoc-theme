@@ -1,0 +1,11 @@
+<?js
+var data = obj;
+var self = this;
+?>
+
+<div class="links">
+  <?js= self.linkto(longname, 'link', 'docs-link', null) ?>
+  <?js if (data.meta && self.outputSourceFiles) {?>
+    <?js= self.linkto(meta.shortpath, 'source', 'source-link', 'line' + meta.lineno) ?>
+  <?js }?>
+</div>
