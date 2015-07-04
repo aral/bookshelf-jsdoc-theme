@@ -100,13 +100,6 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
     <dd class="tag-license"><ul class="dummy"><li><?js= license ?></li></ul></dd>
     <?js } ?>
 
-    <?js if (data.defaultvalue) {?>
-    <dt class="tag-default">Default Value:</dt>
-    <dd class="tag-default"><ul class="dummy">
-            <li<?js= defaultObjectClass ?>><?js= data.defaultvalue ?></li>
-        </ul></dd>
-    <?js } ?>
-
     <?js if (data.tutorials && tutorials.length) {?>
     <dt class="tag-tutorial">Tutorials:</dt>
     <dd class="tag-tutorial">
