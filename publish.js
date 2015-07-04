@@ -560,6 +560,10 @@ exports.publish = function(taffyData, opts, tutorials) {
         ? true 
         : false;
 
+    var showInheritedFrom = conf.default && conf.default.showInheritedFrom !== false
+      ? true
+      : false
+
     // add template helpers
     view.find = find;
     view.linkto = linkto;
@@ -567,6 +571,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.tutoriallink = tutoriallink;
     view.htmlsafe = htmlsafe;
     view.outputSourceFiles = outputSourceFiles;
+    view.showInheritedFrom = showInheritedFrom;
 
     // once for all
     view.nav = buildNav(members);
