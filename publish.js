@@ -590,12 +590,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     var files = find({kind: 'file'});
     var packages = find({kind: 'package'});
 
-    generate('', 'Home',
-        packages.concat(
-            [{kind: 'mainpage', readme: opts.readme, longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'}]
-        ).concat(files),
-    indexUrl);
-
     // set up the lists that we'll use to generate pages
     var classes = taffy(members.classes);
     var modules = taffy(members.modules);
@@ -603,6 +597,17 @@ exports.publish = function(taffyData, opts, tutorials) {
     var mixins = taffy(members.mixins);
     var externals = taffy(members.externals);
     var interfaces = taffy(members.interfaces);
+
+    var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
+    generate('', 'Home',
+      packages.concat(
+          [{kind: 'mainpage',
+            readme: opts.readme,
+            longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page',
+          }]
+      ).concat(topLevelClasses).concat(files),
+      indexUrl
+    );
 
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
         var myModules = helper.find(modules, {longname: longname});
