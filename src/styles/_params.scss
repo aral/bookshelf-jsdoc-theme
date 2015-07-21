@@ -1,0 +1,31 @@
+.attributes {
+  $indentation: 25px;
+
+  .param-desc, .description {
+    display: block;
+    padding-left: $indentation;
+
+    p {
+      font-family: $sans-font-family;
+      margin-bottom: 0;
+    }
+
+    // Add bullets to child lists.
+    ul.params {
+      list-style: disc;
+      margin-left: $indentation;
+    }
+  }
+
+  ul.params {
+    list-style: none;
+    .param { font-weight: bold; }
+  }
+
+
+  // Color code stuffs.
+  .optional   { color: $param-punctuation-color; }
+  .name       { color: $param-name-color; }
+  .default    { color: $param-default-color; }
+  .param-type { color: $param-type-color; font-weight: normal; }
+}

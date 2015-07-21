@@ -1,4 +1,12 @@
-.minami pre.prettyprint {
+body .main-container code {
+  font-family: $code-font-family;
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+pre.prettyprint {
 
   // Layout
   padding: 1rem;
