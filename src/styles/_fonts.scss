@@ -1,3 +1,19 @@
 $body-font-family: 'Noto Serif';
 $code-font-family: 'AverageMono';
 $title-font-family: 'Carlito';
+$icon-font-family: 'FontAwesome';
+
+@mixin icon {
+  font-family: $icon-font-family;
+}
+
+@mixin icon-file-code {
+  @include icon;
+  content: '\f1c9';
+}
+
+@mixin external-link {
+  @include icon;
+  content: '\f08e';
+}
+

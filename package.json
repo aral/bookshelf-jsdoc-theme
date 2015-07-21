@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Nijikokun/minami",
   "devDependencies": {
+    "font-awesome": "^4.3.0",
     "node-sass": "^3.2.0"
   }
 }

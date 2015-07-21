@@ -9,14 +9,15 @@ var self = this;
 
     <h4 id="<?js= id ?>" class="item-name">
       <?js= data.attribs ?>
+      <span class="signature">
       <?js if (kind === 'class') { ?>
         <span class="new">new</span>
       <?js } ?>
-      <span class="name"><?js= name ?></span
-      ><span class="signature-and-return"><?js= data.signature || '' ?></span>
+        <span class="name"><?js= self.linkto(longname, name) ?></span
+        ><span class="arguments-and-return"><?js= data.signature || '' ?></span>
+      </span>
+      <?js= self.linkto(meta.shortpath, 'source', 'source-link', 'line' + meta.lineno) ?>
     </h4>
-
-    <?js= this.partial('links.tmpl', data) ?>
 
     <?js if (data.summary) { ?>
     <p class="summary"><?js= summary ?></p>

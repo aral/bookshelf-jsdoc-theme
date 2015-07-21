@@ -55,15 +55,28 @@ body .main-container {
 
   // Function signature
   h4 {
+    $function-header-height: 3.25rem;
+
     display: block;
     background-color: $function-signature-background-color;
+    position: relative;
+
+    .signature {
+      // Shitty fix for very long signatures.
+      white-space: nowrap;
+      overflow-x: auto;
+      width: 100%;
+      display: block;
+    }
 
     padding: 0 1em;
+    margin-bottom: 1em;
 
     color: $body-text-color;
     font-family: $code-font-family;
     font-size: 1.125rem;
-    line-height: 3.25rem;
+    line-height: $function-header-height;
+    height: $function-header-height;
     font-weight: bold;
 
     .new,
@@ -76,6 +89,36 @@ body .main-container {
     .type-signature {
       color: $function-signature-return-type-color;
       font-weight: normal;
+    }
+
+    .source-link {
+
+      // Layout
+      display: block;
+      padding: 2.2rem 0.4rem 0 0.4rem;
+
+      // Position
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+
+      // Appearance
+      color: $function-signature-source-link-color;
+      background-color: $function-signature-background-color;
+      font-size: 0.5em;
+      line-height: 1em;
+      text-align: center;
+
+      &:before {
+        @include external-link;
+        position: absolute;
+        top: 0.6rem;
+        left: 0;
+        font-size: 1.1rem;
+        font-weight: normal;
+        line-height: 1.5rem;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }
