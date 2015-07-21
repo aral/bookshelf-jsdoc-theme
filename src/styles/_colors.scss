@@ -6,6 +6,8 @@ $_chalk-blue:       #B0C9E4;
 $_chalk-orange:     #F0A672;
 $_chalk-green:      #B8E986;
 $_chalk-tan:        #DCC9AA;
+$_faint-orange:    #F8E8D8;
+$_faint-tan:        #C58E6B;
 
 // Main theme colors.
 $main-background-color:      $_cream;
@@ -13,6 +15,11 @@ $sidebar-background-color:   white;
 $body-text-color:            $_charcoal;
 $body-anchor-color:          $_bookshelf-orange;
 $body-title-color:           $_charcoal;
+
+// Methods.
+$function-signature-background-color:  $_faint-orange;
+$function-signature-punctuation-color: $_bookshelf-orange;
+$function-signature-return-type-color: $_faint-tan;
 
 // Code snippet/example colors.
 $code-background-color:      $_charcoal;

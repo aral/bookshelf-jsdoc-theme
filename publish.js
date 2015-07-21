@@ -66,10 +66,6 @@ function needsSignature(doclet) {
 function getSignatureAttributes(item) {
     var attributes = [];
 
-    if (item.optional) {
-        attributes.push('opt');
-    }
-
     if (item.nullable === true) {
         attributes.push('nullable');
     }
@@ -84,13 +80,25 @@ function updateItemName(item) {
     var attributes = getSignatureAttributes(item);
     var itemName = item.name || '';
 
+    // Wrap item name in span.
+    itemName = util.format('<span class="item-name">%s</span>', itemName);
+
+    // Prefix varargs parameter with ellipsis.
     if (item.variable) {
-        itemName = '&hellip;' + itemName;
+        itemName = '<span class="variable-ellipsis">&hellip;</span>' + itemName;
+    }
+
+    // Embracket optional param.
+    if (item.optional) {
+      itemName =
+        '<span class="optional-bracket">[</span>' +
+          itemName +
+        '<span class="optional-bracket">]</span>';
     }
 
     if (attributes && attributes.length) {
         itemName = util.format( '%s<span class="signature-attributes">%s</span>', itemName,
-            attributes.join(', ') );
+            attributes.join(' ') );
     }
 
     return itemName;
@@ -136,7 +144,11 @@ function addNonParamAttributes(items) {
 
 function addSignatureParams(f) {
     var params = f.params ? addParamAttributes(f.params) : [];
-    f.signature = util.format( '%s(%s)', (f.signature || ''), params.join(', ') );
+    f.signature = util.format(
+        '%s<span class="parenthesis">(</span>%s<span class="parenthesis">)</span>',
+        (f.signature || ''),
+        params.join('<span class="comma">, </span>')
+    );
 }
 
 function addSignatureReturns(f) {

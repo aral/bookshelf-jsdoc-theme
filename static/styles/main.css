@@ -27,6 +27,23 @@ body .main-container {
   body .main-container h2 {
     font-size: 1.875rem;
     line-height: 2em; }
+  body .main-container h4 {
+    display: block;
+    background-color: #F8E8D8;
+    padding: 0 1em;
+    color: #4A4A4A;
+    font-family: "AverageMono";
+    font-size: 1.125rem;
+    line-height: 3.25rem;
+    font-weight: bold; }
+    body .main-container h4 .new,
+    body .main-container h4 .comma,
+    body .main-container h4 .parenthesis,
+    body .main-container h4 .optional-bracket {
+      color: #E56515; }
+    body .main-container h4 .type-signature {
+      color: #C58E6B;
+      font-weight: normal; }
 
 .minami .sidebar {
   background-color: white;
@@ -39,7 +56,7 @@ body .main-container {
   overflow-x: hidden;
   overflow-y: auto; }
 
-.minami pre.source {
+.minami pre.prettyprint {
   padding: 1rem;
   margin: 2em 0;
   font-family: "AverageMono";
@@ -47,15 +64,15 @@ body .main-container {
   line-height: 1.8em;
   background-color: #4A4A4A;
   color: white; }
-  .minami pre.source .pln, .minami pre.source .pun {
+  .minami pre.prettyprint .pln, .minami pre.prettyprint .pun {
     color: inherit; }
-  .minami pre.source .lit, .minami pre.source .str {
+  .minami pre.prettyprint .lit, .minami pre.prettyprint .str {
     color: #B8E986; }
-  .minami pre.source .kwd {
+  .minami pre.prettyprint .kwd {
     color: #B0C9E4; }
-  .minami pre.source .typ {
+  .minami pre.prettyprint .typ {
     color: #DCC9AA; }
-  .minami pre.source .com {
+  .minami pre.prettyprint .com {
     color: #F0A672; }
 
 html {
