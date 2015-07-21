@@ -13,11 +13,11 @@ body .main-container {
     text-decoration: none; }
     body .main-container a:hover {
       text-decoration: underline; }
-  body .main-container h1, body .main-container h2, body .main-container h3, body .main-container h4, body .main-container h5, body .main-container h6 {
+  body .main-container h1, body .main-container h2, body .main-container h3, body .main-container h4, body .main-container h5, body .main-container .details dt, .details body .main-container dt, body .main-container h6 {
     font-family: "Carlito";
     color: #4A4A4A;
     font-weight: bold; }
-    body .main-container h1 a, body .main-container h2 a, body .main-container h3 a, body .main-container h4 a, body .main-container h5 a, body .main-container h6 a {
+    body .main-container h1 a, body .main-container h2 a, body .main-container h3 a, body .main-container h4 a, body .main-container h5 a, body .main-container .details dt a, .details body .main-container dt a, body .main-container h6 a {
       color: inherit; }
   body .main-container h1 {
     text-transform: uppercase;
@@ -27,7 +27,7 @@ body .main-container {
   body .main-container h2 {
     font-size: 1.875rem;
     line-height: 2em; }
-  body .main-container h5 {
+  body .main-container h5, body .main-container .details dt, .details body .main-container dt {
     font-style: italic;
     color: #808080;
     font-size: 0.9rem;
@@ -154,6 +154,9 @@ pre.prettyprint {
 .attributes .param-type {
   color: #808080;
   font-weight: normal; }
+
+.details ul {
+  list-style: none; }
 
 html {
   font-size: 16px;
