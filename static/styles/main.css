@@ -82,13 +82,13 @@ body .main-container {
         text-align: center; }
   body .main-container .attributes {
     margin-bottom: 1rem; }
-    body .main-container .attributes:after {
-      content: '* * *';
-      display: block;
-      text-align: center;
-      font-family: "AverageMono";
-      font-size: 1.25rem;
-      color: #F8E8D8; }
+  body .main-container .item-description:before {
+    content: '* * *';
+    display: block;
+    text-align: center;
+    font-family: "AverageMono";
+    font-size: 1.25rem;
+    color: #F8E8D8; }
 
 .minami .sidebar {
   background-color: white;
@@ -154,6 +154,9 @@ pre.prettyprint {
 .attributes .param-type {
   color: #808080;
   font-weight: normal; }
+
+.details dd {
+  font-family: "Carlito"; }
 
 .details ul {
   list-style: none; }

@@ -131,13 +131,14 @@ body .main-container {
 
   .attributes {
     margin-bottom: 1rem;
-    &:after {
-      content: '* * *';
-      display: block;
-      text-align: center;
-      font-family: $code-font-family;
-      font-size: 1.25rem;
-      color: $stars-color;
-    }
+  }
+
+  .item-description:before {
+    content: '* * *';
+    display: block;
+    text-align: center;
+    font-family: $code-font-family;
+    font-size: 1.25rem;
+    color: $stars-color;
   }
 }

@@ -1,4 +1,5 @@
 .details {
   dt { @extend h5; }
+  dd { font-family: $sans-font-family; }
   ul { list-style: none; }
 }
