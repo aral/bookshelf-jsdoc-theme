@@ -1,0 +1,21 @@
+.minami pre.source {
+
+  // Layout
+  padding: 1rem;
+  margin: 2em 0;
+
+  // Appearance.
+  font-family: $code-font-family;
+  font-size: 0.9rem;
+  line-height: 1.8em;
+
+  // Colors
+  background-color: $code-background-color;
+  color:            $code-main-color;
+
+  .pln, .pun { color: inherit; }
+  .lit, .str { color: $code-string-color; }
+  .kwd { color: $code-keyword-color; }
+  .typ { color: $code-class-color; }
+  .com { color: $code-comment-color; }
+}

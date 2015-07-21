@@ -1,0 +1,19 @@
+.minami .sidebar {
+
+  // Appearance
+  background-color: $sidebar-background-color;
+  box-shadow: rgba(black, 0.5) 0 0 10px 0;
+
+  // Size
+  width: $sidebar-width;
+
+  // Position
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  // Layout
+  overflow-x: hidden;
+  overflow-y: auto;
+}

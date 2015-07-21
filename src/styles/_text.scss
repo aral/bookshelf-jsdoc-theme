@@ -1,0 +1,55 @@
+body .main-container {
+
+  // Layout
+  margin-left: $sidebar-width;
+
+  // Base font style.
+
+  .main-column {
+    width: 100%;
+    max-width: $main-width;
+    margin: 0 auto;
+  }
+
+  p {
+
+    // Layout
+    margin-bottom: 1em;
+
+    // Appearance.
+    font-family: $body-font-family;
+    color: $body-text-color;
+  }
+
+  // Anchors.
+  a {
+    color: $body-anchor-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // Headings.
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font-family;
+    color: $body-title-color;
+    font-weight: bold;
+
+    // Don't show anchor coloring in heading.
+    a { color: inherit; }
+  }
+
+  h1 {
+    text-transform: uppercase;
+    line-height: $header-height;
+    font-size: 2.75rem;
+    letter-spacing: 0.125rem;
+  }
+
+  h2 {
+    font-size: 1.875rem;
+    line-height: 2em;
+  }
+}

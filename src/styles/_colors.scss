@@ -1,0 +1,23 @@
+// Private variables.
+$_charcoal:         #4A4A4A;
+$_bookshelf-orange: #E56515;
+$_cream:            #FFFDFB;
+$_chalk-blue:       #B0C9E4;
+$_chalk-orange:     #F0A672;
+$_chalk-green:      #B8E986;
+$_chalk-tan:        #DCC9AA;
+
+// Main theme colors.
+$main-background-color:      $_cream;
+$sidebar-background-color:   white;
+$body-text-color:            $_charcoal;
+$body-anchor-color:          $_bookshelf-orange;
+$body-title-color:           $_charcoal;
+
+// Code snippet/example colors.
+$code-background-color:      $_charcoal;
+$code-main-color:            white;
+$code-keyword-color:         $_chalk-blue;
+$code-comment-color:         $_chalk-orange;
+$code-string-color:          $_chalk-green;
+$code-class-color:           $_chalk-tan;

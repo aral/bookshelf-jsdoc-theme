@@ -1,0 +1,68 @@
+body .main-container {
+  margin-left: 190px; }
+  body .main-container .main-column {
+    width: 100%;
+    max-width: 712px;
+    margin: 0 auto; }
+  body .main-container p {
+    margin-bottom: 1em;
+    font-family: "Noto Serif";
+    color: #4A4A4A; }
+  body .main-container a {
+    color: #E56515;
+    text-decoration: none; }
+    body .main-container a:hover {
+      text-decoration: underline; }
+  body .main-container h1, body .main-container h2, body .main-container h3, body .main-container h4, body .main-container h5, body .main-container h6 {
+    font-family: "Carlito";
+    color: #4A4A4A;
+    font-weight: bold; }
+    body .main-container h1 a, body .main-container h2 a, body .main-container h3 a, body .main-container h4 a, body .main-container h5 a, body .main-container h6 a {
+      color: inherit; }
+  body .main-container h1 {
+    text-transform: uppercase;
+    line-height: 140px;
+    font-size: 2.75rem;
+    letter-spacing: 0.125rem; }
+  body .main-container h2 {
+    font-size: 1.875rem;
+    line-height: 2em; }
+
+.minami .sidebar {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0;
+  width: 190px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto; }
+
+.minami pre.source {
+  padding: 1rem;
+  margin: 2em 0;
+  font-family: "AverageMono";
+  font-size: 0.9rem;
+  line-height: 1.8em;
+  background-color: #4A4A4A;
+  color: white; }
+  .minami pre.source .pln, .minami pre.source .pun {
+    color: inherit; }
+  .minami pre.source .lit, .minami pre.source .str {
+    color: #B8E986; }
+  .minami pre.source .kwd {
+    color: #B0C9E4; }
+  .minami pre.source .typ {
+    color: #DCC9AA; }
+  .minami pre.source .com {
+    color: #F0A672; }
+
+html {
+  font-size: 16px;
+  line-height: 1.56em;
+  background-color: #FFFDFB; }
+
+* {
+  padding: 0;
+  margin: 0; }
