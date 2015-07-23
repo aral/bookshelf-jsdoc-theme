@@ -36,6 +36,7 @@ body .main-container {
     display: block;
     background-color: #F8E8D8;
     position: relative;
+    margin-top: 3rem;
     padding: 0 1em;
     margin-bottom: 1em;
     color: #4A4A4A;
@@ -88,7 +89,8 @@ body .main-container {
     text-align: center;
     font-family: "AverageMono";
     font-size: 1.25rem;
-    color: #F8E8D8; }
+    color: #F2B188;
+    margin-bottom: 1rem; }
 
 .minami .sidebar {
   background-color: white;

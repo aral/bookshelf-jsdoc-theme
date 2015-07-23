@@ -67,6 +67,7 @@ body .main-container {
     display: block;
     background-color: $function-signature-background-color;
     position: relative;
+    margin-top: 3rem;
 
     .signature {
       // Shitty fix for very long signatures.
@@ -132,13 +133,15 @@ body .main-container {
   .attributes {
     margin-bottom: 1rem;
   }
-
-  .item-description:before {
-    content: '* * *';
-    display: block;
-    text-align: center;
-    font-family: $code-font-family;
-    font-size: 1.25rem;
-    color: $stars-color;
+  .item-description {
+    &:before {
+      content: '* * *';
+      display: block;
+      text-align: center;
+      font-family: $code-font-family;
+      font-size: 1.25rem;
+      color: $stars-color;
+      margin-bottom: 1rem;
+    }
   }
 }
