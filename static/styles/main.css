@@ -81,8 +81,6 @@ body .main-container {
         line-height: 1.5rem;
         width: 100%;
         text-align: center; }
-  body .main-container .attributes {
-    margin-bottom: 1rem; }
   body .main-container .item-description:before {
     content: '* * *';
     display: block;
@@ -129,33 +127,34 @@ pre.prettyprint {
   pre.prettyprint .com {
     color: #F0A672; }
 
-.attributes .param-desc, .attributes .description {
-  display: block;
-  padding-left: 25px; }
-  .attributes .param-desc p, .attributes .description p {
-    font-family: "Carlito";
-    margin-bottom: 0; }
-  .attributes .param-desc ul.params, .attributes .description ul.params {
-    list-style: disc;
-    margin-left: 25px; }
-
-.attributes ul.params {
-  list-style: none; }
-  .attributes ul.params .param {
-    font-weight: bold; }
-
-.attributes .optional {
-  color: #E56515; }
-
-.attributes .name {
-  color: black; }
-
-.attributes .default {
-  color: #557CAB; }
-
-.attributes .param-type {
-  color: #808080;
-  font-weight: normal; }
+.attributes {
+  margin-bottom: 1rem; }
+  .attributes > ul {
+    list-style: none; }
+  .attributes .fired-event-item code {
+    color: #808080; }
+  .attributes .param-desc, .attributes .description {
+    display: block;
+    padding-left: 25px; }
+    .attributes .param-desc p, .attributes .description p {
+      font-family: "Carlito";
+      margin-bottom: 0; }
+    .attributes .param-desc ul.params, .attributes .description ul.params {
+      list-style: disc;
+      margin-left: 25px; }
+  .attributes ul.params {
+    list-style: none; }
+    .attributes ul.params .param {
+      font-weight: bold; }
+  .attributes .optional {
+    color: #E56515; }
+  .attributes .name {
+    color: black; }
+  .attributes .default {
+    color: #557CAB; }
+  .attributes .param-type {
+    color: #808080;
+    font-weight: normal; }
 
 .details dd {
   font-family: "Carlito"; }

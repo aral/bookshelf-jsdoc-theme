@@ -65,8 +65,8 @@ var self = this;
 
   <?js if (data.fires && fires.length) { ?>
   <h5>Fires</h5>
-  <ul><?js fires.forEach(function(f) { ?>
-      <li><?js= self.linkto(f) ?></li>
+  <ul class="fired-event-list"><?js fires.forEach(function(f) { ?>
+      <li class="fired-event-item"><code class="event-name"><?js= self.linkto(f, '"' + self.simplifyName(f) + '"') ?></code></li>
   <?js }); ?></ul>
   <?js } ?>
 

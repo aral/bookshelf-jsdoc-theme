@@ -1,6 +1,16 @@
 .attributes {
   $indentation: 25px;
 
+
+  margin-bottom: 1rem;
+  > ul {
+    list-style: none;
+  }
+
+  .fired-event-item code {
+    color: $param-type-color;
+  }
+
   .param-desc, .description {
     display: block;
     padding-left: $indentation;
@@ -21,7 +31,6 @@
     list-style: none;
     .param { font-weight: bold; }
   }
-
 
   // Color code stuffs.
   .optional   { color: $param-punctuation-color; }

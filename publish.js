@@ -25,6 +25,14 @@ function find(spec) {
     return helper.find(data, spec);
 }
 
+function simplifyName(namepath) {
+  // Doesn't necessarily handle all types yet. Just doing this for events for now.
+  var regex = /"(.*)"$|[:#~\.](\w*)$/;
+  var matches = namepath.match(regex);
+  console.log('namepath', namepath, 'matches', matches);
+  return matches[1] || matches[2] || namepath;
+}
+
 function tutoriallink(tutorial) {
     return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' });
 }
@@ -581,6 +589,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     // add template helpers
     view.find = find;
     view.linkto = linkto;
+    view.simplifyName = simplifyName;
     view.resolveAuthorLinks = resolveAuthorLinks;
     view.tutoriallink = tutoriallink;
     view.htmlsafe = htmlsafe;
