@@ -30,7 +30,6 @@ function simplifyName(namepath) {
   // Doesn't necessarily handle all types yet. Just doing this for events for now.
   var regex = /"(.*)"$|[:#~\.](\w*)$/;
   var matches = namepath.match(regex);
-  console.log('namepath', namepath, 'matches', matches);
   return matches[1] || matches[2] || namepath;
 }
 
