@@ -53,6 +53,14 @@ body .main-container {
     line-height: 2em;
   }
 
+  h3.subsection-title {
+    color: $subsection-title-color;
+    text-transform: uppercase;
+    font-family: $title-font-family;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
+
   h5 {
     font-style: italic;
     color: $minor-heading-color;
@@ -67,7 +75,6 @@ body .main-container {
     display: block;
     background-color: $function-signature-background-color;
     position: relative;
-    margin-top: 3rem;
 
     .signature {
       // Shitty fix for very long signatures.
@@ -128,6 +135,10 @@ body .main-container {
         text-align: center;
       }
     }
+  }
+
+  .method {
+    margin-bottom: 3rem;
   }
 
   .item-description {

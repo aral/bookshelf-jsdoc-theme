@@ -136,10 +136,11 @@
         if (methods && methods.length && methods.forEach) {
     ?>
         <h3 class="subsection-title">Methods</h3>
-
-        <?js methods.forEach(function(m) { ?>
-            <?js= self.partial('method.tmpl', m) ?>
-        <?js }); ?>
+        <div class="methods">
+          <?js methods.forEach(function(m) { ?>
+              <?js= self.partial('method.tmpl', m) ?>
+          <?js }); ?>
+        </div>
     <?js } ?>
 
     <?js

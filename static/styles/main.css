@@ -27,6 +27,12 @@ body .main-container {
   body .main-container h2 {
     font-size: 1.875rem;
     line-height: 2em; }
+  body .main-container h3.subsection-title {
+    color: #E56515;
+    text-transform: uppercase;
+    font-family: "Carlito";
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem; }
   body .main-container h5, body .main-container .details dt, .details body .main-container dt {
     font-style: italic;
     color: #808080;
@@ -36,7 +42,6 @@ body .main-container {
     display: block;
     background-color: #F8E8D8;
     position: relative;
-    margin-top: 3rem;
     padding: 0 1em;
     margin-bottom: 1em;
     color: #4A4A4A;
@@ -81,6 +86,8 @@ body .main-container {
         line-height: 1.5rem;
         width: 100%;
         text-align: center; }
+  body .main-container .method {
+    margin-bottom: 3rem; }
   body .main-container .item-description:before {
     content: '* * *';
     display: block;
