@@ -25,5 +25,8 @@
   "devDependencies": {
     "font-awesome": "^4.3.0",
     "node-sass": "^3.2.0"
+  },
+  "dependencies": {
+    "lodash": "^3.10.0"
   }
 }

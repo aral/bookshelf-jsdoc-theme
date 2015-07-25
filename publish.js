@@ -9,6 +9,7 @@ var path = require('jsdoc/path');
 var taffy = require('taffydb').taffy;
 var template = require('jsdoc/template');
 var util = require('util');
+var _ = require('lodash');
 
 var htmlsafe = helper.htmlsafe;
 var linkto = helper.linkto;
@@ -200,7 +201,14 @@ function addSignatureTypes(f) {
 
 function addAttribs(f) {
     var attribs = helper.getAttribs(f);
+
+    // Manually assign `isStatic`.
+    f.isStatic = _.contains(attribs, 'static');
+    if (f.isStatic) _.pull(attribs, 'static')
+
+    // Remove `static` from list. TODO: Do this for all 'attributes'.
     var attribsString = buildAttribsString(attribs);
+
 
     f.attribs = util.format('<span class="type-signature">%s</span>', attribsString);
 }
