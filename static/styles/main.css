@@ -157,11 +157,13 @@ pre.prettyprint {
     color: #E56515; }
   .attributes .name {
     color: black; }
-  .attributes .default {
+  .attributes .default-value {
     color: #557CAB; }
   .attributes .param-type {
     color: #808080;
     font-weight: normal; }
+  .attributes .default-equals {
+    color: #E56515; }
 
 .details dd {
   font-family: "Carlito"; }

@@ -33,8 +33,9 @@
   }
 
   // Color code stuffs.
-  .optional   { color: $param-punctuation-color; }
-  .name       { color: $param-name-color; }
-  .default    { color: $param-default-color; }
-  .param-type { color: $param-type-color; font-weight: normal; }
+  .optional       { color: $param-punctuation-color; }
+  .name           { color: $param-name-color; }
+  .default-value  { color: $param-default-color; }
+  .param-type     { color: $param-type-color; font-weight: normal; }
+  .default-equals { color: $param-punctuation-color; }
 }

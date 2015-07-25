@@ -7,10 +7,9 @@
 ?><span class="optional">[</span
 ><?js }
 ?><span class="name"><?js= param.name || 'argument' ?></span
-><?js if (param.hasDefault && typeof param.defaultValue !== 'undefined')
+><?js if (param.defaultvalue && typeof param.defaultvalue !== 'undefined')
 ?><span class="default-equals">=</span
-><span class="default-value"><?js= param.defaultValue ?></span>
-
-<?js if (param.optional) {
+><span class="default-value"><?js= param.defaultvalue
+?></span><?js if (param.optional) {
 ?><span class="optional">]</span
 ><?js } ?>
