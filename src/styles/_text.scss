@@ -68,31 +68,17 @@ body .main-container {
     margin-top: 0.5rem;
   }
 
-  // Function signature
-  h4 {
-    $function-header-height: 3.25rem;
 
-    display: block;
-    background-color: $function-signature-background-color;
-    position: relative;
+  .lodash-methods {
+    @include fine-bullets;
+  }
 
-    .signature {
-      // Shitty fix for very long signatures.
-      white-space: nowrap;
-      overflow-x: auto;
-      width: 100%;
-      display: block;
-    }
-
-    padding: 0 1em;
-    margin-bottom: 1em;
+  h4, .lodash-method {
 
     color: $body-text-color;
     font-family: $code-font-family;
-    font-size: 1.125rem;
-    line-height: $function-header-height;
-    height: $function-header-height;
-    font-weight: bold;
+
+    a { color: inherit; }
 
     .new,
     .comma,
@@ -104,6 +90,31 @@ body .main-container {
     .type-signature {
       color: $function-signature-return-type-color;
       font-weight: normal;
+    }
+  }
+
+  // Function signature
+  h4 {
+    $function-header-height: 3.25rem;
+
+    display: block;
+    background-color: $function-signature-background-color;
+    position: relative;
+
+    padding: 0 1em;
+    margin-bottom: 1em;
+
+    font-size: 1.125rem;
+    line-height: $function-header-height;
+    height: $function-header-height;
+    font-weight: bold;
+
+    .signature {
+      // Shitty fix for very long signatures.
+      white-space: nowrap;
+      overflow-x: auto;
+      width: 100%;
+      display: block;
     }
 
     .source-link {
@@ -137,11 +148,14 @@ body .main-container {
     }
   }
 
-  .method {
+  .method, .lodash-methods {
     margin-bottom: 3rem;
   }
 
   .item-description {
+
+    font-size: 0.9rem;
+
     &:before {
       content: '* * *';
       display: block;

@@ -50,6 +50,12 @@ function hashToLink(doclet, hash) {
     return '<a href="' + url + '">' + hash + '</a>';
 }
 
+function isLodashMethod(doclet) {
+  return !!_.find(doclet.see, function(name) {
+    return _.contains(name, 'lodash.com');
+  });
+}
+
 function needsSignature(doclet) {
     var needsSig = false;
 
@@ -449,41 +455,44 @@ exports.publish = function(taffyData, opts, tutorials) {
     var sourceFiles = {};
     var sourceFilePaths = [];
     data().each(function(doclet) {
-         doclet.attribs = '';
+      doclet.attribs = '';
 
-        if (doclet.examples) {
-            doclet.examples = doclet.examples.map(function(example) {
-                var caption, code;
+      // Identify Lodash methods to be stubbed.
+      doclet.isLodashMethod = isLodashMethod(doclet);
 
-                if (example.match(/^\s*<caption>([\s\S]+?)<\/caption>(\s*[\n\r])([\s\S]+)$/i)) {
-                    caption = RegExp.$1;
-                    code = RegExp.$3;
-                }
+      if (doclet.examples) {
+        doclet.examples = doclet.examples.map(function(example) {
+          var caption, code;
 
-                return {
-                    caption: caption || '',
-                    code: code || example
-                };
-            });
+          if (example.match(/^\s*<caption>([\s\S]+?)<\/caption>(\s*[\n\r])([\s\S]+)$/i)) {
+            caption = RegExp.$1;
+            code = RegExp.$3;
+          }
+
+          return {
+            caption: caption || '',
+            code: code || example
+          };
+        });
+      }
+      if (doclet.see) {
+        doclet.see.forEach(function(seeItem, i) {
+          doclet.see[i] = hashToLink(doclet, seeItem);
+        });
+      }
+
+      // build a list of source files
+      var sourcePath;
+      if (doclet.meta) {
+        sourcePath = getPathFromDoclet(doclet);
+        sourceFiles[sourcePath] = {
+          resolved: sourcePath,
+          shortened: null
+        };
+        if (sourceFilePaths.indexOf(sourcePath) === -1) {
+          sourceFilePaths.push(sourcePath);
         }
-        if (doclet.see) {
-            doclet.see.forEach(function(seeItem, i) {
-                doclet.see[i] = hashToLink(doclet, seeItem);
-            });
-        }
-
-        // build a list of source files
-        var sourcePath;
-        if (doclet.meta) {
-            sourcePath = getPathFromDoclet(doclet);
-            sourceFiles[sourcePath] = {
-                resolved: sourcePath,
-                shortened: null
-            };
-            if (sourceFilePaths.indexOf(sourcePath) === -1) {
-                sourceFilePaths.push(sourcePath);
-            }
-        }
+      }
     });
 
     // update outdir if necessary, then create outdir

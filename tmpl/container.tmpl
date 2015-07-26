@@ -114,9 +114,22 @@
     <?js } ?>
 
     <?js
+        var statics = self.find({kind: 'function', isStatic: true, memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+        if (statics && statics.length && statics.forEach) {
+    ?>
+        <h3 class="subsection-title">Static</h3>
+        <div class="statics">
+          <?js statics.forEach(function(m) { ?>
+              <?js= self.partial('method.tmpl', m) ?>
+          <?js }); ?>
+        </div>
+    <?js } ?>
+
+    <?js
         var members = self.find({kind: 'member', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
 
-        // symbols that are assigned to module.exports are not globals, even though they're not a memberof anything
+        // symbols that are assigned to module.exports are not globals, even
+        // though they're not a memberof anything.
         if (isGlobalPage && members && members.length && members.forEach) {
             members = members.filter(function(m) {
                 return m.longname && m.longname.indexOf('module:') !== 0;
@@ -132,19 +145,13 @@
     <?js } ?>
 
     <?js
-        var statics = self.find({kind: 'function', isStatic: true, memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
-        if (statics && statics.length && statics.forEach) {
-    ?>
-        <h3 class="subsection-title">Static</h3>
-        <div class="statics">
-          <?js statics.forEach(function(m) { ?>
-              <?js= self.partial('method.tmpl', m) ?>
-          <?js }); ?>
-        </div>
-    <?js } ?>
-
-    <?js
-        var methods = self.find({kind: 'function', isStatic: false, memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+        // Methods (not including lodash methods).
+        var methods = self.find({
+          kind: 'function',
+          isLodashMethod: false,
+          isStatic: false,
+          memberof: isGlobalPage ? {isUndefined: true} : doc.longname
+        });
         if (methods && methods.length && methods.forEach) {
     ?>
         <h3 class="subsection-title">Methods</h3>
@@ -155,6 +162,23 @@
         </div>
     <?js } ?>
 
+    <?js
+        // Lodash methods only.
+        var methods = self.find({
+          kind: 'function',
+          isLodashMethod: true,
+          isStatic: false,
+          memberof: isGlobalPage ? {isUndefined: true} : doc.longname
+        });
+        if (methods && methods.length && methods.forEach) {
+    ?>
+        <h3 class="subsection-title">Lodash Methods</h3>
+        <ul class="lodash-methods">
+          <?js methods.forEach(function(m) { ?>
+              <?js= self.partial('lodash-method.tmpl', m) ?>
+          <?js }); ?>
+        </ul>
+    <?js } ?>
 
     <?js
         var typedefs = self.find({kind: 'typedef', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});

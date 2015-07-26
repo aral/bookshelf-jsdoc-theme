@@ -1,0 +1,9 @@
+@mixin fine-bullets {
+  list-style: none;
+  li:before {
+    display: inline-block;
+    content: '\2022';
+    font-size: 0.7rem;
+    width: 0.6rem;
+  }
+}

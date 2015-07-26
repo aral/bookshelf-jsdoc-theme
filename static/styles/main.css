@@ -38,14 +38,35 @@ body .main-container {
     color: #808080;
     font-size: 0.9rem;
     margin-top: 0.5rem; }
+  body .main-container .lodash-methods {
+    list-style: none; }
+    body .main-container .lodash-methods li:before {
+      display: inline-block;
+      content: '\2022';
+      font-size: 0.7rem;
+      width: 0.6rem; }
+  body .main-container h4, body .main-container .lodash-method {
+    color: #4A4A4A;
+    font-family: "AverageMono"; }
+    body .main-container h4 a, body .main-container .lodash-method a {
+      color: inherit; }
+    body .main-container h4 .new,
+    body .main-container h4 .comma,
+    body .main-container h4 .parenthesis,
+    body .main-container h4 .optional-bracket, body .main-container .lodash-method .new,
+    body .main-container .lodash-method .comma,
+    body .main-container .lodash-method .parenthesis,
+    body .main-container .lodash-method .optional-bracket {
+      color: #E56515; }
+    body .main-container h4 .type-signature, body .main-container .lodash-method .type-signature {
+      color: #C58E6B;
+      font-weight: normal; }
   body .main-container h4 {
     display: block;
     background-color: #F8E8D8;
     position: relative;
     padding: 0 1em;
     margin-bottom: 1em;
-    color: #4A4A4A;
-    font-family: "AverageMono";
     font-size: 1.125rem;
     line-height: 3.25rem;
     height: 3.25rem;
@@ -55,14 +76,6 @@ body .main-container {
       overflow-x: auto;
       width: 100%;
       display: block; }
-    body .main-container h4 .new,
-    body .main-container h4 .comma,
-    body .main-container h4 .parenthesis,
-    body .main-container h4 .optional-bracket {
-      color: #E56515; }
-    body .main-container h4 .type-signature {
-      color: #C58E6B;
-      font-weight: normal; }
     body .main-container h4 .source-link {
       display: block;
       padding: 2.2rem 0.4rem 0 0.4rem;
@@ -86,16 +99,18 @@ body .main-container {
         line-height: 1.5rem;
         width: 100%;
         text-align: center; }
-  body .main-container .method {
+  body .main-container .method, body .main-container .lodash-methods {
     margin-bottom: 3rem; }
-  body .main-container .item-description:before {
-    content: '* * *';
-    display: block;
-    text-align: center;
-    font-family: "AverageMono";
-    font-size: 1.25rem;
-    color: #F2B188;
-    margin-bottom: 1rem; }
+  body .main-container .item-description {
+    font-size: 0.9rem; }
+    body .main-container .item-description:before {
+      content: '* * *';
+      display: block;
+      text-align: center;
+      font-family: "AverageMono";
+      font-size: 1.25rem;
+      color: #F2B188;
+      margin-bottom: 1rem; }
 
 .minami .sidebar {
   background-color: white;
@@ -142,13 +157,17 @@ pre.prettyprint {
     color: #808080; }
   .attributes .param-desc, .attributes .description {
     display: block;
-    padding-left: 25px; }
+    padding-left: 1.7rem; }
     .attributes .param-desc p, .attributes .description p {
       font-family: "Carlito";
       margin-bottom: 0; }
     .attributes .param-desc ul.params, .attributes .description ul.params {
-      list-style: disc;
-      margin-left: 25px; }
+      list-style: none; }
+      .attributes .param-desc ul.params li:before, .attributes .description ul.params li:before {
+        display: inline-block;
+        content: '\2022';
+        font-size: 0.7rem;
+        width: 0.6rem; }
   .attributes ul.params {
     list-style: none; }
     .attributes ul.params .param {
