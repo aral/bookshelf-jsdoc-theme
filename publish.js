@@ -171,9 +171,10 @@ function addSignatureReturns(f) {
     var returnTypes = [];
     var returnTypesString = '';
 
-    // jam all the return-type attributes into an array. this could create odd results (for example,
-    // if there are both nullable and non-nullable return types), but let's assume that most people
-    // who use multiple @return tags aren't using Closure Compiler type annotations, and vice-versa.
+    // jam all the return-type attributes into an array. this could create odd
+    // results (for example, if there are both nullable and non-nullable return
+    // types), but let's assume that most people who use multiple @return tags
+    // aren't using Closure Compiler type annotations, and vice-versa.
     if (f.returns) {
         f.returns.forEach(function(item) {
             helper.getAttribs(item).forEach(function(attrib) {
@@ -190,7 +191,11 @@ function addSignatureReturns(f) {
         returnTypes = addNonParamAttributes(f.returns);
     }
     if (returnTypes.length) {
-        returnTypesString = util.format( ' &rarr; %s{%s}', attribsString, returnTypes.join('|') );
+        returnTypesString = util.format(
+            ' &rarr; %s %s',
+            attribsString ? util.format('(%s)', attribsString) : '',
+            returnTypes.join('|')
+        );
     }
 
     f.signature = '<span class="parameters">' + (f.signature || '') + '</span>' +
