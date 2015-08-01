@@ -33,6 +33,15 @@ function simplifyName(namepath) {
   return matches[1] || matches[2] || namepath;
 }
 
+function formattedParent(data) {
+  var parent = data.memberof;
+  if (parent) {
+    return data.isStatic ? parent : _.camelCase(parent);
+  } else {
+    return '';
+  }
+}
+
 function tutoriallink(tutorial) {
     return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' });
 }
@@ -611,6 +620,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.find = find;
     view.linkto = linkto;
     view.simplifyName = simplifyName;
+    view.formattedParent = formattedParent;
     view.resolveAuthorLinks = resolveAuthorLinks;
     view.tutoriallink = tutoriallink;
     view.htmlsafe = htmlsafe;

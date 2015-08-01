@@ -14,7 +14,14 @@ var self = this;
           <?js if (kind === 'class') { ?>
             <span class="new">new</span>
           <?js } ?>
-            <span class="name"><?js= self.linkto(longname, name) ?></span
+          <?js var parent; if (parent = this.formattedParent(data)) {
+            ?><span class="member-of"
+                ><span class="class-name"
+                  ><?js= parent
+                ?></span
+                >.</span><?js
+               }
+            ?><span class="name"><?js= self.linkto(longname, name) ?></span
             ><span class="arguments-and-return"><?js= data.signature || '' ?></span>
           </span>
           <?js= self.linkto(meta.shortpath, 'source', 'source-link', 'line' + meta.lineno) ?>
