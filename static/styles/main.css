@@ -129,7 +129,8 @@ body .main-container {
   left: 0;
   bottom: 0;
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: auto;
+  padding-bottom: 4rem; }
   .minami .sidebar header {
     text-align: center;
     margin-top: 30px;
@@ -146,11 +147,12 @@ body .main-container {
     margin-top: 10px;
     font-size: 1.2rem; }
   .minami .sidebar h3 {
-    color: #E56515;
-    font-style: italic; }
+    color: #E56515; }
   .minami .sidebar h4 {
     color: #E56515;
-    font-weight: normal; }
+    font-weight: normal;
+    font-style: italic;
+    text-transform: lowercase; }
   .minami .sidebar li {
     color: black; }
     .minami .sidebar li a {
@@ -163,7 +165,7 @@ body .main-container {
     width: 150px;
     margin: 0 auto; }
     .minami .sidebar > ul > li {
-      margin-top: 2rem; }
+      margin-bottom: 2rem; }
     .minami .sidebar > ul ul {
       padding-left: 15px; }
 
@@ -245,7 +247,8 @@ pre.prettyprint {
   left: 0;
   bottom: 0;
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: auto;
+  padding-bottom: 4rem; }
   .minami .sidebar header {
     text-align: center;
     margin-top: 30px;
@@ -262,11 +265,12 @@ pre.prettyprint {
     margin-top: 10px;
     font-size: 1.2rem; }
   .minami .sidebar h3 {
-    color: #E56515;
-    font-style: italic; }
+    color: #E56515; }
   .minami .sidebar h4 {
     color: #E56515;
-    font-weight: normal; }
+    font-weight: normal;
+    font-style: italic;
+    text-transform: lowercase; }
   .minami .sidebar li {
     color: black; }
     .minami .sidebar li a {
@@ -279,7 +283,7 @@ pre.prettyprint {
     width: 150px;
     margin: 0 auto; }
     .minami .sidebar > ul > li {
-      margin-top: 2rem; }
+      margin-bottom: 2rem; }
     .minami .sidebar > ul ul {
       padding-left: 15px; }
 
