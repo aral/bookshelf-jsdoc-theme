@@ -108,16 +108,14 @@ body .main-container {
         text-align: center; }
   body .main-container .method, body .main-container .lodash-methods {
     margin-bottom: 3rem; }
-  body .main-container .item-description {
-    font-size: 0.9rem; }
-    body .main-container .item-description:before {
-      content: '* * *';
-      display: block;
-      text-align: center;
-      font-family: "AverageMono";
-      font-size: 1.25rem;
-      color: #F2B188;
-      margin-bottom: 1rem; }
+  body .main-container .item-description:before {
+    content: '* * *';
+    display: block;
+    text-align: center;
+    font-family: "AverageMono";
+    font-size: 1.25rem;
+    color: #F2B188;
+    margin-bottom: 1rem; }
 
 .minami .sidebar {
   background-color: white;
@@ -290,7 +288,7 @@ pre.prettyprint {
       padding-left: 15px; }
 
 html {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.56em;
   background-color: #FFFDFB; }
 
