@@ -207,7 +207,6 @@ function parameterList(params) {
 
 function addEventSignature(doclet) {
   var p = parameterList(doclet.params);
-  console.log('params', p);
   doclet.signature = util.format(
     '<span class="event-on">on</span>%s%s%s %s <span class="fat-arrow">=&gt;</span>',
     paren(true),
@@ -715,6 +714,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     var interfaces = taffy(members.interfaces);
 
     var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
+
     generate('', 'Home',
       packages.concat(
           [{kind: 'mainpage',
