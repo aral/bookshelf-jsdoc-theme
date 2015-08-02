@@ -1,5 +1,12 @@
 body .main-container {
 
+  @mixin fill-parent {
+    margin-left: -$method-margin;
+    margin-right: -$method-margin;
+    padding-left: $method-margin;
+    padding-right: $method-margin;
+  }
+
   // Layout
   margin-left: $sidebar-width;
 
@@ -99,6 +106,7 @@ body .main-container {
 
   // Function signature
   h4 {
+    @include fill-parent;
     $function-header-height: 3.25rem;
 
     display: block;
@@ -153,7 +161,14 @@ body .main-container {
   }
 
   .method, .lodash-methods {
+    @include card(2);
     margin-bottom: 3rem;
+    background-color: white;
+    padding: 0 $method-margin $method-margin $method-margin;
+
+    pre {
+      @include fill-parent;
+    }
   }
 
   .item-description {

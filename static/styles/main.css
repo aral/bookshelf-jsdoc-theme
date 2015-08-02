@@ -69,6 +69,10 @@ body .main-container {
       color: #C58E6B;
       font-weight: normal; }
   body .main-container h4 {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
     display: block;
     background-color: #F8E8D8;
     position: relative;
@@ -107,7 +111,15 @@ body .main-container {
         width: 100%;
         text-align: center; }
   body .main-container .method, body .main-container .lodash-methods {
-    margin-bottom: 3rem; }
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
+    margin-bottom: 3rem;
+    background-color: white;
+    padding: 0 20px 20px 20px; }
+    body .main-container .method pre, body .main-container .lodash-methods pre {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px; }
   body .main-container .item-description:before {
     content: '* * *';
     display: block;
@@ -118,8 +130,8 @@ body .main-container {
     margin-bottom: 1rem; }
 
 .minami .sidebar {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0;
   font-family: "Carlito";
   width: 190px;
   position: fixed;
@@ -237,8 +249,8 @@ pre.prettyprint {
   list-style: none; }
 
 .minami .sidebar {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0;
   font-family: "Carlito";
   width: 190px;
   position: fixed;
@@ -294,4 +306,5 @@ html {
 
 * {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  box-sizing: border-box; }
