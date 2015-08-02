@@ -8,7 +8,9 @@ body .main-container {
   }
 
   // Layout
-  margin-left: $sidebar-width;
+  @media screen and (min-width: 651px) {
+    margin-left: $sidebar-width;
+  }
 
   // Base font style.
 
@@ -16,6 +18,8 @@ body .main-container {
     width: 100%;
     max-width: $main-width;
     margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   p {

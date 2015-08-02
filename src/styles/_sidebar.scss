@@ -1,4 +1,8 @@
 .minami .sidebar {
+  @media screen and (max-width: 650px) {
+    display: none;
+  }
+
   @include card(2);
 
   // Appearance
@@ -13,6 +17,7 @@
   top: 0;
   left: 0;
   bottom: 0;
+  z-index: 99;
 
   // Layout
   overflow-x: hidden;

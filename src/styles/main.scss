@@ -14,6 +14,10 @@ html {
   font-size: 15px;
   line-height: 1.56em;
   background-color: $main-background-color;
+
+  @media screen and (max-width: 650px) {
+    font-size: 13px;
+  }
 }
 
 * {
