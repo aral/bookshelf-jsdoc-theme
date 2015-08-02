@@ -22,7 +22,8 @@ pre.prettyprint {
   background-color: $code-background-color;
   color:            $code-main-color;
 
-  .pln, .pun { color: inherit; }
+  .pun { color: $code-punctuation-color; }
+  .pln { color: inherit; }
   .lit, .str { color: $code-string-color; }
   .kwd { color: $code-keyword-color; }
   .typ { color: $code-class-color; }

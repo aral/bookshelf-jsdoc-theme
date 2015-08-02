@@ -211,7 +211,9 @@ pre.prettyprint {
   line-height: 1.8em;
   background-color: #4A4A4A;
   color: white; }
-  pre.prettyprint .pln, pre.prettyprint .pun {
+  pre.prettyprint .pun {
+    color: #CCD6CF; }
+  pre.prettyprint .pln {
     color: inherit; }
   pre.prettyprint .lit, pre.prettyprint .str {
     color: #B8E986; }

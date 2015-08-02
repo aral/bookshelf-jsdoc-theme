@@ -1,15 +1,16 @@
 // Private variables.
-$_bookshelf-orange: #E56515;
-$_charcoal:         #4A4A4A;
-$_cream:            #FFFDFB;
-$_chalk-blue:       #B0C9E4;
-$_chalk-orange:     #F0A672;
-$_chalk-green:      #B8E986;
-$_chalk-tan:        #DCC9AA;
-$_faint-orange:     #F8E8D8;
-$_faint-tan:        #C58E6B;
-$_blue:             #557CAB;
-$_gray:             #808080;
+$_bookshelf-orange:  #E56515;
+$_charcoal:          #4A4A4A;
+$_cream:             #FFFDFB;
+$_chalk-blue:        #B0C9E4;
+$_chalk-orange:      #F0A672;
+$_chalk-green:       #B8E986;
+$_chalk-tan:         #DCC9AA;
+$_faint-orange:      #F8E8D8;
+$_faint-tan:         #C58E6B;
+$_blue:              #557CAB;
+$_gray:              #808080;
+$_chalk-faint-green: #CCD6CF;
 
 // Main theme colors.
 $main-background-color:      $_cream;
@@ -44,3 +45,4 @@ $code-keyword-color:         $_chalk-blue;
 $code-comment-color:         $_chalk-orange;
 $code-string-color:          $_chalk-green;
 $code-class-color:           $_chalk-tan;
+$code-punctuation-color:     $_chalk-faint-green;
