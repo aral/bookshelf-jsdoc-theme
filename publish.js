@@ -26,7 +26,7 @@ function linkto() {
   var display = arguments[1] || target;
   var result = find({longname: target})[0];
   if (result) {
-    return '<a href="#' + elementId(result) + '">' + display + '</a>';
+    return '<a href="index.html#' + elementId(result) + '">' + display + '</a>';
   } else {
     return helper.linkto.apply(helper, arguments);
   }
