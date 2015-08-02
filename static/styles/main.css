@@ -180,6 +180,7 @@ pre.prettyprint {
     color: black; }
   .attributes .default-value {
     color: #557CAB; }
+  .attributes .type-or,
   .attributes .param-type {
     color: #808080;
     font-weight: normal; }
