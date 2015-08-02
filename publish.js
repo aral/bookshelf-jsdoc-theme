@@ -99,7 +99,8 @@ function getSignatureAttributes(item) {
     return attributes;
 }
 
-function updateItemName(item) {
+function updateItemName(item, options) {
+    options = _.extend({default: false}, options);
     var attributes = getSignatureAttributes(item);
     var itemName = item.name || '';
 
@@ -109,6 +110,16 @@ function updateItemName(item) {
     // Prefix varargs parameter with ellipsis.
     if (item.variable) {
         itemName = '<span class="variable-ellipsis">&hellip;</span>' + itemName;
+    }
+
+    if (options.default && item.defaultvalue && !_.isUndefined(item.defaultValue)) {
+      itemName +=
+        '<span class="default-value">' +
+          '<span class="default-equals">=</span>' +
+          '<span class="default-value">' +
+            item.defaultValue +
+          '</span>' +
+        '</span>';
     }
 
     // Embracket optional param.
@@ -619,6 +630,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     // add template helpers
     view.find = find;
     view.linkto = linkto;
+    view.updateItemName = updateItemName;
     view.simplifyName = simplifyName;
     view.formattedParent = formattedParent;
     view.resolveAuthorLinks = resolveAuthorLinks;

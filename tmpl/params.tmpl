@@ -57,7 +57,7 @@
           if (!param) { return; }
   ?>
     <li>
-      <code class="param"><?js= self.partial('param.tmpl', param) ?></code>
+      <code class="param"><?js= self.updateItemName(param, {default: true}) ?></code>
 
       <?js if (param.type && param.type.names) {?>
           <code class="param-type"><span class="param-type"

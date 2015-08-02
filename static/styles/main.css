@@ -174,7 +174,7 @@ pre.prettyprint {
     list-style: none; }
     .attributes ul.params .param {
       font-weight: bold; }
-  .attributes .optional {
+  .attributes .optional-bracket {
     color: #E56515; }
   .attributes .name {
     color: black; }
@@ -191,6 +191,17 @@ pre.prettyprint {
 
 .details ul {
   list-style: none; }
+
+.minami .sidebar {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0;
+  width: 190px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto; }
 
 html {
   font-size: 16px;
