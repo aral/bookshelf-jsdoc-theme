@@ -714,6 +714,12 @@ exports.publish = function(taffyData, opts, tutorials) {
     var interfaces = taffy(members.interfaces);
 
     var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
+    var whitelist = opts.whitelist;
+    if (whitelist) {
+      topLevelClasses = whitelist.map(function(longname) {
+        return _.find(topLevelClasses, {longname: longname});
+      });
+    }
 
     generate('', 'Home',
       packages.concat(
