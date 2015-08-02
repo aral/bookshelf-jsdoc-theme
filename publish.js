@@ -12,7 +12,6 @@ var util = require('util');
 var _ = require('lodash');
 
 var htmlsafe = helper.htmlsafe;
-var linkto = helper.linkto;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
 var scopeToPunc = helper.scopeToPunc;
 var hasOwnProp = Object.prototype.hasOwnProperty;
@@ -21,6 +20,26 @@ var data;
 var view;
 
 var outdir = path.normalize(env.opts.destination);
+
+function linkto() {
+  var target = arguments[0];
+  var display = arguments[1] || target;
+  var result = find({longname: target})[0];
+  if (result) {
+    return '<a href="#' + elementId(result) + '">' + display + '</a>';
+  } else {
+    return helper.linkto.apply(helper, arguments);
+  }
+}
+
+
+function elementId(doclet, log) {
+  return (doclet.longname || doclet.name || '')
+    .replace('#event:', '-event-')
+    .replace('#', '-member-')
+    .replace('.', '-static-')
+    .replace('"', '');
+}
 
 function find(spec) {
     return helper.find(data, spec);
@@ -390,9 +409,9 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
-function buildNavItemList(items, className) {
+function buildNavItemList(items, className, linktoFn) {
   var listItems = items.map(function (item) {
-    return '<li>' + linkto(item.longname, item.name) + '</li>';
+    return '<li>' + linktoFn(item.longname, item.name) + '</li>';
   });
 
   return util.format('<ul class="%s">%s</ul>', className || '', listItems.join(''));
@@ -429,23 +448,23 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
 
                 if (statics.length) {
                     itemsNav += '<h4>Static</h4>';
-                    itemsNav += buildNavItemList(statics, 'static');
+                    itemsNav += buildNavItemList(statics, 'static', linktoFn);
                 }
                 if (members.length) {
                     itemsNav += '<h4>Members</h4>';
-                    itemsNav += buildNavItemList(members, 'members');
+                    itemsNav += buildNavItemList(members, 'members', linktoFn);
                 }
                 if (methods.length) {
                     itemsNav += '<h4>Methods</h4>';
-                    itemsNav += buildNavItemList(methods, 'methods');
+                    itemsNav += buildNavItemList(methods, 'methods', linktoFn);
                 }
                 if (methods.length) {
                     itemsNav += '<h4>Lodash Methods</h4>';
-                    itemsNav += buildNavItemList(lodash, 'lodash');
+                    itemsNav += buildNavItemList(lodash, 'lodash', linktoFn);
                 }
                 if (events.length) {
                     itemsNav += '<h4>Events</h4>';
-                    itemsNav += buildNavItemList(events, 'events');
+                    itemsNav += buildNavItemList(events, 'events', linktoFn);
                 }
                 itemsNav += '</li>';
                 itemsSeen[item.longname] = true;
@@ -482,6 +501,7 @@ function linktoExternal(longName, name) {
  * @param {array<object>} members.interfaces
  * @return {string} The HTML for the navigation sidebar.
  */
+var bs = 0;
 function buildNav(members) {
     var nav = '';
     var seen = {};
@@ -661,12 +681,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     data().each(function(doclet) {
         var url = helper.longnameToUrl[doclet.longname];
 
-        if (url.indexOf('#') > -1) {
-            doclet.id = helper.longnameToUrl[doclet.longname].split(/#/).pop();
-        }
-        else {
-            doclet.id = doclet.name;
-        }
+        doclet.id = elementId(doclet);
 
         if ( needsFunctionSignature(doclet) ) {
             addSignatureName(doclet);
@@ -731,6 +746,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.find = find;
     view.linkto = linkto;
     view.updateItemName = updateItemName;
+    view.elementId = elementId;
     view.simplifyName = simplifyName;
     view.formattedParent = formattedParent;
     view.resolveAuthorLinks = resolveAuthorLinks;
@@ -740,7 +756,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.showInheritedFrom = showInheritedFrom;
 
     // once for all
-    view.nav = buildNav(members);
+    view.nav = buildNav(members, data);
     attachModuleSymbols( find({ longname: {left: 'module:'} }), members.modules );
 
     // generate the pretty-printed source files first so other pages can link to them
