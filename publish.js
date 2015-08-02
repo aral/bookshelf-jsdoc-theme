@@ -55,7 +55,7 @@ function simplifyName(namepath) {
 function formattedParent(data) {
   var parent = data.memberof;
   if (parent) {
-    return data.isStatic ? parent : _.camelCase(parent);
+    return data.isStatic || data.kind === 'class' ? parent : _.camelCase(parent);
   } else {
     return '';
   }
