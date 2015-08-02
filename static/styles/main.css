@@ -40,7 +40,8 @@ body .main-container {
     font-size: 0.9rem;
     margin-top: 0.5rem; }
   body .main-container .lodash-methods {
-    list-style: none; }
+    list-style: none;
+    padding-top: 20px; }
     body .main-container .lodash-methods li:before {
       display: inline-block;
       content: '\2022';
@@ -114,7 +115,22 @@ body .main-container {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
     margin-bottom: 3rem;
     background-color: white;
-    padding: 0 20px 20px 20px; }
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px; }
+    body .main-container .method .example, body .main-container .lodash-methods .example {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: #4A4A4A; }
+      body .main-container .method .example h5, body .main-container .method .example .details dt, .details body .main-container .method .example dt, body .main-container .lodash-methods .example h5, body .main-container .lodash-methods .example .details dt, .details body .main-container .lodash-methods .example dt {
+        color: #9A9A9A;
+        margin-bottom: 0;
+        padding-top: 0.5rem; }
+      body .main-container .method .example pre, body .main-container .lodash-methods .example pre {
+        margin-top: 0;
+        margin-bottom: 0; }
     body .main-container .method pre, body .main-container .lodash-methods pre {
       margin-left: -20px;
       margin-right: -20px;

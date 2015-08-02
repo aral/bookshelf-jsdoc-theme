@@ -79,6 +79,7 @@ body .main-container {
 
   .lodash-methods {
     @include fine-bullets;
+    padding-top: $method-margin;
   }
 
   h4, .lodash-method {
@@ -164,7 +165,23 @@ body .main-container {
     @include card(2);
     margin-bottom: 3rem;
     background-color: white;
-    padding: 0 $method-margin $method-margin $method-margin;
+    padding-left: $method-margin;
+    padding-right: $method-margin;
+    padding-bottom: $method-margin;
+
+    .example {
+      @include fill-parent;
+      background-color: $code-background-color;
+      h5 {
+        color: #9A9A9A;
+        margin-bottom: 0;
+        padding-top: 0.5rem;
+      }
+      pre {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
 
     pre {
       @include fill-parent;

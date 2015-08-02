@@ -29,8 +29,10 @@ var self = this;
     <?js } ?>
 
     <?js if (data.examples && examples.length) { ?>
+      <div class="example">
         <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
         <?js= this.partial('examples.tmpl', examples) ?>
+      </div>
     <?js } ?>
 
   <div class="attributes">
