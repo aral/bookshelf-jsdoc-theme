@@ -16,4 +16,15 @@
   // Layout
   overflow-x: hidden;
   overflow-y: auto;
+
+  header {
+    height: $header-height;
+    text-align: center;
+    margin-top: $main-top-margin;
+
+    img {
+      height: $header-height;
+      width: auto;
+    }
+  }
 }

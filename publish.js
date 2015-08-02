@@ -453,7 +453,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         });
 
         if (itemsNav !== '') {
-            nav += '<h3>' + itemHeading + '</h3><ul>' + itemsNav + '</ul>';
+            nav += '<ul>' + itemsNav + '</ul>';
         }
     }
 
@@ -483,7 +483,7 @@ function linktoExternal(longName, name) {
  * @return {string} The HTML for the navigation sidebar.
  */
 function buildNav(members) {
-    var nav = '<h2><a href="index.html">Home</a></h2>';
+    var nav = '';
     var seen = {};
     var seenTutorials = {};
 
