@@ -65,19 +65,6 @@
           ?></span></code>
       <?js } ?>
 
-      <?js if (params.hasAttributes) {?>
-        <ul class="param-attributes">
-
-          <?js if (param.nullable) { ?>
-              <li>nullable</li>
-          <?js } ?>
-
-          <?js if (param.variable) { ?>
-              <li>repeatable</li>
-          <?js } ?>
-        </ul>
-      <?js } ?>
-
       <div class="description">
         <?js= param.description ?>
         <?js if (param.subparams) { ?>
