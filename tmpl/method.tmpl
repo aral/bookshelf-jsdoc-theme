@@ -21,8 +21,7 @@ var self = this;
                 ?></span
                 >.</span><?js
                }
-            ?><span class="name"><?js= self.linkto(longname, name) ?></span
-            ><span class="arguments-and-return"><?js= data.signature || '' ?></span>
+            ?><?js= data.signature || '' ?>
           </span>
           <?js= self.linkto(meta.shortpath, 'source', 'source-link', 'line' + meta.lineno) ?>
         </h4>

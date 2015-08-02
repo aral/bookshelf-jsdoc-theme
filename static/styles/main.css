@@ -54,10 +54,14 @@ body .main-container {
     body .main-container h4 .comma,
     body .main-container h4 .parenthesis,
     body .main-container h4 .member-of,
+    body .main-container h4 .fat-arrow,
+    body .main-container h4 .event-on,
     body .main-container h4 .optional-bracket, body .main-container .lodash-method .new,
     body .main-container .lodash-method .comma,
     body .main-container .lodash-method .parenthesis,
     body .main-container .lodash-method .member-of,
+    body .main-container .lodash-method .fat-arrow,
+    body .main-container .lodash-method .event-on,
     body .main-container .lodash-method .optional-bracket {
       color: #E56515; }
     body .main-container h4 .type-signature, body .main-container .lodash-method .type-signature {

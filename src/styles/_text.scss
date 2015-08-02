@@ -84,6 +84,8 @@ body .main-container {
     .comma,
     .parenthesis,
     .member-of,
+    .fat-arrow,
+    .event-on,
     .optional-bracket {
       color: $function-signature-punctuation-color;
     }

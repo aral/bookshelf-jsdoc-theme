@@ -65,7 +65,7 @@ function isLodashMethod(doclet) {
   });
 }
 
-function needsSignature(doclet) {
+function needsFunctionSignature(doclet) {
     var needsSig = false;
 
     // function and class definitions always get a signature
@@ -84,6 +84,10 @@ function needsSignature(doclet) {
     }
 
     return needsSig;
+}
+
+function needsEventSignature(doclet) {
+  return doclet.kind === 'event';
 }
 
 function getSignatureAttributes(item) {
@@ -112,12 +116,12 @@ function updateItemName(item, options) {
         itemName = '<span class="variable-ellipsis">&hellip;</span>' + itemName;
     }
 
-    if (options.default && item.defaultvalue && !_.isUndefined(item.defaultValue)) {
+    if (options.default && !_.isUndefined(item.defaultvalue)) {
       itemName +=
         '<span class="default-value">' +
           '<span class="default-equals">=</span>' +
           '<span class="default-value">' +
-            item.defaultValue +
+            item.defaultvalue +
           '</span>' +
         '</span>';
     }
@@ -176,13 +180,55 @@ function addNonParamAttributes(items) {
     return types;
 }
 
+function ensureQuotes(string) {
+  return string[0] === '"' ? string : util.format('"%s"', string);
+}
+
+function paren(isOpening) {
+  return (
+    '<span class="parenthesis">' +
+      (isOpening ? '(' : ')') +
+    '</span>'
+  );
+}
+
+function comma() {
+  return '<span class="comma">, </span>'
+}
+
+function parens(string) {
+  return paren(true) + string + paren(false);
+}
+
+function parameterList(params) {
+  params = params ? addParamAttributes(params) : [];
+  return parens(params.join(comma()));
+}
+
+function addEventSignature(doclet) {
+  var p = parameterList(doclet.params);
+  console.log('params', p);
+  doclet.signature = util.format(
+    '<span class="event-on">on</span>%s%s%s %s <span class="fat-arrow">=&gt;</span>',
+    paren(true),
+    linkto(doclet.longname, ensureQuotes(doclet.name)),
+    comma(),
+    parameterList(doclet.params)
+  );
+}
+
+function addSignatureName(doclet) {
+  var target = isLodashMethod(doclet) ? doclet.see[0] : doclet.longname ;
+  doclet.signature = util.format(
+    '<span class="name">%s</span>%s',
+    linkto(target, doclet.name),
+    doclet.signature || ''
+  );
+}
+
 function addSignatureParams(f) {
-    var params = f.params ? addParamAttributes(f.params) : [];
-    f.signature = util.format(
-        '%s<span class="parenthesis">(</span>%s<span class="parenthesis">)</span>',
-        (f.signature || ''),
-        params.join('<span class="comma">, </span>')
-    );
+  var params = f.params ? addParamAttributes(f.params) : [];
+  f.signature = util.format('%s%s', f.signature, parameterList(f.params));
 }
 
 function addSignatureReturns(f) {
@@ -592,10 +638,13 @@ exports.publish = function(taffyData, opts, tutorials) {
             doclet.id = doclet.name;
         }
 
-        if ( needsSignature(doclet) ) {
+        if ( needsFunctionSignature(doclet) ) {
+            addSignatureName(doclet);
             addSignatureParams(doclet);
             addSignatureReturns(doclet);
             addAttribs(doclet);
+        } else if (needsEventSignature(doclet)) {
+            addEventSignature(doclet);
         }
     });
 
@@ -604,6 +653,7 @@ exports.publish = function(taffyData, opts, tutorials) {
         doclet.ancestors = getAncestorLinks(doclet);
 
         if (doclet.kind === 'member') {
+            addSignatureName(doclet);
             addSignatureTypes(doclet);
             addAttribs(doclet);
         }
