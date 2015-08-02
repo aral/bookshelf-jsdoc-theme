@@ -782,6 +782,7 @@ exports.publish = function(taffyData, opts, tutorials) {
       indexUrl
     );
 
+    /*
     Object.keys(helper.longnameToUrl).forEach(function(longname) {
         var myModules = helper.find(modules, {longname: longname});
         if (myModules.length) {
@@ -813,7 +814,9 @@ exports.publish = function(taffyData, opts, tutorials) {
             generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
         }
     });
+    */
 
+    /*
     // TODO: move the tutorial functions to templateHelper.js
     function generateTutorial(title, tutorial, filename) {
         var tutorialData = {
@@ -840,4 +843,5 @@ exports.publish = function(taffyData, opts, tutorials) {
     }
     
     saveChildren(tutorials);
+    */
 };
