@@ -36,7 +36,7 @@ function linkto() {
 function elementId(doclet, log) {
   return (doclet.longname || doclet.name || '')
     .replace('#event:', '-event-')
-    .replace('#', '-member-')
+    .replace('#', '-instance-')
     .replace('.', '-static-')
     .replace('"', '');
 }
@@ -201,6 +201,10 @@ function addNonParamAttributes(items) {
 
 function ensureQuotes(string) {
   return string[0] === '"' ? string : util.format('"%s"', string);
+}
+
+function stripQuotes(string) {
+  return string.replace(/^"|"$/g, '');
 }
 
 function paren(isOpening) {
@@ -411,72 +415,68 @@ function attachModuleSymbols(doclets, modules) {
 
 function buildNavItemList(items, className, linktoFn) {
   var listItems = items.map(function (item) {
-    return '<li>' + linktoFn(item.longname, item.name) + '</li>';
+    return '<li>' + linktoFn(item.longname, stripQuotes(item.name)) + '</li>';
   });
 
   return util.format('<ul class="%s">%s</ul>', className || '', listItems.join(''));
 }
 
-function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
-    var nav = '';
+function buildMemberNav(item) {
+  var itemsNav = '';
+  var statics = find({kind:'function', isStatic: true, memberof: item.longname});
+  var members = find({kind:'member', memberof: item.longname});
+  var methods = find({kind:'function', isLodashMethod: false, isStatic: false, memberof: item.longname});
+  var lodash = find({kind:'function', isLodashMethod: true, memberof: item.longname});
+  var events = find({kind:'event', memberof: item.longname});
+  var classes = find({kind:'class', memberof: item.longname});
 
-    if (items.length) {
-        var itemsNav = '';
+  if ( !hasOwnProp.call(item, 'longname') ) {
+      itemsNav += '<li>' + linkto('', item.name);
+      itemsNav += '</li>';
+  } else {
+      var itemName = 
+      itemsNav += '<li>';
+      itemsNav +=
+        '<h3>' +
+          item.name.replace(/^module:/, '') +
+        '</h3>';
 
-        items.forEach(function(item) {
-            var statics = find({kind:'function', isStatic: true, memberof: item.longname});
-            var members = find({kind:'member', memberof: item.longname});
-            var methods = find({kind:'function', isLodashMethod: false, isStatic: false, memberof: item.longname});
-            var lodash = find({kind:'function', isLodashMethod: true, memberof: item.longname});
-            var events = find({kind:'event', memberof: item.longname});
+      itemsNav +=
+        '<ul class="constructor"><li>' +
+          linkto(item.longname, 'constructor') +
+        '</li></ul>';
 
-            if ( !hasOwnProp.call(item, 'longname') ) {
-                itemsNav += '<li>' + linktoFn('', item.name);
-                itemsNav += '</li>';
-            } else if ( !hasOwnProp.call(itemsSeen, item.longname) ) {
-                var itemName = 
-                itemsNav += '<li>';
-                itemsNav +=
-                  '<h3>' +
-                    item.name.replace(/^module:/, '') +
-                  '</h3>';
+      if (statics.length) {
+          itemsNav += '<h4>Static</h4>';
+          itemsNav += buildNavItemList(statics, 'static', linkto);
+      }
+      if (members.length) {
+          itemsNav += '<h4>Members</h4>';
+          itemsNav += buildNavItemList(members, 'members', linkto);
+      }
+      if (methods.length) {
+          itemsNav += '<h4>Methods</h4>';
+          itemsNav += buildNavItemList(methods, 'methods', linkto);
+      }
+      if (methods.length) {
+          itemsNav += '<h4>Lodash Methods</h4>';
+          itemsNav += buildNavItemList(lodash, 'lodash', linkto);
+      }
+      if (events.length) {
+          itemsNav += '<h4>Events</h4>';
+          itemsNav += buildNavItemList(events, 'events', linkto);
+      }
+      itemsNav += '</li>';
+  }
 
-                itemsNav +=
-                  '<ul class="constructor"><li>' +
-                    linktoFn(item.longname, 'constructor') +
-                  '</li></ul>';
+  itemsNav += classes.map(buildMemberNav).join('');
+  return itemsNav;
+}
 
-                if (statics.length) {
-                    itemsNav += '<h4>Static</h4>';
-                    itemsNav += buildNavItemList(statics, 'static', linktoFn);
-                }
-                if (members.length) {
-                    itemsNav += '<h4>Members</h4>';
-                    itemsNav += buildNavItemList(members, 'members', linktoFn);
-                }
-                if (methods.length) {
-                    itemsNav += '<h4>Methods</h4>';
-                    itemsNav += buildNavItemList(methods, 'methods', linktoFn);
-                }
-                if (methods.length) {
-                    itemsNav += '<h4>Lodash Methods</h4>';
-                    itemsNav += buildNavItemList(lodash, 'lodash', linktoFn);
-                }
-                if (events.length) {
-                    itemsNav += '<h4>Events</h4>';
-                    itemsNav += buildNavItemList(events, 'events', linktoFn);
-                }
-                itemsNav += '</li>';
-                itemsSeen[item.longname] = true;
-            }
-        });
-
-        if (itemsNav !== '') {
-            nav += '<ul>' + itemsNav + '</ul>';
-        }
-    }
-
-    return nav;
+function buildMemberNavs(items, itemHeading, itemsSeen, linktoFn) {
+    return items.length
+      ? '<ul>' + items.map(buildMemberNav).join('') + '</ul>'
+      : '';
 }
 
 function linktoTutorial(longName, name) {
@@ -507,7 +507,7 @@ function buildNav(members) {
     var seen = {};
     var seenTutorials = {};
 
-    nav += buildMemberNav(members.topLevelClasses, 'Classes', seen, linkto);
+    nav += buildMemberNavs(members.topLevelClasses, 'Classes', seen, linkto);
     //nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
     //nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
     //nav += buildMemberNav(members.events, 'Events', seen, linkto);

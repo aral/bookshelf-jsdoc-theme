@@ -147,7 +147,8 @@ body .main-container {
     margin-top: 10px;
     font-size: 1.2rem; }
   .minami .sidebar h3 {
-    color: #E56515; }
+    color: #E56515;
+    font-size: 1rem; }
   .minami .sidebar h4 {
     color: #E56515;
     font-weight: normal;
@@ -265,7 +266,8 @@ pre.prettyprint {
     margin-top: 10px;
     font-size: 1.2rem; }
   .minami .sidebar h3 {
-    color: #E56515; }
+    color: #E56515;
+    font-size: 1rem; }
   .minami .sidebar h4 {
     color: #E56515;
     font-weight: normal;
