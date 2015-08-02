@@ -13,6 +13,13 @@ body .main-container p {
   margin-bottom: 1em;
   font-family: "Noto Serif";
   color: #4A4A4A; }
+  body .main-container p code {
+    background-color: rgba(241, 226, 212, 0.43);
+    display: inline-block;
+    border-radius: 5px;
+    /* height: 23px; */
+    padding: 0 4px;
+    font-weight: bold; }
 
 body .main-container a {
   color: #E56515;
