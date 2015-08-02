@@ -4,9 +4,6 @@ var self = this;
 ?>
 <div class="method">
     <?js if (data.kind !== 'module') { ?>
-        <?js if (data.kind === 'class' && data.classdesc) { ?>
-        <h2>Constructor</h2>
-        <?js } ?>
 
         <h4 id="<?js= id ?>" class="item-name">
           <?js= data.attribs ?>

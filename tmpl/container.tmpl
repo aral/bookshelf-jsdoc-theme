@@ -51,6 +51,7 @@
             <?js= self.partial('method.tmpl', module) ?>
         <?js }) ?>
     <?js } else if (doc.kind === 'class') { ?>
+        <h3 class="subsection-title">Constructor</h3>
         <?js= self.partial('method.tmpl', doc) ?>
     <?js } else { ?>
         <?js if (doc.description) { ?>
