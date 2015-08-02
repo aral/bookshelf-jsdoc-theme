@@ -81,15 +81,6 @@
         <?js }); ?></ul>
     <?js } ?>
 
-    <?js
-        var classes = self.find({kind: 'class', memberof: doc.longname});
-        if (!isGlobalPage && classes && classes.length) {
-    ?>
-        <h3 class="subsection-title">Classes</h3>
-
-        <?js= self.partial('container.tmpl', {docs: classes}) ?>
-    <?js } ?>
-
      <?js
         var mixins = self.find({kind: 'mixin', memberof: doc.longname});
         if (!isGlobalPage && mixins && mixins.length) {
@@ -212,6 +203,13 @@
         <?js }); ?>
     <?js } ?>
 </article>
+
+<?js
+    var classes = self.find({kind: 'class', memberof: doc.longname});
+    if (!isGlobalPage && classes && classes.length) {
+?>
+    <?js= self.partial('container.tmpl', {docs: classes}) ?>
+<?js } ?>
 
 </section>
 <?js } ?>

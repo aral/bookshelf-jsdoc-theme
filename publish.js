@@ -217,7 +217,7 @@ function addEventSignature(doclet) {
 }
 
 function addSignatureName(doclet) {
-  var target = isLodashMethod(doclet) ? doclet.see[0] : doclet.longname ;
+  var target = doclet.isLodashMethod ? doclet.see[0] : doclet.longname ;
   doclet.signature = util.format(
     '<span class="name">%s</span>%s',
     linkto(target, doclet.name),
@@ -390,6 +390,14 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
+function buildNavItemList(items, className) {
+  var listItems = items.map(function (item) {
+    return '<li>' + linkto(item.longname, item.name) + '</li>';
+  });
+
+  return util.format('<ul class="%s">%s</ul>', className || '', listItems.join(''));
+}
+
 function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
     var nav = '';
 
@@ -397,24 +405,47 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         var itemsNav = '';
 
         items.forEach(function(item) {
-            var methods = find({kind:'function', memberof: item.longname});
+            var statics = find({kind:'function', isStatic: true, memberof: item.longname});
             var members = find({kind:'member', memberof: item.longname});
+            var methods = find({kind:'function', isLodashMethod: false, isStatic: false, memberof: item.longname});
+            var lodash = find({kind:'function', isLodashMethod: true, memberof: item.longname});
+            var events = find({kind:'event', memberof: item.longname});
 
             if ( !hasOwnProp.call(item, 'longname') ) {
                 itemsNav += '<li>' + linktoFn('', item.name);
                 itemsNav += '</li>';
             } else if ( !hasOwnProp.call(itemsSeen, item.longname) ) {
-                itemsNav += '<li>' + linktoFn(item.longname, item.name.replace(/^module:/, ''));
+                var itemName = 
+                itemsNav += '<li>';
+                itemsNav +=
+                  '<h3>' +
+                    item.name.replace(/^module:/, '') +
+                  '</h3>';
+
+                itemsNav +=
+                  '<ul class="constructor"><li>' +
+                    linktoFn(item.longname, 'constructor') +
+                  '</li></ul>';
+
+                if (statics.length) {
+                    itemsNav += '<h4>Static</h4>';
+                    itemsNav += buildNavItemList(statics, 'static');
+                }
+                if (members.length) {
+                    itemsNav += '<h4>Members</h4>';
+                    itemsNav += buildNavItemList(members, 'members');
+                }
                 if (methods.length) {
-                    itemsNav += "<ul class='methods'>";
-
-                    methods.forEach(function (method) {
-                        itemsNav += "<li data-type='method'>";
-                        itemsNav += linkto(method.longname, method.name);
-                        itemsNav += "</li>";
-                    });
-
-                    itemsNav += "</ul>";
+                    itemsNav += '<h4>Methods</h4>';
+                    itemsNav += buildNavItemList(methods, 'methods');
+                }
+                if (methods.length) {
+                    itemsNav += '<h4>Lodash Methods</h4>';
+                    itemsNav += buildNavItemList(lodash, 'lodash');
+                }
+                if (events.length) {
+                    itemsNav += '<h4>Events</h4>';
+                    itemsNav += buildNavItemList(events, 'events');
                 }
                 itemsNav += '</li>';
                 itemsSeen[item.longname] = true;
@@ -456,14 +487,14 @@ function buildNav(members) {
     var seen = {};
     var seenTutorials = {};
 
-    nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
-    nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
-    nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
-    nav += buildMemberNav(members.events, 'Events', seen, linkto);
-    nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
-    nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
-    nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
-    nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
+    nav += buildMemberNav(members.topLevelClasses, 'Classes', seen, linkto);
+    //nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
+    //nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
+    //nav += buildMemberNav(members.events, 'Events', seen, linkto);
+    //nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
+    //nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
+    //nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
+    //nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
 
     if (members.globals.length) {
         var globalNav = '';
@@ -667,6 +698,26 @@ exports.publish = function(taffyData, opts, tutorials) {
     var members = helper.getMembers(data);
     members.tutorials = tutorials.children;
 
+    // set up the lists that we'll use to generate pages
+    var classes = taffy(members.classes);
+    var modules = taffy(members.modules);
+    var namespaces = taffy(members.namespaces);
+    var mixins = taffy(members.mixins);
+    var externals = taffy(members.externals);
+    var interfaces = taffy(members.interfaces);
+
+    // Find and store top level classes.
+    var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
+    var whitelist = opts.whitelist;
+    if (whitelist) {
+      topLevelClasses = whitelist.map(function(longname) {
+        return _.find(topLevelClasses, {longname: longname});
+      });
+    }
+
+    members.topLevelClasses = topLevelClasses;
+
+
     // output pretty-printed source files by default
     var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false 
         ? true 
@@ -704,22 +755,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     // index page displays information from package.json and lists files
     var files = find({kind: 'file'});
     var packages = find({kind: 'package'});
-
-    // set up the lists that we'll use to generate pages
-    var classes = taffy(members.classes);
-    var modules = taffy(members.modules);
-    var namespaces = taffy(members.namespaces);
-    var mixins = taffy(members.mixins);
-    var externals = taffy(members.externals);
-    var interfaces = taffy(members.interfaces);
-
-    var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
-    var whitelist = opts.whitelist;
-    if (whitelist) {
-      topLevelClasses = whitelist.map(function(longname) {
-        return _.find(topLevelClasses, {longname: longname});
-      });
-    }
 
     generate('', 'Home',
       packages.concat(
