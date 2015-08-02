@@ -10,6 +10,7 @@ var taffy = require('taffydb').taffy;
 var template = require('jsdoc/template');
 var util = require('util');
 var _ = require('lodash');
+var catharsis = require('catharsis');
 
 var htmlsafe = helper.htmlsafe;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
@@ -21,12 +22,63 @@ var view;
 
 var outdir = path.normalize(env.opts.destination);
 
+// These next two are lifted out of jsdoc3/util/templateHelper.js
+
+function isComplexTypeExpression(expr) {
+    // record types, type unions, and type applications all count as "complex"
+    return /^{.+}$/.test(expr) || /^.+\|.+$/.test(expr) || /^.+<.+>$/.test(expr);
+}
+function parseType(longname) {
+    var err;
+
+    try {
+        return catharsis.parse(longname, {jsdoc: true});
+    }
+    catch (e) {
+        err = new Error('unable to parse ' + longname + ': ' + e.message);
+        console.error(err);
+        return longname;
+    }
+}
+
+function formatType(type) {
+  switch (type.type) {
+    case 'NameExpression':
+      return linkto(type.name);
+    case 'UndefinedLiteral':
+      return 'undefined';
+    case 'TypeApplication':
+      if (type.expression.name === 'Array') {
+        return util.format(
+          '%s[]',
+          type.applications.map(formatType).join('')
+        );
+      }
+      return util.format(
+          '%s<%s>',
+          formatType(type.expression),
+          type.applications.map(formatType).join('')
+      );
+    case 'TypeUnion':
+      return type.elements.map(formatType).join('|');
+    default:
+      throw new Error("Unknown type: `" + type.type + "`\nProblematic type:\n" + util.inspect(type, {depth: 10}));
+  }
+}
+
 function linkto() {
+
   var target = arguments[0];
   var display = arguments[1] || target;
-  var result = find({longname: target})[0];
+
+  if (isComplexTypeExpression(target) && !_.startsWith(target, '{@')) {
+    var parsed = parseType(target);
+    return formatType(parsed);
+  }
+
+  var result = find({longname: target})[0] || find({name: target})[0];
   if (result) {
-    return '<a href="index.html#' + elementId(result) + '">' + display + '</a>';
+    return '<a href="index.html#' + elementId(result) + '">' + htmlsafe(display) + '</a>';
   } else {
     return helper.linkto.apply(helper, arguments);
   }
