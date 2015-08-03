@@ -1,3 +1,21 @@
+.source-page .main-column {
+  max-width: 1000px !important;
+  padding: 0;
+  pre.prettyprint {
+    padding-left: 0;
+  }
+  ol.linenums {
+    padding-left: 3.5rem;
+    color: $code-punctuation-color;
+    li code {
+      color: $code-main-color;
+    }
+  }
+  section {
+    @include card(5);
+  }
+}
+
 body .main-container code {
   font-family: $code-font-family;
   a {

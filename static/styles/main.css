@@ -224,6 +224,19 @@ body .main-container .item-description:before {
     .minami .sidebar > ul ul {
       padding-left: 15px; }
 
+.source-page .main-column {
+  max-width: 1000px !important;
+  padding: 0; }
+  .source-page .main-column pre.prettyprint {
+    padding-left: 0; }
+  .source-page .main-column ol.linenums {
+    padding-left: 3.5rem;
+    color: #CCD6CF; }
+    .source-page .main-column ol.linenums li code {
+      color: white; }
+  .source-page .main-column section {
+    box-shadow: 0 15px 24px rgba(0, 0, 0, 0.22), 0 19px 76px rgba(0, 0, 0, 0.3); }
+
 body .main-container code {
   font-family: "AverageMono", monospace; }
   body .main-container code a {

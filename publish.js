@@ -391,13 +391,14 @@ function getPathFromDoclet(doclet) {
         doclet.meta.filename;
 }
 
-function generate(type, title, docs, filename, resolveLinks) {
+function generate(type, title, docs, filename, resolveLinks, className) {
     resolveLinks = resolveLinks === false ? false : true;
 
     var docData = {
         type: type,
         title: title,
-        docs: docs
+        docs: docs,
+        className: className
     };
 
     var outpath = path.join(outdir, filename),
@@ -428,7 +429,7 @@ function generateSourceFiles(sourceFiles, encoding) {
             logger.error('Error while generating source file %s: %s', file, e.message);
         }
 
-        generate('Source', sourceFiles[file].shortened, [source], sourceOutfile, false);
+        generate('Source', sourceFiles[file].shortened, [source], sourceOutfile, false, 'source-page');
     });
 }
 
@@ -832,7 +833,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     var files = find({kind: 'file'});
     var packages = find({kind: 'package'});
 
-    generate('', 'Home',
+    generate('', 'Bookshelf.js',
       packages.concat(
           [{kind: 'mainpage',
             readme: opts.readme,
