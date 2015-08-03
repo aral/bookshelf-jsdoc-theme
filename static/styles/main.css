@@ -14,7 +14,7 @@ body .main-container p {
   font-family: "Noto Serif";
   color: #4A4A4A; }
   body .main-container p code {
-    background-color: rgba(241, 226, 212, 0.43);
+    background-color: #f9f2ec;
     display: inline-block;
     border-radius: 5px;
     /* height: 23px; */
