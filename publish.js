@@ -66,6 +66,10 @@ function formatType(type) {
   }
 }
 
+function createLink(doclet) {
+  return util.format("index.html#%s", elementId(doclet));
+}
+
 function linkto() {
 
   var target = arguments[0];
@@ -76,9 +80,13 @@ function linkto() {
     return formatType(parsed);
   }
 
-  var result = find({longname: target})[0] || find({name: target})[0];
-  if (result) {
-    return '<a href="index.html#' + elementId(result) + '">' + htmlsafe(display) + '</a>';
+  var doclet = find({longname: target})[0] || find({name: target})[0];
+  if (doclet) {
+    return util.format(
+      '<a href="%s">%s</a>',
+      createLink(doclet),
+      htmlsafe(display)
+    );
   } else {
     return helper.linkto.apply(helper, arguments);
   }
@@ -124,7 +132,7 @@ function getAncestorLinks(doclet) {
 function hashToLink(doclet, hash) {
     if ( !/^(#.+)/.test(hash) ) { return hash; }
 
-    var url = helper.createLink(doclet);
+    var url = createLink(doclet);
 
     url = url.replace(/(#.+|$)/, hash);
     return '<a href="' + url + '">' + hash + '</a>';
@@ -716,7 +724,7 @@ exports.publish = function(taffyData, opts, tutorials) {
         sourceFiles = shortenPaths( sourceFiles, path.commonPrefix(sourceFilePaths) );
     }
     data().each(function(doclet) {
-        var url = helper.createLink(doclet);
+        var url = createLink(doclet);
         helper.registerLink(doclet.longname, url);
 
         // add a shortened version of the full path
