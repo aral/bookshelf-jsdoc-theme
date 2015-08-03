@@ -122,25 +122,33 @@ body .main-container {
   h4 {
     @include fill-parent;
     $function-header-height: 3.25rem;
+    $source-link-width: 3.5rem;
 
-    display: block;
-    background-color: $function-signature-background-color;
+    // Position
     position: relative;
 
-    padding: 0 1em;
-    margin-bottom: 1em;
+    // Display
+    display: block;
 
+    // Appearance
+    background-color: $function-signature-background-color;
+
+    // Layout
+    margin-bottom: 1rem;
+    padding: 0 $source-link-width 0 0;
+
+    // Appearance
     font-size: 1.125rem;
     line-height: $function-header-height;
     height: $function-header-height;
     font-weight: bold;
 
     .signature {
+      display: block;
       // Shitty fix for very long signatures.
       white-space: nowrap;
       overflow-x: auto;
-      width: 100%;
-      display: block;
+      padding: 0 1rem;
     }
 
     .source-link {
@@ -151,7 +159,8 @@ body .main-container {
 
       // Position
       position: absolute;
-      top: 0; right: 0; bottom: 0;
+      top: 0; bottom: 0; right: 0;
+      width: $source-link-width;
 
       // Appearance
       color: $function-signature-source-link-color;

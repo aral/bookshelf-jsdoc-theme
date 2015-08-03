@@ -95,27 +95,28 @@ body .main-container h4 {
   margin-right: -20px;
   padding-left: 20px;
   padding-right: 20px;
+  position: relative;
   display: block;
   background-color: #F8E8D8;
-  position: relative;
-  padding: 0 1em;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
+  padding: 0 3.5rem 0 0;
   font-size: 1.125rem;
   line-height: 3.25rem;
   height: 3.25rem;
   font-weight: bold; }
   body .main-container h4 .signature {
+    display: block;
     white-space: nowrap;
     overflow-x: auto;
-    width: 100%;
-    display: block; }
+    padding: 0 1rem; }
   body .main-container h4 .source-link {
     display: block;
     padding: 2.2rem 0.4rem 0 0.4rem;
     position: absolute;
     top: 0;
-    right: 0;
     bottom: 0;
+    right: 0;
+    width: 3.5rem;
     color: #C58E6B;
     background-color: #F8E8D8;
     font-size: 0.5em;
