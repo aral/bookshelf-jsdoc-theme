@@ -170,7 +170,7 @@ body .main-container {
       text-align: center;
 
       &:before {
-        @include external-link;
+        @include icon-file-code;
         position: absolute;
         top: 0.6rem;
         left: 0;

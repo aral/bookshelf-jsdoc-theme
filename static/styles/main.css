@@ -11,7 +11,7 @@ body .main-container .main-column {
 
 body .main-container p {
   margin-bottom: 1em;
-  font-family: "Noto Serif";
+  font-family: "Noto Serif", serif;
   color: #4A4A4A; }
   body .main-container p code {
     background-color: #f9f2ec;
@@ -28,7 +28,7 @@ body .main-container a {
     text-decoration: underline; }
 
 body .main-container h1, body .main-container h2, body .main-container h3, body .main-container h4, body .main-container h5, body .main-container .details dt, .details body .main-container dt, body .main-container h6 {
-  font-family: "Carlito";
+  font-family: "Carlito", sans-serif;
   color: #4A4A4A;
   font-weight: bold; }
   body .main-container h1 a, body .main-container h2 a, body .main-container h3 a, body .main-container h4 a, body .main-container h5 a, body .main-container .details dt a, .details body .main-container dt a, body .main-container h6 a {
@@ -48,7 +48,7 @@ body .main-container h2 {
 body .main-container h3.subsection-title {
   color: #E56515;
   text-transform: uppercase;
-  font-family: "Carlito";
+  font-family: "Carlito", sans-serif;
   font-size: 1.7rem;
   margin: 2rem 0 1.5rem 0; }
 
@@ -69,7 +69,7 @@ body .main-container .lodash-methods {
 
 body .main-container h4, body .main-container .lodash-method {
   color: #4A4A4A;
-  font-family: "AverageMono"; }
+  font-family: "AverageMono", monospace; }
   body .main-container h4 a, body .main-container .lodash-method a {
     color: inherit; }
   body .main-container h4 .new,
@@ -124,7 +124,7 @@ body .main-container h4 {
     text-align: center; }
     body .main-container h4 .source-link:before {
       font-family: "FontAwesome";
-      content: '\f08e';
+      content: '\f1c9';
       position: absolute;
       top: 0.6rem;
       left: 0;
@@ -164,7 +164,7 @@ body .main-container .item-description:before {
   content: '* * *';
   display: block;
   text-align: center;
-  font-family: "AverageMono";
+  font-family: "AverageMono", monospace;
   font-size: 1.25rem;
   color: #F2B188;
   margin-bottom: 1rem; }
@@ -172,7 +172,7 @@ body .main-container .item-description:before {
 .minami .sidebar {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
-  font-family: "Carlito";
+  font-family: "Carlito", sans-serif;
   width: 190px;
   position: fixed;
   top: 0;
@@ -225,7 +225,7 @@ body .main-container .item-description:before {
       padding-left: 15px; }
 
 body .main-container code {
-  font-family: "AverageMono"; }
+  font-family: "AverageMono", monospace; }
   body .main-container code a {
     color: inherit;
     text-decoration: underline; }
@@ -234,7 +234,7 @@ pre.prettyprint {
   padding: 1rem;
   margin: 2em 0;
   overflow-x: auto;
-  font-family: "AverageMono";
+  font-family: "AverageMono", monospace;
   font-size: 0.9rem;
   line-height: 1.8em;
   background-color: #4A4A4A;
@@ -262,7 +262,7 @@ pre.prettyprint {
     display: block;
     padding-left: 1.7rem; }
     .attributes .param-desc p, .attributes .description p {
-      font-family: "Carlito";
+      font-family: "Carlito", sans-serif;
       margin-bottom: 0; }
     .attributes .param-desc ul.params, .attributes .description ul.params {
       list-style: none; }
@@ -289,7 +289,7 @@ pre.prettyprint {
     color: #E56515; }
 
 .details dd {
-  font-family: "Carlito"; }
+  font-family: "Carlito", sans-serif; }
 
 .details ul {
   list-style: none; }
@@ -297,7 +297,7 @@ pre.prettyprint {
 .minami .sidebar {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
-  font-family: "Carlito";
+  font-family: "Carlito", sans-serif;
   width: 190px;
   position: fixed;
   top: 0;
