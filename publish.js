@@ -67,7 +67,8 @@ function formatType(type) {
 }
 
 function createLink(doclet) {
-  return util.format("index.html#%s", elementId(doclet));
+  id = _.isString(doclet) ? doclet : elementId(doclet);
+  return util.format("index.html#%s", id);
 }
 
 function linkto() {
@@ -92,8 +93,37 @@ function linkto() {
   }
 }
 
+function sectionId(doclet) {
+  return util.format(
+    "section-%s",
+    elementId(doclet)
+  );
+}
 
-function elementId(doclet, log) {
+function subsectionId(doclet, subsection) {
+  return util.format(
+    "%s-subsection-%s",
+    elementId(doclet),
+    subsection
+  );
+}
+
+function sectionLink(section) {
+  return createLink(sectionId(section));
+}
+
+function subsectionLink(doclet, subsection) {
+  return createLink(subsectionId(doclet, subsection));
+}
+
+function constructorId(doclet) {
+  return util.format(
+    "%s-constructor",
+    elementId(doclet)
+  );
+}
+
+function elementId(doclet) {
   return (doclet.longname || doclet.name || '')
     .replace('#event:', '-event-')
     .replace('#', '-instance-')
@@ -474,6 +504,14 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
+function buildSubsectionLink(doclet, subsection, title) {
+  return util.format(
+    '<h4><a href="%s">%s</a></h4>',
+    subsectionLink(doclet, subsection),
+    title
+  );
+}
+
 function buildNavItemList(items, className, linktoFn) {
   var listItems = items.map(function (item) {
     return '<li>' + linktoFn(item.longname, stripQuotes(item.name)) + '</li>';
@@ -497,10 +535,11 @@ function buildMemberNav(item) {
   } else {
       var itemName = 
       itemsNav += '<li>';
-      itemsNav +=
-        '<h3>' +
-          item.name.replace(/^module:/, '') +
-        '</h3>';
+      itemsNav += util.format(
+        '<h3><a href="%s">%s</a></h3>',
+        sectionLink(item),
+        item.name.replace(/^module:/, '')
+      );
 
       itemsNav +=
         '<ul class="constructor"><li>' +
@@ -508,23 +547,23 @@ function buildMemberNav(item) {
         '</li></ul>';
 
       if (statics.length) {
-          itemsNav += '<h4>Static</h4>';
+          itemsNav += buildSubsectionLink(item, 'static', 'Static');
           itemsNav += buildNavItemList(statics, 'static', linkto);
       }
       if (members.length) {
-          itemsNav += '<h4>Members</h4>';
+          itemsNav += buildSubsectionLink(item, 'members', 'Members');
           itemsNav += buildNavItemList(members, 'members', linkto);
       }
       if (methods.length) {
-          itemsNav += '<h4>Methods</h4>';
+          itemsNav += buildSubsectionLink(item, 'methods', 'Methods');
           itemsNav += buildNavItemList(methods, 'methods', linkto);
       }
       if (methods.length) {
-          itemsNav += '<h4>Lodash Methods</h4>';
-          itemsNav += buildNavItemList(lodash, 'lodash', linkto);
+          itemsNav += buildSubsectionLink(item, 'lodash-methods', 'Lodash Methods');
+          itemsNav += buildNavItemList(lodash, 'lodash-methods', linkto);
       }
       if (events.length) {
-          itemsNav += '<h4>Events</h4>';
+          itemsNav += buildSubsectionLink(item, 'events', 'Events');
           itemsNav += buildNavItemList(events, 'events', linkto);
       }
       itemsNav += '</li>';
@@ -808,6 +847,8 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.linkto = linkto;
     view.updateItemName = updateItemName;
     view.elementId = elementId;
+    view.sectionId = sectionId;
+    view.subsectionId = subsectionId;
     view.simplifyName = simplifyName;
     view.formattedParent = formattedParent;
     view.resolveAuthorLinks = resolveAuthorLinks;
