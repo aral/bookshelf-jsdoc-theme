@@ -66,6 +66,10 @@ function formatType(type) {
   }
 }
 
+function generateTutorial(tutorial) {
+  return helper.resolveLinks(tutorial.parse());
+}
+
 function createLink(doclet) {
   id = _.isString(doclet) ? doclet : elementId(doclet);
   return util.format("index.html#%s", id);
@@ -514,10 +518,23 @@ function buildSubsectionLink(doclet, subsection, title) {
 
 function buildNavItemList(items, className, linktoFn) {
   var listItems = items.map(function (item) {
-    return '<li>' + linktoFn(item.longname, stripQuotes(item.name)) + '</li>';
+    return '<li>' + linktoFn(item.longname, stripQuotes(item.title || item.name)) + '</li>';
   });
 
   return util.format('<ul class="%s">%s</ul>', className || '', listItems.join(''));
+}
+
+function buildTutorialsNav(tutorials) {
+  return tutorials.map(function(tutorial) {
+    var result = util.format(
+      '<h3>%s</h3>',
+      linkto(tutorial.longname, tutorial.title)
+    );
+    if (tutorial.children) {
+      result += buildNavItemList(tutorial.children, 'sections', linkto);
+    }
+    return result;
+  });
 }
 
 function buildMemberNav(item) {
@@ -575,7 +592,7 @@ function buildMemberNav(item) {
 
 function buildMemberNavs(items, itemHeading, itemsSeen, linktoFn) {
     return items.length
-      ? '<ul>' + items.map(buildMemberNav).join('') + '</ul>'
+      ? items.map(buildMemberNav).join('')
       : '';
 }
 
@@ -607,6 +624,9 @@ function buildNav(members) {
     var seen = {};
     var seenTutorials = {};
 
+    console.log('tuts', members.tutorials);
+    nav += '<ul>';
+    nav += buildTutorialsNav(members.tutorials);
     nav += buildMemberNavs(members.topLevelClasses, 'Classes', seen, linkto);
     //nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
     //nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
@@ -615,6 +635,7 @@ function buildNav(members) {
     //nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
     //nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
     //nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
+    nav += '</ul>';
 
     if (members.globals.length) {
         var globalNav = '';
@@ -668,6 +689,15 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     // set up tutorials for helper
     helper.setTutorials(tutorials);
+
+    function registerTutorial(tutorial) {
+      var url = createLink(tutorial);
+      console.log('registering', tutorial.longname, url);
+      helper.registerLink(tutorial.longname, url);
+      tutorial.children.forEach(registerTutorial);
+    };
+
+    tutorials.children.forEach(registerTutorial);
 
     data = helper.prune(data);
     data.sort('longname, version, since');
@@ -852,10 +882,10 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.simplifyName = simplifyName;
     view.formattedParent = formattedParent;
     view.resolveAuthorLinks = resolveAuthorLinks;
-    view.tutoriallink = tutoriallink;
     view.htmlsafe = htmlsafe;
     view.outputSourceFiles = outputSourceFiles;
     view.showInheritedFrom = showInheritedFrom;
+    view.generateTutorial = generateTutorial;
 
     // once for all
     view.nav = buildNav(members, data);
@@ -878,6 +908,7 @@ exports.publish = function(taffyData, opts, tutorials) {
       packages.concat(
           [{kind: 'mainpage',
             readme: opts.readme,
+            tutorials: tutorials,
             longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page',
           }]
       ).concat(topLevelClasses).concat(files),
@@ -916,34 +947,5 @@ exports.publish = function(taffyData, opts, tutorials) {
             generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
         }
     });
-    */
-
-    /*
-    // TODO: move the tutorial functions to templateHelper.js
-    function generateTutorial(title, tutorial, filename) {
-        var tutorialData = {
-            title: title,
-            header: tutorial.title,
-            content: tutorial.parse(),
-            children: tutorial.children
-        };
-
-        var tutorialPath = path.join(outdir, filename);
-        var html = view.render('tutorial.tmpl', tutorialData);
-
-        // yes, you can use {@link} in tutorials too!
-        html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
-        fs.writeFileSync(tutorialPath, html, 'utf8');
-    }
-
-    // tutorials can have only one parent so there is no risk for loops
-    function saveChildren(node) {
-        node.children.forEach(function(child) {
-            generateTutorial('Tutorial: ' + child.title, child, helper.tutorialToUrl(child.name));
-            saveChildren(child);
-        });
-    }
-    
-    saveChildren(tutorials);
     */
 };

@@ -8,3 +8,11 @@ var self = this;
         <article><?js= data.readme ?></article>
     </section>
 <?js } ?>
+
+<?js if (data.tutorials) { ?>
+  <section class="tutorials">
+    <?js data.tutorials.children.forEach(function(tutorial) { ?>
+        <?js= self.partial('tutorial.tmpl', tutorial) ?>
+    <?js }) ?>
+  </section>
+<?js } ?>
