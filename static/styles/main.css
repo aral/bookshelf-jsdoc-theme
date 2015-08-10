@@ -7,11 +7,15 @@ body .main-container .main-column {
   max-width: 752px;
   margin: 0 auto;
   padding-left: 2rem;
-  padding-right: 2rem; }
+  padding-right: 2rem;
+  font-family: "Carlito", sans-serif; }
+
+body .main-container .readme ul {
+  padding-left: 1rem; }
 
 body .main-container p {
   margin-bottom: 1em;
-  font-family: "Noto Serif", serif;
+  font-family: "Carlito", sans-serif;
   color: #4A4A4A; }
   body .main-container p code {
     background-color: #f9f2ec;
@@ -44,6 +48,10 @@ body .main-container h1 {
 body .main-container h2 {
   font-size: 1.875rem;
   line-height: 2em; }
+
+body .main-container h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem; }
 
 body .main-container h3.subsection-title {
   color: #E56515;
@@ -219,8 +227,9 @@ body .main-container .item-description:before {
   .minami .sidebar > ul {
     width: 150px;
     margin: 0 auto; }
-    .minami .sidebar > ul > li {
-      margin-bottom: 2rem; }
+    .minami .sidebar > ul.readme,
+    .minami .sidebar > ul.main > li {
+      margin-bottom: 1rem; }
     .minami .sidebar > ul ul {
       padding-left: 15px; }
 
@@ -285,7 +294,8 @@ pre.prettyprint {
         font-size: 0.7rem;
         width: 0.6rem; }
   .attributes ul.params {
-    list-style: none; }
+    list-style: none;
+    padding-left: 0; }
     .attributes ul.params .param {
       font-weight: bold; }
   .attributes .optional-bracket {
@@ -357,8 +367,9 @@ pre.prettyprint {
   .minami .sidebar > ul {
     width: 150px;
     margin: 0 auto; }
-    .minami .sidebar > ul > li {
-      margin-bottom: 2rem; }
+    .minami .sidebar > ul.readme,
+    .minami .sidebar > ul.main > li {
+      margin-bottom: 1rem; }
     .minami .sidebar > ul ul {
       padding-left: 15px; }
 

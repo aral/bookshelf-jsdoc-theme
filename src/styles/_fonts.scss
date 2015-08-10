@@ -1,8 +1,9 @@
-$body-font-family: 'Noto Serif', serif;
 $code-font-family: 'AverageMono', monospace;
 $title-font-family: 'Carlito', sans-serif;
 $sans-font-family: 'Carlito', sans-serif;
 $icon-font-family: 'FontAwesome';
+//$body-font-family: 'Noto Serif', serif;
+$body-font-family: $sans-font-family;
 
 @mixin icon {
   font-family: $icon-font-family;

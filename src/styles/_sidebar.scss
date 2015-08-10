@@ -77,8 +77,9 @@
     width: $sidebar-width - 40px;
     margin: 0 auto;
 
-    >li {
-      margin-bottom: 2rem;
+    &.readme,
+    &.main>li {
+      margin-bottom: 1rem;
     }
 
     ul {

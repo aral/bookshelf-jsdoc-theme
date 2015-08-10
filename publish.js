@@ -41,6 +41,30 @@ function parseType(longname) {
     }
 }
 
+function headingId(heading) {
+  return _.kebabCase(heading.toLowerCase().replace(/[^a-z ]/g, ''));
+}
+
+function getHeadings(html, level) {
+  var result = [];
+  var regexString = util.format('<h%s>(.*)<\/h%s>', level, level);
+  var regex = new RegExp(regexString, 'gi');
+  html.replace(regex, function (whole, heading) {
+    result.push(heading);
+    return whole;
+  });
+  return result;
+}
+
+function addHeadingIds(html) {
+  return html.replace(/<h([0-9])>(.*?)<\/h[0-9]>/g, function(all, level, heading) {
+    return util.format(
+      '<h%s id="%s">%s</h%s>',
+      level, headingId(heading), heading, level
+    );
+  });
+}
+
 function formatType(type) {
   switch (type.type) {
     case 'NameExpression':
@@ -527,14 +551,26 @@ function buildNavItemList(items, className, linktoFn) {
 function buildTutorialsNav(tutorials) {
   return tutorials.map(function(tutorial) {
     var result = util.format(
-      '<h3>%s</h3>',
+      '<li><h3>%s</h3>',
       linkto(tutorial.longname, tutorial.title)
     );
     if (tutorial.children) {
       result += buildNavItemList(tutorial.children, 'sections', linkto);
     }
-    return result;
+    return result + '</li>';
   });
+}
+
+function buildReadmeNav(readme) {
+  var headings = getHeadings(readme, 2);
+  var items = headings.map(function(heading) {
+    return util.format(
+      '<li><h3><a href="%s">%s</a></h3></li>',
+      createLink(headingId(heading)),
+      heading
+    );
+  }).join('\n');
+  return util.format('<ul class="readme">%s</ul>', items);
 }
 
 function buildMemberNav(item) {
@@ -619,13 +655,14 @@ function linktoExternal(longName, name) {
  * @return {string} The HTML for the navigation sidebar.
  */
 var bs = 0;
-function buildNav(members) {
+function buildNav(members, readme) {
     var nav = '';
     var seen = {};
     var seenTutorials = {};
 
-    console.log('tuts', members.tutorials);
-    nav += '<ul>';
+    nav += buildReadmeNav(readme);
+
+    nav += '<ul class="main">';
     nav += buildTutorialsNav(members.tutorials);
     nav += buildMemberNavs(members.topLevelClasses, 'Classes', seen, linkto);
     //nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
@@ -692,7 +729,6 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     function registerTutorial(tutorial) {
       var url = createLink(tutorial);
-      console.log('registering', tutorial.longname, url);
       helper.registerLink(tutorial.longname, url);
       tutorial.children.forEach(registerTutorial);
     };
@@ -888,7 +924,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.generateTutorial = generateTutorial;
 
     // once for all
-    view.nav = buildNav(members, data);
+    view.nav = buildNav(members, opts.readme);
     attachModuleSymbols( find({ longname: {left: 'module:'} }), members.modules );
 
     // generate the pretty-printed source files first so other pages can link to them
@@ -907,7 +943,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     generate('', 'Bookshelf.js',
       packages.concat(
           [{kind: 'mainpage',
-            readme: opts.readme,
+            readme: addHeadingIds(opts.readme),
             tutorials: tutorials,
             longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page',
           }]

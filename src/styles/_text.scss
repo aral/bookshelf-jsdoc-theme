@@ -20,6 +20,14 @@ body .main-container {
     margin: 0 auto;
     padding-left: 2rem;
     padding-right: 2rem;
+    font-family: $sans-font-family;
+
+  }
+
+  .readme {
+    ul {
+      padding-left: 1rem;
+    }
   }
 
   p {
@@ -72,6 +80,11 @@ body .main-container {
   h2 {
     font-size: 1.875rem;
     line-height: 2em;
+  }
+
+  h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   h3.subsection-title {
