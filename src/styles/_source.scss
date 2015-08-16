@@ -1,3 +1,7 @@
+code {
+  font-family: $code-font-family;
+}
+
 .source-page .main-column {
   max-width: 1000px !important;
   padding: 0;
@@ -16,11 +20,19 @@
   }
 }
 
-body .main-container code {
-  font-family: $code-font-family;
-  a {
+body .main-container .attributes {
+  code {
+    font-family: $code-font-family;
+  }
+
+  code a,
+  a code {
     color: inherit;
     text-decoration: underline;
+  }
+
+  p a code {
+    text-decoration: inherit;
   }
 }
 

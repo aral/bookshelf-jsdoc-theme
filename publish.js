@@ -889,10 +889,13 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     // Find and store top level classes.
     var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
+
     var whitelist = opts.whitelist;
     if (whitelist) {
       topLevelClasses = whitelist.map(function(longname) {
-        return _.find(topLevelClasses, {longname: longname});
+        var result = _.find(topLevelClasses, {longname: longname});
+        if (!result) throw new Error('White listed class `' + longname + '` not found');
+        return result;
       });
     }
 

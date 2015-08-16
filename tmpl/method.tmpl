@@ -2,8 +2,10 @@
 var data = obj;
 var self = this;
 var parent; 
+
+var hasDescription = !_.isEmpty(data.description)
 ?>
-<div class="method">
+<div class="method <?js= hasDescription ? 'has-description' : 'no-description' ?>">
     <?js if (data.kind !== 'module') { ?>
 
         <h4 id="<?js= id ?>" class="item-header">
@@ -12,7 +14,7 @@ var parent;
           <?js if (kind === 'class') { ?>
             <span class="new">new</span>
           <?js } ?>
-          <?js if (parent = this.formattedParent(data)) {
+          <?js if ((parent = this.formattedParent(data)) && data.kind !== 'typedef') {
             ?><span class="member-of"
                 ><span class="class-name"
                   ><?js= parent
@@ -30,14 +32,15 @@ var parent;
         <?js } ?>
     <?js } ?>
 
-    <?js if (data.examples && examples.length) { ?>
+  <div class="attributes">
+
+    <?js if (data.examples && data.examples.length) { ?>
       <div class="example">
-        <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
-        <?js= this.partial('examples.tmpl', examples) ?>
+        <h5>Example<?js= data.examples.length > 1? 's':'' ?></h5>
+        <?js= this.partial('examples.tmpl', data.examples) ?>
       </div>
     <?js } ?>
 
-  <div class="attributes">
     <?js if (data.augments && data.alias && data.alias.indexOf('module:') === 0) { ?>
         <h5>Extends</h5>
         <?js= self.partial('augments.tmpl', data) ?>
