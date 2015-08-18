@@ -50,11 +50,13 @@ body .main-container h1 {
   line-height: 100px;
   margin-top: 30px;
   font-size: 2.75rem;
-  letter-spacing: 0.125rem; }
+  letter-spacing: 0.125rem;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.13); }
 
 body .main-container h2 {
   font-size: 2rem;
-  line-height: 4rem; }
+  line-height: 4rem;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.13); }
 
 body .main-container h3 {
   margin-bottom: 0.5rem; }
@@ -65,7 +67,8 @@ body .main-container h3.subsection-title {
   font-family: "Carlito", sans-serif;
   font-size: 1.7rem;
   margin: 0 0 1.5rem 0;
-  padding-top: 0.2rem; }
+  padding-top: 0.2rem;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.13); }
 
 body .main-container h5, body .main-container .details dt, .details body .main-container dt {
   font-style: italic;
@@ -104,6 +107,8 @@ body .main-container h4, body .main-container .lodash-method {
   body .main-container h4 .type-signature, body .main-container .lodash-method .type-signature {
     color: #C58E6B;
     font-weight: normal; }
+    body .main-container h4 .type-signature a, body .main-container .lodash-method .type-signature a {
+      text-decoration: underline; }
 
 body .main-container h4 {
   margin-left: -20px;
