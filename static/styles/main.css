@@ -192,6 +192,7 @@ body .main-container .method, body .main-container .lodash-methods {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
   font-family: "Carlito", sans-serif;
+  line-height: 1.3rem;
   width: 190px;
   position: fixed;
   top: 0;
@@ -223,10 +224,10 @@ body .main-container .method, body .main-container .lodash-methods {
     color: #E56515;
     font-size: 1rem; }
   .minami .sidebar h4 {
-    color: #E56515;
-    font-weight: normal;
-    font-style: italic;
-    text-transform: lowercase; }
+    color: #4A4A4A;
+    font-weight: bold;
+    text-transform: lowercase;
+    margin-top: 0.4rem; }
   .minami .sidebar li {
     color: black; }
     .minami .sidebar li a {
@@ -242,7 +243,7 @@ body .main-container .method, body .main-container .lodash-methods {
     .minami .sidebar > ul.main > li {
       margin-bottom: 0.8rem; }
     .minami .sidebar > ul ul {
-      padding-left: 15px; }
+      padding-left: 0.5rem; }
 
 code {
   font-family: "AverageMono", monospace; }
@@ -316,7 +317,8 @@ pre.prettyprint {
     list-style: none;
     padding-left: 0; }
     .attributes ul.params .param {
-      font-weight: bold; }
+      font-weight: bold;
+      margin-right: 0.3rem; }
   .attributes .optional-bracket {
     color: #E56515; }
   .attributes .name {
@@ -340,6 +342,7 @@ pre.prettyprint {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
   font-family: "Carlito", sans-serif;
+  line-height: 1.3rem;
   width: 190px;
   position: fixed;
   top: 0;
@@ -371,10 +374,10 @@ pre.prettyprint {
     color: #E56515;
     font-size: 1rem; }
   .minami .sidebar h4 {
-    color: #E56515;
-    font-weight: normal;
-    font-style: italic;
-    text-transform: lowercase; }
+    color: #4A4A4A;
+    font-weight: bold;
+    text-transform: lowercase;
+    margin-top: 0.4rem; }
   .minami .sidebar li {
     color: black; }
     .minami .sidebar li a {
@@ -390,7 +393,7 @@ pre.prettyprint {
     .minami .sidebar > ul.main > li {
       margin-bottom: 0.8rem; }
     .minami .sidebar > ul ul {
-      padding-left: 15px; }
+      padding-left: 0.5rem; }
 
 html {
   font-size: 15px;

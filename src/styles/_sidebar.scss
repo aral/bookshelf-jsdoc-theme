@@ -8,6 +8,7 @@
   // Appearance
   background-color: $sidebar-background-color;
   font-family: $sans-font-family;
+  line-height: 1.3rem;
 
   // Size
   width: $sidebar-width;
@@ -54,9 +55,9 @@
 
   h4 {
     color: $sidebar-group-name-color;
-    font-weight: normal;
-    font-style: italic;
+    font-weight: bold;
     text-transform: lowercase;
+    margin-top: 0.4rem;
   }
 
   li {
@@ -83,7 +84,7 @@
     }
 
     ul {
-      padding-left: 15px;
+      padding-left: 0.5rem;
     }
   }
 }

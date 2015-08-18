@@ -29,7 +29,10 @@
   ul.params {
     list-style: none;
     padding-left: 0;
-    .param { font-weight: bold; }
+    .param {
+      font-weight: bold;
+      margin-right: 0.3rem;
+    }
   }
 
   // Color code stuffs.
