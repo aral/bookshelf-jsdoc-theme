@@ -155,7 +155,7 @@ body .main-container h4 {
       text-align: center; }
 
 body .main-container .method, body .main-container .lodash-methods {
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   margin-bottom: 3rem;
   background-color: white;
   padding-left: 20px;
@@ -186,7 +186,7 @@ body .main-container .method, body .main-container .lodash-methods {
     font-family: "AverageMono", monospace;
     font-size: 1.25rem;
     color: #F2B188;
-    margin-bottom: 1rem; }
+    line-height: 3rem; }
 
 .minami .sidebar {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
@@ -294,43 +294,49 @@ pre.prettyprint {
   pre.prettyprint .com {
     color: #F0A672; }
 
-.attributes {
-  margin-bottom: 1rem; }
-  .attributes > ul {
+.attributes > ul {
+  list-style: none; }
+
+.attributes .fired-event-item code {
+  color: #808080; }
+
+.attributes .param-desc, .attributes .description {
+  display: block;
+  padding-left: 1.7rem; }
+  .attributes .param-desc p, .attributes .description p {
+    font-family: "Carlito", sans-serif;
+    margin-bottom: 0; }
+  .attributes .param-desc ul.params, .attributes .description ul.params {
     list-style: none; }
-  .attributes .fired-event-item code {
-    color: #808080; }
-  .attributes .param-desc, .attributes .description {
-    display: block;
-    padding-left: 1.7rem; }
-    .attributes .param-desc p, .attributes .description p {
-      font-family: "Carlito", sans-serif;
-      margin-bottom: 0; }
-    .attributes .param-desc ul.params, .attributes .description ul.params {
-      list-style: none; }
-      .attributes .param-desc ul.params li:before, .attributes .description ul.params li:before {
-        display: inline-block;
-        content: '\2022';
-        font-size: 0.6em;
-        width: 0.6rem; }
-  .attributes ul.params {
-    list-style: none;
-    padding-left: 0; }
-    .attributes ul.params .param {
-      font-weight: bold;
-      margin-right: 0.3rem; }
-  .attributes .optional-bracket {
-    color: #E56515; }
-  .attributes .name {
-    color: black; }
-  .attributes .default-value {
-    color: #557CAB; }
-  .attributes .type-or,
-  .attributes .param-type {
-    color: #808080;
-    font-weight: normal; }
-  .attributes .default-equals {
-    color: #E56515; }
+    .attributes .param-desc ul.params li:before, .attributes .description ul.params li:before {
+      display: inline-block;
+      content: '\2022';
+      font-size: 0.6em;
+      width: 0.6rem; }
+
+.attributes ul.params {
+  list-style: none;
+  padding-left: 0; }
+  .attributes ul.params .param {
+    font-weight: bold;
+    margin-right: 0.3rem; }
+
+.attributes .optional-bracket {
+  color: #E56515; }
+
+.attributes .name {
+  color: black; }
+
+.attributes .default-value {
+  color: #557CAB; }
+
+.attributes .type-or,
+.attributes .param-type {
+  color: #808080;
+  font-weight: normal; }
+
+.attributes .default-equals {
+  color: #E56515; }
 
 .details dd {
   font-family: "Carlito", sans-serif; }
@@ -396,7 +402,7 @@ pre.prettyprint {
       padding-left: 0.5rem; }
 
 html {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.56em;
   background-color: #FFFDFB; }
   @media screen and (max-width: 650px) {

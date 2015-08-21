@@ -704,6 +704,8 @@ function buildNav(members, readme) {
 exports.publish = function(taffyData, opts, tutorials) {
     data = taffyData;
 
+    console.log('opts', opts);
+
     var conf = env.conf.templates || {};
     conf.default = conf.default || {};
 

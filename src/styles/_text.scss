@@ -210,7 +210,7 @@ body .main-container {
   }
 
   .method, .lodash-methods {
-    @include card(2);
+    @include card(1);
     margin-bottom: 3rem;
     background-color: white;
     padding-left: $method-margin;
@@ -244,7 +244,7 @@ body .main-container {
         font-family: $code-font-family;
         font-size: 1.25rem;
         color: $stars-color;
-        margin-bottom: 1rem;
+        line-height: 3rem;
       }
     }
   }
