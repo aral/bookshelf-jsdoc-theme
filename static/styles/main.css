@@ -54,7 +54,7 @@ body .main-container h1, body .main-container h2, body .main-container h3, body 
 body .main-container h1 {
   text-transform: uppercase;
   line-height: 100px;
-  margin-top: 30px;
+  padding-top: 30px;
   font-size: 2.75rem;
   letter-spacing: 0.125rem;
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.13); }
@@ -392,6 +392,32 @@ pre.prettyprint {
   text-align: center;
   font-size: 0.8rem;
   text-transform: uppercase; }
+  .main-container footer a {
+    color: #4A4A4A; }
+
+body {
+  position: relative; }
+  body .fork-me {
+    display: inline-block;
+    position: fixed;
+    top: -10px;
+    right: -10px;
+    width: 149px;
+    height: 149px;
+    background-image: url("../images/fork-me-right-dusk-blue@2x.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    opacity: 0.5;
+    transition: opacity 0.3s; }
+    body .fork-me:hover {
+      opacity: 1; }
+    @media screen and (max-width: 650px) {
+      body .fork-me {
+        position: absolute; } }
 
 html {
   font-size: 16px;

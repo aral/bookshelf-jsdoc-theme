@@ -76,7 +76,7 @@ body .main-container {
   h1 {
     text-transform: uppercase;
     line-height: $header-height;
-    margin-top: $main-top-margin;
+    padding-top: $main-top-margin;
     font-size: 2.75rem;
     letter-spacing: 0.125rem;
     text-shadow: $title-text-shadow;
