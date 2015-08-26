@@ -21,7 +21,8 @@ var hasOwnProp = Object.prototype.hasOwnProperty;
 var data;
 var view;
 
-var outdir = path.normalize(env.opts.destination);
+var indexdir = path.normalize(env.opts.destination);
+var outdir = path.join(indexdir, 'html');
 
 // These next two are lifted out of jsdoc3/util/templateHelper.js
 
@@ -460,7 +461,8 @@ function generate(type, title, docs, filename, resolveLinks, className) {
         className: className
     };
 
-    var outpath = path.join(outdir, filename),
+    var dir = type === 'index' ? indexdir : outdir;
+    var outpath = path.join(dir, filename),
         html = view.render('container.tmpl', docData);
 
     if (resolveLinks) {
@@ -472,11 +474,10 @@ function generate(type, title, docs, filename, resolveLinks, className) {
 
 function generateSourceFiles(sourceFiles, encoding) {
     encoding = encoding || 'utf8';
-    fs.mkdir(path.join(outdir, 'src', path.sep));
     Object.keys(sourceFiles).forEach(function(file) {
         var source;
         // links are keyed to the shortened path in each doclet's `meta.shortpath` property
-        var sourceOutfile = path.join('src', helper.getUniqueFilename(sourceFiles[file].shortened));
+        var sourceOutfile = helper.getUniqueFilename(sourceFiles[file].shortened);
         helper.registerLink(sourceFiles[file].shortened, sourceOutfile);
 
         try {
@@ -959,7 +960,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     // Get changelog.
     var changelog = parseMarkdown(fs.readFileSync(opts.changelog, opts.encoding));
 
-    generate('', 'Bookshelf.js',
+    generate('index', 'Bookshelf.js',
       packages.concat(
           [{kind: 'mainpage',
             readme: addHeadingIds(opts.readme),
