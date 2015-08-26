@@ -201,66 +201,6 @@ body .main-container .lodash-methods {
       left: -0.9rem;
       line-height: 1.7rem; }
 
-.minami .sidebar {
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
-  background-color: white;
-  font-family: "Carlito", sans-serif;
-  line-height: 1.5rem;
-  width: 190px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding-bottom: 4rem; }
-  @media screen and (max-width: 650px) {
-    .minami .sidebar {
-      display: none; } }
-  .minami .sidebar header {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 1rem; }
-    .minami .sidebar header img {
-      height: 100px;
-      width: auto; }
-  .minami .sidebar a {
-    text-decoration: inherit;
-    color: inherit; }
-  .minami .sidebar h1 {
-    color: black;
-    text-decoration: underline;
-    margin-top: 10px;
-    font-size: 1.2rem; }
-  .minami .sidebar h3 {
-    color: #E56515;
-    font-size: 1rem; }
-  .minami .sidebar h4 {
-    color: rgba(229, 101, 21, 0.7);
-    font-weight: lighter;
-    text-transform: uppercase;
-    margin-top: 0.8rem;
-    margin-bottom: 0.1rem;
-    padding-left: 0.5rem;
-    font-size: 0.8rem; }
-  .minami .sidebar li {
-    color: black; }
-    .minami .sidebar li a {
-      display: block; }
-      .minami .sidebar li a:hover {
-        text-decoration: underline; }
-  .minami .sidebar ul {
-    list-style: none; }
-  .minami .sidebar > ul {
-    width: 150px;
-    margin: 0 auto; }
-    .minami .sidebar > ul.readme,
-    .minami .sidebar > ul.main > li {
-      margin-bottom: 0.8rem; }
-    .minami .sidebar > ul ul {
-      padding-left: 0.5rem; }
-
 code {
   font-family: "AverageMono", monospace; }
 
@@ -407,7 +347,6 @@ pre.prettyprint {
     text-transform: uppercase;
     margin-top: 0.8rem;
     margin-bottom: 0.1rem;
-    padding-left: 0.5rem;
     font-size: 0.8rem; }
   .minami .sidebar li {
     color: black; }
@@ -423,8 +362,6 @@ pre.prettyprint {
     .minami .sidebar > ul.readme,
     .minami .sidebar > ul.main > li {
       margin-bottom: 0.8rem; }
-    .minami .sidebar > ul ul {
-      padding-left: 0.5rem; }
 
 .changelog article > p {
   margin-top: 2rem;

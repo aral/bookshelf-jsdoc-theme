@@ -15,3 +15,15 @@
     }
   }
 }
+
+@mixin fine-bullets-a {
+  list-style: none;
+  li a {
+
+    &:before {
+      display: inline-block;
+      content: '\22C5';
+      width: 0.6em;
+    }
+  }
+}
