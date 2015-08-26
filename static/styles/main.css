@@ -12,15 +12,17 @@ body .main-container .main-column {
 
 body .main-container .readme ul {
   list-style: none;
-  padding-left: 0.6rem;
-  position: relative; }
-  body .main-container .readme ul li:before {
-    display: inline-block;
-    content: '\2022';
-    font-size: 0.6em;
-    width: 0.6rem;
-    position: absolute;
-    left: 0; }
+  padding-left: 0.6rem; }
+  body .main-container .readme ul li {
+    position: relative; }
+    body .main-container .readme ul li:before {
+      display: inline-block;
+      content: '\2022';
+      font-size: 0.6rem;
+      width: 0.6rem;
+      position: absolute;
+      left: -0.9rem;
+      line-height: 1.7rem; }
 
 body .main-container .readme ul,
 body .main-container p {
@@ -79,19 +81,6 @@ body .main-container h5, body .main-container .details dt, .details body .main-c
   color: #808080;
   font-size: 0.9rem;
   margin-top: 0.5rem; }
-
-body .main-container .lodash-methods {
-  list-style: none;
-  padding-left: 0.6rem;
-  position: relative;
-  padding-top: 20px; }
-  body .main-container .lodash-methods li:before {
-    display: inline-block;
-    content: '\2022';
-    font-size: 0.6em;
-    width: 0.6rem;
-    position: absolute;
-    left: 0; }
 
 body .main-container h4, body .main-container .lodash-method {
   color: #4A4A4A;
@@ -196,11 +185,27 @@ body .main-container .method, body .main-container .lodash-methods {
     color: #F2B188;
     line-height: 3rem; }
 
+body .main-container .lodash-methods {
+  list-style: none;
+  padding-left: 0.6rem;
+  padding-top: 20px;
+  padding-left: 2rem; }
+  body .main-container .lodash-methods li {
+    position: relative; }
+    body .main-container .lodash-methods li:before {
+      display: inline-block;
+      content: '\2022';
+      font-size: 0.6rem;
+      width: 0.6rem;
+      position: absolute;
+      left: -0.9rem;
+      line-height: 1.7rem; }
+
 .minami .sidebar {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
   font-family: "Carlito", sans-serif;
-  line-height: 1.3rem;
+  line-height: 1.5rem;
   width: 190px;
   position: fixed;
   top: 0;
@@ -232,10 +237,13 @@ body .main-container .method, body .main-container .lodash-methods {
     color: #E56515;
     font-size: 1rem; }
   .minami .sidebar h4 {
-    color: #4A4A4A;
-    font-weight: bold;
-    text-transform: lowercase;
-    margin-top: 0.4rem; }
+    color: rgba(229, 101, 21, 0.7);
+    font-weight: lighter;
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.5rem;
+    font-size: 0.8rem; }
   .minami .sidebar li {
     color: black; }
     .minami .sidebar li a {
@@ -316,15 +324,17 @@ pre.prettyprint {
     margin-bottom: 0; }
   .attributes .param-desc ul.params, .attributes .description ul.params {
     list-style: none;
-    padding-left: 0.6rem;
-    position: relative; }
-    .attributes .param-desc ul.params li:before, .attributes .description ul.params li:before {
-      display: inline-block;
-      content: '\2022';
-      font-size: 0.6em;
-      width: 0.6rem;
-      position: absolute;
-      left: 0; }
+    padding-left: 0.6rem; }
+    .attributes .param-desc ul.params li, .attributes .description ul.params li {
+      position: relative; }
+      .attributes .param-desc ul.params li:before, .attributes .description ul.params li:before {
+        display: inline-block;
+        content: '\2022';
+        font-size: 0.6rem;
+        width: 0.6rem;
+        position: absolute;
+        left: -0.9rem;
+        line-height: 1.7rem; }
 
 .attributes ul.params {
   list-style: none;
@@ -360,7 +370,7 @@ pre.prettyprint {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
   background-color: white;
   font-family: "Carlito", sans-serif;
-  line-height: 1.3rem;
+  line-height: 1.5rem;
   width: 190px;
   position: fixed;
   top: 0;
@@ -392,10 +402,13 @@ pre.prettyprint {
     color: #E56515;
     font-size: 1rem; }
   .minami .sidebar h4 {
-    color: #4A4A4A;
-    font-weight: bold;
-    text-transform: lowercase;
-    margin-top: 0.4rem; }
+    color: rgba(229, 101, 21, 0.7);
+    font-weight: lighter;
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.5rem;
+    font-size: 0.8rem; }
   .minami .sidebar li {
     color: black; }
     .minami .sidebar li a {
@@ -419,15 +432,17 @@ pre.prettyprint {
 
 .changelog ul {
   list-style: none;
-  padding-left: 0.6rem;
-  position: relative; }
-  .changelog ul li:before {
-    display: inline-block;
-    content: '\2022';
-    font-size: 0.6em;
-    width: 0.6rem;
-    position: absolute;
-    left: 0; }
+  padding-left: 0.6rem; }
+  .changelog ul li {
+    position: relative; }
+    .changelog ul li:before {
+      display: inline-block;
+      content: '\2022';
+      font-size: 0.6rem;
+      width: 0.6rem;
+      position: absolute;
+      left: -0.9rem;
+      line-height: 1.7rem; }
   .changelog ul li {
     padding-left: 1.1rem;
     margin-bottom: 0.2rem; }

@@ -14,7 +14,6 @@ $_chalk-faint-green: #CCD6CF;
 
 // Main theme colors.
 $main-background-color:      $_cream;
-$sidebar-background-color:   white;
 $body-text-color:            $_charcoal;
 $body-anchor-color:          $_bookshelf-orange;
 $body-title-color:           $_charcoal;
@@ -24,8 +23,9 @@ $subsection-title-color:     $_bookshelf-orange;
 $footer-color:               $_gray;
 
 // Sidebar colors.
+$sidebar-background-color: white;
 $sidebar-class-name-color: $_bookshelf-orange;
-$sidebar-group-name-color: $_charcoal;
+$sidebar-group-name-color: rgba($_bookshelf-orange, 0.7);
 
 // Methods.
 $function-signature-background-color:  $_faint-orange;

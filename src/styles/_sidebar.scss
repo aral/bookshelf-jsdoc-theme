@@ -8,7 +8,7 @@
   // Appearance
   background-color: $sidebar-background-color;
   font-family: $sans-font-family;
-  line-height: 1.3rem;
+  line-height: 1.5rem;
 
   // Size
   width: $sidebar-width;
@@ -55,9 +55,12 @@
 
   h4 {
     color: $sidebar-group-name-color;
-    font-weight: bold;
-    text-transform: lowercase;
-    margin-top: 0.4rem;
+    font-weight: lighter;
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.5rem;
+    font-size: 0.8rem;
   }
 
   li {

@@ -110,10 +110,6 @@ body .main-container {
   }
 
 
-  .lodash-methods {
-    @include fine-bullets;
-    padding-top: $method-margin;
-  }
 
   h4, .lodash-method {
 
@@ -247,6 +243,12 @@ body .main-container {
         line-height: 3rem;
       }
     }
+  }
+
+  .lodash-methods {
+    @include fine-bullets;
+    padding-top: $method-margin;
+    padding-left: 2rem;
   }
 }
 
