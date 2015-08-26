@@ -11,12 +11,16 @@ body .main-container .main-column {
   font-family: "Carlito", sans-serif; }
 
 body .main-container .readme ul {
-  list-style: none; }
+  list-style: none;
+  padding-left: 0.6rem;
+  position: relative; }
   body .main-container .readme ul li:before {
     display: inline-block;
     content: '\2022';
     font-size: 0.6em;
-    width: 0.6rem; }
+    width: 0.6rem;
+    position: absolute;
+    left: 0; }
 
 body .main-container .readme ul,
 body .main-container p {
@@ -78,12 +82,16 @@ body .main-container h5, body .main-container .details dt, .details body .main-c
 
 body .main-container .lodash-methods {
   list-style: none;
+  padding-left: 0.6rem;
+  position: relative;
   padding-top: 20px; }
   body .main-container .lodash-methods li:before {
     display: inline-block;
     content: '\2022';
     font-size: 0.6em;
-    width: 0.6rem; }
+    width: 0.6rem;
+    position: absolute;
+    left: 0; }
 
 body .main-container h4, body .main-container .lodash-method {
   color: #4A4A4A;
@@ -307,12 +315,16 @@ pre.prettyprint {
     font-family: "Carlito", sans-serif;
     margin-bottom: 0; }
   .attributes .param-desc ul.params, .attributes .description ul.params {
-    list-style: none; }
+    list-style: none;
+    padding-left: 0.6rem;
+    position: relative; }
     .attributes .param-desc ul.params li:before, .attributes .description ul.params li:before {
       display: inline-block;
       content: '\2022';
       font-size: 0.6em;
-      width: 0.6rem; }
+      width: 0.6rem;
+      position: absolute;
+      left: 0; }
 
 .attributes ul.params {
   list-style: none;
@@ -400,6 +412,34 @@ pre.prettyprint {
       margin-bottom: 0.8rem; }
     .minami .sidebar > ul ul {
       padding-left: 0.5rem; }
+
+.changelog article > p {
+  margin-top: 2rem;
+  margin-bottom: 1.2rem; }
+
+.changelog ul {
+  list-style: none;
+  padding-left: 0.6rem;
+  position: relative; }
+  .changelog ul li:before {
+    display: inline-block;
+    content: '\2022';
+    font-size: 0.6em;
+    width: 0.6rem;
+    position: absolute;
+    left: 0; }
+  .changelog ul li {
+    padding-left: 1.1rem;
+    margin-bottom: 0.2rem; }
+
+.main-container footer {
+  color: #808080;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+  font-family: "Carlito", sans-serif;
+  text-align: center;
+  font-size: 0.8rem;
+  text-transform: uppercase; }
 
 html {
   font-size: 16px;

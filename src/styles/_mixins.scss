@@ -1,9 +1,13 @@
 @mixin fine-bullets {
   list-style: none;
+  padding-left: 0.6rem;
+  position: relative;
   li:before {
     display: inline-block;
     content: '\2022';
     font-size: 0.6em;
     width: 0.6rem;
+    position: absolute;
+    left: 0;
   }
 }

@@ -16,3 +16,9 @@ var self = this;
     <?js }) ?>
   </section>
 <?js } ?>
+
+<?js if (data.changelog) { ?>
+    <section class="changelog">
+        <article><?js= data.changelog ?></article>
+    </section>
+<?js } ?>

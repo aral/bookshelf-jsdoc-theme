@@ -11,6 +11,7 @@ var template = require('jsdoc/template');
 var util = require('util');
 var _ = require('lodash');
 var catharsis = require('catharsis');
+var parseMarkdown = require('jsdoc/util/markdown').getParser();
 
 var htmlsafe = helper.htmlsafe;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
@@ -573,6 +574,14 @@ function buildReadmeNav(readme) {
   return util.format('<ul class="readme">%s</ul>', items);
 }
 
+function buildChangelogNav() {
+  return (
+    '<ul class="changelog">' +
+      '<li><h3><a href="#changelog">Change log</a></h3></li>' +
+    '</ul>'
+  );
+}
+
 function buildMemberNav(item) {
   var itemsNav = '';
   var statics = find({kind:'function', isStatic: true, memberof: item.longname});
@@ -674,6 +683,8 @@ function buildNav(members, readme) {
     //nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += '</ul>';
 
+    nav += buildChangelogNav()
+
     if (members.globals.length) {
         var globalNav = '';
 
@@ -703,8 +714,6 @@ function buildNav(members, readme) {
  */
 exports.publish = function(taffyData, opts, tutorials) {
     data = taffyData;
-
-    console.log('opts', opts);
 
     var conf = env.conf.templates || {};
     conf.default = conf.default || {};
@@ -927,6 +936,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.outputSourceFiles = outputSourceFiles;
     view.showInheritedFrom = showInheritedFrom;
     view.generateTutorial = generateTutorial;
+    view.moment = require('moment');
 
     // once for all
     view.nav = buildNav(members, opts.readme);
@@ -945,6 +955,9 @@ exports.publish = function(taffyData, opts, tutorials) {
     var files = find({kind: 'file'});
     var packages = find({kind: 'package'});
 
+    // Get changelog.
+    var changelog = parseMarkdown(fs.readFileSync(opts.changelog, opts.encoding));
+
     generate('', 'Bookshelf.js',
       packages.concat(
           [{kind: 'mainpage',
@@ -952,7 +965,9 @@ exports.publish = function(taffyData, opts, tutorials) {
             tutorials: tutorials,
             longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page',
           }]
-      ).concat(topLevelClasses).concat(files),
+      ).concat(topLevelClasses).concat(files).concat({
+        kind: 'mainpage', changelog: changelog
+      }),
       indexUrl
     );
 
