@@ -472,10 +472,11 @@ function generate(type, title, docs, filename, resolveLinks, className) {
 
 function generateSourceFiles(sourceFiles, encoding) {
     encoding = encoding || 'utf8';
+    fs.mkdir(path.join(outdir, 'src', path.sep));
     Object.keys(sourceFiles).forEach(function(file) {
         var source;
         // links are keyed to the shortened path in each doclet's `meta.shortpath` property
-        var sourceOutfile = helper.getUniqueFilename(sourceFiles[file].shortened);
+        var sourceOutfile = path.join('src', helper.getUniqueFilename(sourceFiles[file].shortened));
         helper.registerLink(sourceFiles[file].shortened, sourceOutfile);
 
         try {
