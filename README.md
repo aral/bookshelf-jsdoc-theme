@@ -1,4 +1,9 @@
-# Minami
+# Bookshelf theme
+
+JSDoc theme for bookshelfjs.org.
+
+Forked from [Minami](https://github.com/Nijikokun/minami). The following document has not been updated beyond this text and is probably inaccurate.
+
 
 A clean, responsive documentation template theme for JSDoc 3.
 
