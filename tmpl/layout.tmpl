@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
       <meta charset="utf-8">
-      <link rel="icon" href="html/images/favicon.ico" />
+      <link rel="icon" href="<?js= subdir ?>images/favicon.ico" />
       <link rel="canonical" href="http://bookshelfjs.org" />
       <title><?js= title ?></title>
 
-      <script src="scripts/prettify/prettify.js"></script>
-      <script src="scripts/prettify/lang-css.js"></script>
+      <script src="<?js= subdir ?>scripts/prettify/prettify.js"></script>
+      <script src="<?js= subdir ?>scripts/prettify/lang-css.js"></script>
       <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
       <![endif]-->
@@ -18,7 +18,7 @@
       <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/noto-serif" rel="stylesheet" type="text/css"/>
       <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 
-      <link type="text/css" rel="stylesheet" href="html/styles/main.css">
+      <link type="text/css" rel="stylesheet" href="<?js= subdir ?>styles/main.css">
   </head>
   <body class="minami">
 
@@ -38,7 +38,7 @@
     -->
 
     <nav class="sidebar">
-      <?js= this.partial('nav-header.tmpl') ?>
+      <?js= this.partial('nav-header.tmpl', {subdir: subdir, rootdir: rootdir} ) ?>
       <?js= this.nav ?>
     </nav>
 
@@ -75,12 +75,12 @@
     </div>
 
     <script>prettyPrint();</script>
-    <script src="scripts/linenumber.js"></script>
+    <script src="<?js= subdir ?>scripts/linenumber.js"></script>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.7.0/lodash.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bluebird/2.9.24/bluebird.min.js"></script>
-    <script src="docs/assets/knex.min.js"></script>
-    <script src="build/bookshelf.js"></script>
+    <script src="<?js= subdir ?>assets/knex.min.js"></script>
+    <script src="<?js= rootdir ?>build/bookshelf.js"></script>
     <script>
       var knex = Knex({client: 'websql'});
       var bookshelf = Bookshelf(knex);

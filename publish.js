@@ -22,7 +22,7 @@ var data;
 var view;
 
 var indexdir = path.normalize(env.opts.destination);
-var outdir = path.join(indexdir, 'html');
+var outdir = path.join(indexdir, 'docs');
 
 // These next two are lifted out of jsdoc3/util/templateHelper.js
 
@@ -98,7 +98,7 @@ function generateTutorial(tutorial) {
 
 function createLink(doclet) {
   id = _.isString(doclet) ? doclet : elementId(doclet);
-  return util.format("index.html#%s", id);
+  return util.format("#%s", id);
 }
 
 function linkto() {
@@ -458,11 +458,12 @@ function generate(type, title, docs, filename, resolveLinks, className) {
         type: type,
         title: title,
         docs: docs,
-        className: className
+        className: className,
+        subdir: type == 'index' ? 'docs/' : '',
+        rootdir: type == 'index' ? '' : '../'
     };
 
-    var dir = type === 'index' ? indexdir : outdir;
-    var outpath = path.join(dir, filename),
+    var outpath = filename,
         html = view.render('container.tmpl', docData);
 
     if (resolveLinks) {
@@ -477,7 +478,10 @@ function generateSourceFiles(sourceFiles, encoding) {
     Object.keys(sourceFiles).forEach(function(file) {
         var source;
         // links are keyed to the shortened path in each doclet's `meta.shortpath` property
-        var sourceOutfile = helper.getUniqueFilename(sourceFiles[file].shortened);
+        var sourceOutfile = path.join(
+          'docs',
+          helper.getUniqueFilename(sourceFiles[file].shortened)
+        );
         helper.registerLink(sourceFiles[file].shortened, sourceOutfile);
 
         try {
@@ -965,7 +969,7 @@ exports.publish = function(taffyData, opts, tutorials) {
           [{kind: 'mainpage',
             readme: addHeadingIds(opts.readme),
             tutorials: tutorials,
-            longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page',
+            longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'
           }]
       ).concat(topLevelClasses).concat(files).concat({
         kind: 'mainpage', changelog: changelog
