@@ -39,7 +39,9 @@
 
     <nav class="sidebar">
       <?js= this.partial('nav-header.tmpl', {subdir: subdir, rootdir: rootdir} ) ?>
-      <?js= this.nav ?>
+      <?js if (type !== 'Source') { ?>
+        <?js= this.nav ?>
+      <?js } ?>
     </nav>
 
     <div class="main-container <?js= className ?>">
