@@ -51,10 +51,24 @@
         <?js }) ?>
     <?js } else if (doc.kind === 'class') { ?>
         <h3
-          id="<?js= self.subsectionId(doc, 'constructor') ?>"
+          id="<?js= self.subsectionId(doc, 'construction') ?>"
           class="subsection-title"
-        >Constructor</h3>
+        >Construction</h3>
         <?js= self.partial('method.tmpl', doc) ?>
+        <?js
+            // Methods (not including lodash methods).
+            var initialize = self.find({
+              kind: 'function',
+              isLodashMethod: false,
+              isInitialize: true,
+              isStatic: false,
+              memberof: isGlobalPage ? {isUndefined: true} : doc.longname
+            });
+            if (initialize && initialize.length) {
+        ?>
+          <?js= self.partial('method.tmpl', initialize[0]) ?>
+        <?js } ?>
+
     <?js } else { ?>
         <?js if (doc.description) { ?>
             <div class="description"><?js= doc.description ?></div>
@@ -147,6 +161,7 @@
         var methods = self.find({
           kind: 'function',
           isLodashMethod: false,
+          isInitialize: false,
           isStatic: false,
           memberof: isGlobalPage ? {isUndefined: true} : doc.longname
         });

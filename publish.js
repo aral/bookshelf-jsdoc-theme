@@ -592,10 +592,11 @@ function buildMemberNav(item) {
   var itemsNav = '';
   var statics = find({kind:'function', isStatic: true, memberof: item.longname});
   var members = find({kind:'member', memberof: item.longname});
-  var methods = find({kind:'function', isLodashMethod: false, isStatic: false, memberof: item.longname});
+  var methods = find({kind:'function', isInitialize: false, isLodashMethod: false, isStatic: false, memberof: item.longname});
   var lodash = find({kind:'function', isLodashMethod: true, memberof: item.longname});
   var events = find({kind:'event', memberof: item.longname});
   var classes = find({kind:'class', memberof: item.longname});
+  var initialize = find({kind:'function', isInitialize: true, isLodashMethod: false, isStatic: false, memberof: item.longname});
 
   if ( !hasOwnProp.call(item, 'longname') ) {
       itemsNav += '<li>' + linkto('', item.name);
@@ -609,10 +610,14 @@ function buildMemberNav(item) {
         item.name.replace(/^module:/, '')
       );
 
+      /*
       itemsNav +=
         '<ul class="constructor"><li>' +
           linkto(item.longname, 'constructor') +
         '</li></ul>';
+        */
+      itemsNav += buildSubsectionLink(item, 'construction', 'Construction');
+      itemsNav += buildNavItemList([item].concat(initialize), 'construction', linkto);
 
       if (statics.length) {
           itemsNav += buildSubsectionLink(item, 'static', 'Static');
@@ -626,7 +631,7 @@ function buildMemberNav(item) {
           itemsNav += buildSubsectionLink(item, 'methods', 'Methods');
           itemsNav += buildNavItemList(methods, 'methods', linkto);
       }
-      if (methods.length) {
+      if (lodash.length) {
           itemsNav += buildSubsectionLink(item, 'lodash-methods', 'Lodash Methods');
           itemsNav += buildNavItemList(lodash, 'lodash-methods', linkto);
       }
@@ -763,6 +768,7 @@ exports.publish = function(taffyData, opts, tutorials) {
 
       // Identify Lodash methods to be stubbed.
       doclet.isLodashMethod = isLodashMethod(doclet);
+      doclet.isInitialize = doclet.name == 'initialize';
 
       if (doclet.examples) {
         doclet.examples = doclet.examples.map(function(example) {
