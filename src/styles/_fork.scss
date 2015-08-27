@@ -5,6 +5,7 @@ body {
     position: fixed;
     top: -10px;
     right: -10px;
+    z-index: 1000;
     // Divide by two for retina.
     width: 149px;
     height: 149px;

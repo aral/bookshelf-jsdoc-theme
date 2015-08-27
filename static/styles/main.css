@@ -4,7 +4,7 @@
 
 body .main-container .main-column {
   width: 100%;
-  max-width: 752px;
+  max-width: 900px;
   margin: 0 auto;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -402,6 +402,7 @@ body {
     position: fixed;
     top: -10px;
     right: -10px;
+    z-index: 1000;
     width: 149px;
     height: 149px;
     background-image: url("../images/fork-me-right-dusk-blue@2x.png");
