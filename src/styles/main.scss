@@ -16,9 +16,10 @@ html {
   font-size: 17px;
   line-height: 1.76rem;
   background-color: $main-background-color;
+  -webkit-text-size-adjust: 100%;
 
   @media screen and (max-width: 650px) {
-    font-size: 13px;
+    font-size: 15px;
   }
 }
 
