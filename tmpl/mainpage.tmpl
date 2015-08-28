@@ -18,7 +18,7 @@ var self = this;
 <?js } ?>
 
 <?js if (data.changelog) { ?>
-    <section class="changelog">
-        <article><?js= data.changelog ?></article>
+    <section id="changelog" class="changelog">
+        <?js= self.partial('tutorial.tmpl', changelog) ?>
     </section>
 <?js } ?>

@@ -11,7 +11,8 @@ var template = require('jsdoc/template');
 var util = require('util');
 var _ = require('lodash');
 var catharsis = require('catharsis');
-var parseMarkdown = require('jsdoc/util/markdown').getParser();
+//var parseMarkdown = require('jsdoc/util/markdown').getParser();
+var tutorial = require('jsdoc/tutorial');
 
 var htmlsafe = helper.htmlsafe;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
@@ -682,6 +683,8 @@ function buildNav(members, readme) {
 
     nav += buildReadmeNav(readme);
 
+    nav += buildChangelogNav()
+
     nav += '<ul class="main">';
     nav += buildTutorialsNav(members.tutorials);
     nav += buildMemberNavs(members.topLevelClasses, 'Classes', seen, linkto);
@@ -693,8 +696,6 @@ function buildNav(members, readme) {
     //nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
     //nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += '</ul>';
-
-    nav += buildChangelogNav()
 
     if (members.globals.length) {
         var globalNav = '';
@@ -968,7 +969,8 @@ exports.publish = function(taffyData, opts, tutorials) {
     var packages = find({kind: 'package'});
 
     // Get changelog.
-    var changelog = parseMarkdown(fs.readFileSync(opts.changelog, opts.encoding));
+    var changelog = fs.readFileSync(opts.changelog, opts.encoding);
+    changelog = new tutorial.Tutorial(null, changelog, tutorial.TYPES.MARKDOWN);
 
     generate('index', 'Bookshelf.js',
       packages.concat(

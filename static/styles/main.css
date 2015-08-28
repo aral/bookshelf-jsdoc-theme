@@ -346,8 +346,8 @@ pre.prettyprint {
     color: rgba(229, 101, 21, 0.7);
     font-weight: lighter;
     text-transform: uppercase;
-    margin-top: 0.8rem;
     margin-bottom: 0.1rem;
+    margin-top: 0.2rem;
     font-size: 0.8rem; }
   .minami .sidebar li {
     color: black; }
@@ -359,10 +359,14 @@ pre.prettyprint {
     list-style: none; }
   .minami .sidebar > ul {
     width: 150px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    margin-bottom: 1rem; }
     .minami .sidebar > ul.readme,
     .minami .sidebar > ul.main > li {
-      margin-bottom: 0.8rem; }
+      margin-bottom: 1.5rem; }
+      .minami .sidebar > ul.readme > ul,
+      .minami .sidebar > ul.main > li > ul {
+        margin-bottom: 1rem; }
 
 .changelog article > p {
   margin-top: 2rem;
