@@ -75,17 +75,18 @@ body .main-container {
 
   h1 {
     text-transform: uppercase;
-    line-height: $header-height;
+    line-height: 153px;
     padding-top: $main-top-margin;
-    font-size: 2.75rem;
+    font-size: 3.75rem;
     letter-spacing: 0.125rem;
     text-shadow: $title-text-shadow;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.6rem;
     line-height: 4rem;
     text-shadow: $title-text-shadow;
+    margin-top: 3rem;
   }
 
   h3 {
