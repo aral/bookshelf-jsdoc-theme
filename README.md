@@ -1,24 +1,18 @@
 # Bookshelf theme
 
-JSDoc theme for bookshelfjs.org.
+JSDoc theme for [bookshelfjs.org](http://bookshelfjs.org).
 
-Forked from [Minami](https://github.com/Nijikokun/minami). The following document has not been updated beyond this text and is probably inaccurate.
-
-
-A clean, responsive documentation template theme for JSDoc 3.
-
-![Minami Screenshot](http://puu.sh/gOyNe/66c3adcb97.png)
+Forked from [Minami](https://github.com/Nijikokun/minami).
 
 ## Uses
 
 - [the Taffy Database library](http://taffydb.com/)
 - [Underscore Template library](http://documentcloud.github.com/underscore/#template)
-- [Montserrat](http://www.google.com/fonts/specimen/Monsterrat) & Helvetica Neue
 
 ## Install
 
 ```bash
-$ npm install --save-dev minami
+$ npm install --save-dev bookshelf-jsdoc-theme
 ```
 
 ## Usage
@@ -27,6 +21,14 @@ Clone repository to your designated `jsdoc` template directory, then:
 
 ```bash
 $ jsdoc entry-file.js -t path/to/minami
+```
+
+### Styles
+
+Stlyes must be compiled if edited.
+
+```bash
+$ npm run styles
 ```
 
 ### Node.js Dependency
@@ -49,7 +51,7 @@ In your `.jsdoc.json` file, add a template option.
 
 ### Example JSDoc Config
 
-```json
+```js
 {
     "tags": {
         "allowUnknownTags": true,
@@ -73,6 +75,8 @@ In your `.jsdoc.json` file, add a template option.
         "private": true,
         "recurse": true,
         "template": "./node_modules/minami"
+        "whitelist": ['Optional', 'List', 'Of', 'Top', 'Level', 'Classes']
+        "changelog": './path-to/CHANGELOG.md'
     }
 }
 ```
