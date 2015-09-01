@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "catharsis": "^0.8.7",
-    "lodash": "^3.10.0"
+    "lodash": "^3.10.0",
+    "moment": "^2.10.6"
   }
 }
