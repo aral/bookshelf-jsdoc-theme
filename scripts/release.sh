@@ -23,9 +23,9 @@ next_ref="v$next_version"
 
 git add -u
 npm run build
-git add -A build
+git add -A
 
-npm test
+#npm test
 
 update_version 'package.json' $next_version
 
@@ -36,10 +36,5 @@ git push origin master
 git push origin master --tags
 
 echo "# Publishing docs"
-
-git checkout gh-pages
-git merge master
-git push origin gh-pages
-git checkout master
 
 npm publish

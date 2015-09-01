@@ -5,7 +5,8 @@
   "main": "publish.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "styles": "rm -f src/styles/main.css && $(npm bin)/node-sass src/styles/main.scss static/styles/main.css"
+    "styles": "rm -f src/styles/main.css && $(npm bin)/node-sass src/styles/main.scss static/styles/main.css",
+    "build": "npm run styles"
   },
   "repository": {
     "type": "git",
