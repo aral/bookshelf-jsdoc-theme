@@ -74,6 +74,8 @@ function formatType(type) {
       return linkto(type.name);
     case 'UndefinedLiteral':
       return 'undefined';
+    case 'NullLiteral':
+      return 'null';
     case 'TypeApplication':
       if (type.expression.name === 'Array') {
         return util.format(
