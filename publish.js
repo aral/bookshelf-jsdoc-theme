@@ -168,11 +168,10 @@ function find(spec) {
     return helper.find(data, spec);
 }
 
-function simplifyName(namepath) {
-  // Doesn't necessarily handle all types yet. Just doing this for events for now.
-  var regex = /"(.*)"$|[:#~\.](\w*)$/;
-  var matches = namepath.match(regex);
-  return matches[1] || matches[2] || namepath;
+function simplifyEventName(namepath) {
+    var regex = /#(event:)?(.*)$/;
+    var matches = namepath.match(regex);
+    return matches[2] || namepath;
 }
 
 function formattedParent(data) {
@@ -944,7 +943,7 @@ exports.publish = function(taffyData, opts, tutorials) {
     view.elementId = elementId;
     view.sectionId = sectionId;
     view.subsectionId = subsectionId;
-    view.simplifyName = simplifyName;
+    view.simplifyEventName = simplifyEventName;
     view.formattedParent = formattedParent;
     view.resolveAuthorLinks = resolveAuthorLinks;
     view.htmlsafe = htmlsafe;
