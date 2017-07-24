@@ -1,5 +1,7 @@
 # Bookshelf theme
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bookshelf/bookshelf-jsdoc-theme.svg)](https://greenkeeper.io/)
+
 JSDoc theme for [bookshelfjs.org](http://bookshelfjs.org).
 
 Forked from [Minami](https://github.com/Nijikokun/minami).
