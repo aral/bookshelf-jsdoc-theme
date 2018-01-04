@@ -559,16 +559,13 @@ function buildNavItemList(items, className, linktoFn) {
 }
 
 function buildTutorialsNav(tutorials) {
-  return tutorials.map(function(tutorial) {
-    var result = util.format(
-      '<li><h3>%s</h3>',
-      linkto(tutorial.longname, tutorial.title)
-    );
+  return tutorials.reduce(function(html, tutorial) {
+    var result = util.format('<li><h3>%s</h3>', linkto(tutorial.longname, tutorial.title));
     if (tutorial.children) {
       result += buildNavItemList(tutorial.children, 'sections', linkto);
     }
-    return result + '</li>';
-  });
+    return html + result + '</li>';
+  }, '');
 }
 
 function buildReadmeNav(readme) {
@@ -605,7 +602,7 @@ function buildMemberNav(item) {
       itemsNav += '<li>' + linkto('', item.name);
       itemsNav += '</li>';
   } else {
-      var itemName = 
+      var itemName =
       itemsNav += '<li>';
       itemsNav += util.format(
         '<h3><a href="%s">%s</a></h3>',
@@ -927,10 +924,9 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     members.topLevelClasses = topLevelClasses;
 
-
     // output pretty-printed source files by default
-    var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false 
-        ? true 
+    var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false
+        ? true
         : false;
 
     var showInheritedFrom = conf.default && conf.default.showInheritedFrom !== false
@@ -962,8 +958,8 @@ exports.publish = function(taffyData, opts, tutorials) {
         generateSourceFiles(sourceFiles, opts.encoding);
     }
 
-    if (members.globals.length) { 
-        generate('', 'Global', [{kind: 'globalobj'}], globalUrl); 
+    if (members.globals.length) {
+        generate('', 'Global', [{kind: 'globalobj'}], globalUrl);
     }
 
     // index page displays information from package.json and lists files
