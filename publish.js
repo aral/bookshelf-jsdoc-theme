@@ -681,19 +681,10 @@ function buildNav(members, readme) {
     var seenTutorials = {};
 
     nav += buildReadmeNav(readme);
-
     nav += buildChangelogNav()
-
     nav += '<ul class="main">';
     nav += buildTutorialsNav(members.tutorials);
     nav += buildMemberNavs(members.topLevelClasses, 'Classes', seen, linkto);
-    //nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
-    //nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
-    //nav += buildMemberNav(members.events, 'Events', seen, linkto);
-    //nav += buildMemberNav(members.namespaces, 'Namespaces', seen, linkto);
-    //nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
-    //nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
-    //nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
     nav += '</ul>';
 
     if (members.globals.length) {
@@ -982,38 +973,4 @@ exports.publish = function(taffyData, opts, tutorials) {
       }),
       indexUrl
     );
-
-    /*
-    Object.keys(helper.longnameToUrl).forEach(function(longname) {
-        var myModules = helper.find(modules, {longname: longname});
-        if (myModules.length) {
-            generate('Module', myModules[0].name, myModules, helper.longnameToUrl[longname]);
-        }
-
-        var myClasses = helper.find(classes, {longname: longname});
-        if (myClasses.length) {
-            generate('Class', myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
-        }
-
-        var myNamespaces = helper.find(namespaces, {longname: longname});
-        if (myNamespaces.length) {
-            generate('Namespace', myNamespaces[0].name, myNamespaces, helper.longnameToUrl[longname]);
-        }
-
-        var myMixins = helper.find(mixins, {longname: longname});
-        if (myMixins.length) {
-            generate('Mixin', myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
-        }
-
-        var myExternals = helper.find(externals, {longname: longname});
-        if (myExternals.length) {
-            generate('External', myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
-        }
-
-        var myInterfaces = helper.find(interfaces, {longname: longname});
-        if (myInterfaces.length) {
-            generate('Interface', myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
-        }
-    });
-    */
 };
