@@ -11,37 +11,31 @@ var template = require('jsdoc/template');
 var util = require('util');
 var _ = require('lodash');
 var catharsis = require('catharsis');
-//var parseMarkdown = require('jsdoc/util/markdown').getParser();
 var tutorial = require('jsdoc/tutorial');
-
 var htmlsafe = helper.htmlsafe;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
-var scopeToPunc = helper.scopeToPunc;
 var hasOwnProp = Object.prototype.hasOwnProperty;
-
 var data;
 var view;
-
 var indexdir = path.normalize(env.opts.destination);
 var outdir = path.join(indexdir, 'docs');
 
 // These next two are lifted out of jsdoc3/util/templateHelper.js
-
 function isComplexTypeExpression(expr) {
-    // record types, type unions, and type applications all count as "complex"
-    return /^{.+}$/.test(expr) || /^.+\|.+$/.test(expr) || /^.+<.+>$/.test(expr);
+  // record types, type unions, and type applications all count as "complex"
+  return /^{.+}$/.test(expr) || /^.+\|.+$/.test(expr) || /^.+<.+>$/.test(expr);
 }
 function parseType(longname) {
-    var err;
+  var err;
 
-    try {
-        return catharsis.parse(longname, {jsdoc: true});
-    }
-    catch (e) {
-        err = new Error('unable to parse ' + longname + ': ' + e.message);
-        console.error(err);
-        return longname;
-    }
+  try {
+    return catharsis.parse(longname, {jsdoc: true});
+  }
+  catch (e) {
+    err = new Error('unable to parse ' + longname + ': ' + e.message);
+    console.error(err);
+    return longname;
+  }
 }
 
 function headingId(heading) {
@@ -50,7 +44,7 @@ function headingId(heading) {
 
 function getHeadings(html, level) {
   var result = [];
-  var regexString = util.format('<h%s>(.*)<\/h%s>', level, level);
+  var regexString = util.format('<h%s>(.*)</h%s>', level, level);
   var regex = new RegExp(regexString, 'gi');
   html.replace(regex, function (whole, heading) {
     result.push(heading);
@@ -78,20 +72,13 @@ function formatType(type) {
       return 'null';
     case 'TypeApplication':
       if (type.expression.name === 'Array') {
-        return util.format(
-          '%s[]',
-          type.applications.map(formatType).join('')
-        );
+        return util.format('%s[]', type.applications.map(formatType).join(''));
       }
-      return util.format(
-          '%s<%s>',
-          formatType(type.expression),
-          type.applications.map(formatType).join('')
-      );
+      return util.format('%s<%s>', formatType(type.expression),type.applications.map(formatType).join(''));
     case 'TypeUnion':
       return type.elements.map(formatType).join('|');
     default:
-      throw new Error("Unknown type: `" + type.type + "`\nProblematic type:\n" + util.inspect(type, {depth: 10}));
+      throw new Error('Unknown type: `' + type.type + '`\nProblematic type:\n' + util.inspect(type, {depth: 10}));
   }
 }
 
@@ -100,8 +87,8 @@ function generateTutorial(tutorial) {
 }
 
 function createLink(doclet) {
-  id = _.isString(doclet) ? doclet : elementId(doclet);
-  return util.format("#%s", id);
+  var id = _.isString(doclet) ? doclet : elementId(doclet);
+  return util.format('#%s', id);
 }
 
 function linkto() {
@@ -127,18 +114,11 @@ function linkto() {
 }
 
 function sectionId(doclet) {
-  return util.format(
-    "section-%s",
-    elementId(doclet)
-  );
+  return util.format('section-%s', elementId(doclet));
 }
 
 function subsectionId(doclet, subsection) {
-  return util.format(
-    "%s-subsection-%s",
-    elementId(doclet),
-    subsection
-  );
+  return util.format('%s-subsection-%s', elementId(doclet), subsection);
 }
 
 function sectionLink(section) {
@@ -147,13 +127,6 @@ function sectionLink(section) {
 
 function subsectionLink(doclet, subsection) {
   return createLink(subsectionId(doclet, subsection));
-}
-
-function constructorId(doclet) {
-  return util.format(
-    "%s-constructor",
-    elementId(doclet)
-  );
 }
 
 function elementId(doclet) {
@@ -170,7 +143,7 @@ function find(spec) {
 
 function simplifyName(namepath) {
   // Doesn't necessarily handle all types yet. Just doing this for events for now.
-  var regex = /"(.*)"$|[:#~\.](\w*)$/;
+  var regex = /"(.*)"$|[:#~.](\w*)$/;
   var matches = namepath.match(regex);
   return matches[1] || matches[2] || namepath;
 }
@@ -352,7 +325,6 @@ function parameterList(params) {
 }
 
 function addEventSignature(doclet) {
-  var p = parameterList(doclet.params);
   doclet.signature = util.format(
     '<span class="event-on">on</span>%s%s%s %s <span class="fat-arrow">=&gt;</span>',
     paren(true),
@@ -372,7 +344,6 @@ function addSignatureName(doclet) {
 }
 
 function addSignatureParams(f) {
-  var params = f.params ? addParamAttributes(f.params) : [];
   f.signature = util.format('%s%s', f.signature, parameterList(f.params));
 }
 
@@ -602,20 +573,8 @@ function buildMemberNav(item) {
       itemsNav += '<li>' + linkto('', item.name);
       itemsNav += '</li>';
   } else {
-      var itemName =
       itemsNav += '<li>';
-      itemsNav += util.format(
-        '<h3><a href="%s">%s</a></h3>',
-        sectionLink(item),
-        item.name.replace(/^module:/, '')
-      );
-
-      /*
-      itemsNav +=
-        '<ul class="constructor"><li>' +
-          linkto(item.longname, 'constructor') +
-        '</li></ul>';
-        */
+      itemsNav += util.format('<h3><a href="%s">%s</a></h3>', sectionLink(item), item.name.replace(/^module:/, ''));
       itemsNav += buildSubsectionLink(item, 'construction', 'Construction');
       itemsNav += buildNavItemList([item].concat(initialize), 'construction', linkto);
 
@@ -646,18 +605,10 @@ function buildMemberNav(item) {
   return itemsNav;
 }
 
-function buildMemberNavs(items, itemHeading, itemsSeen, linktoFn) {
+function buildMemberNavs(items) {
     return items.length
       ? items.map(buildMemberNav).join('')
       : '';
-}
-
-function linktoTutorial(longName, name) {
-    return tutoriallink(name);
-}
-
-function linktoExternal(longName, name) {
-    return linkto(longName, name.replace(/(^"|"$)/g, ''));
 }
 
 /**
@@ -674,17 +625,15 @@ function linktoExternal(longName, name) {
  * @param {array<object>} members.interfaces
  * @return {string} The HTML for the navigation sidebar.
  */
-var bs = 0;
 function buildNav(members, readme) {
     var nav = '';
     var seen = {};
-    var seenTutorials = {};
 
     nav += buildReadmeNav(readme);
     nav += buildChangelogNav()
     nav += '<ul class="main">';
     nav += buildTutorialsNav(members.tutorials);
-    nav += buildMemberNavs(members.topLevelClasses, 'Classes', seen, linkto);
+    nav += buildMemberNavs(members.topLevelClasses);
     nav += '</ul>';
 
     if (members.globals.length) {
@@ -744,7 +693,7 @@ exports.publish = function(taffyData, opts, tutorials) {
       var url = createLink(tutorial);
       helper.registerLink(tutorial.longname, url);
       tutorial.children.forEach(registerTutorial);
-    };
+    }
 
     tutorials.children.forEach(registerTutorial);
 
@@ -859,8 +808,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     });
 
     data().each(function(doclet) {
-        var url = helper.longnameToUrl[doclet.longname];
-
         doclet.id = elementId(doclet);
 
         if ( needsFunctionSignature(doclet) ) {
@@ -895,12 +842,6 @@ exports.publish = function(taffyData, opts, tutorials) {
 
     // set up the lists that we'll use to generate pages
     var classes = taffy(members.classes);
-    var modules = taffy(members.modules);
-    var namespaces = taffy(members.namespaces);
-    var mixins = taffy(members.mixins);
-    var externals = taffy(members.externals);
-    var interfaces = taffy(members.interfaces);
-
     // Find and store top level classes.
     var topLevelClasses = helper.find(classes, {memberof: {isUndefined: true}});
 
