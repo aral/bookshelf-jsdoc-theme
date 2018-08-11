@@ -389,7 +389,7 @@ pre.prettyprint {
     padding-left: 1.1rem;
     margin-bottom: 0.2rem; }
 
-.main-container footer {
+footer {
   color: #808080;
   padding-top: 4rem;
   padding-bottom: 1rem;
@@ -397,7 +397,7 @@ pre.prettyprint {
   text-align: center;
   font-size: 0.8rem;
   text-transform: uppercase; }
-  .main-container footer a {
+  footer a {
     color: #4A4A4A; }
 
 body {
