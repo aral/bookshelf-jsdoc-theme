@@ -1,4 +1,4 @@
-/*global env: true */
+/* global env: true */
 'use strict';
 
 var doop = require('jsdoc/util/doop');
@@ -17,8 +17,7 @@ var resolveAuthorLinks = helper.resolveAuthorLinks;
 var hasOwnProp = Object.prototype.hasOwnProperty;
 var data;
 var view;
-var indexdir = path.normalize(env.opts.destination);
-var outdir = path.join(indexdir, 'docs');
+var outdir = path.normalize(env.opts.destination);
 
 // These next two are lifted out of jsdoc3/util/templateHelper.js
 function isComplexTypeExpression(expr) {
@@ -403,11 +402,9 @@ function generate(type, title, docs, filename, resolveLinks, className) {
     type: type,
     title: title,
     docs: docs,
-    className: className,
-    subdir: type == 'index' ? 'docs/' : '',
-    rootdir: type == 'index' ? '' : '../'
+    className: className
   };
-  var outpath = filename
+  var outpath = path.join(outdir, filename)
   var html = view.render('container.tmpl', docData);
 
   if (resolveLinks) {
@@ -422,7 +419,7 @@ function generateSourceFiles(sourceFiles, encoding) {
   Object.keys(sourceFiles).forEach(function(file) {
     var source;
     // links are keyed to the shortened path in each doclet's `meta.shortpath` property
-    var sourceOutfile = path.join('docs', helper.getUniqueFilename(sourceFiles[file].shortened));
+    var sourceOutfile = path.join(helper.getUniqueFilename(sourceFiles[file].shortened));
 
     helper.registerLink(sourceFiles[file].shortened, sourceOutfile);
 
