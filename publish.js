@@ -533,7 +533,7 @@ function buildMemberNav(item) {
   var events = find({kind:'event', memberof: item.longname});
   var classes = find({kind:'class', memberof: item.longname});
   var initialize = find({
-    kind:'function',
+    kind: 'function',
     isInitialize: true,
     isLodashMethod: false,
     isStatic: false,
@@ -646,6 +646,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   // Don't call registerLink() on this one! 'index' is also a valid longname
   var indexUrl = helper.getUniqueFilename('index');
   var globalUrl = helper.getUniqueFilename('global');
+  var tutorialsUrl = helper.getUniqueFilename('tutorials');
   helper.registerLink('global', globalUrl);
 
   // set up templating
@@ -848,6 +849,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.generateTutorial = generateTutorial;
   view.moment = require('moment');
   view.sidenav = buildNav(members, opts.readme);
+  view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
 
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
 
@@ -860,6 +862,11 @@ exports.publish = function(taffyData, opts, tutorials) {
     generate('', 'Global', [{kind: 'globalobj'}], globalUrl);
   }
 
+  if (members.tutorials.length) {
+    view.hasTutorials = true;
+    generate('tutorial', view.tutorialsTitle, members.tutorials, tutorialsUrl);
+  }
+
   // index page displays information from package.json and lists files
   var files = find({kind: 'file'});
   var packages = find({kind: 'package'});
@@ -867,7 +874,6 @@ exports.publish = function(taffyData, opts, tutorials) {
   var readmeAndTutorials = [{
     kind: 'mainpage',
     readme: addHeadingIds(opts.readme),
-    tutorials: tutorials,
     longname: opts.mainpagetitle ? opts.mainpagetitle : 'Main Page'
   }];
   var changelogDoc = {kind: 'mainpage', changelog: changelog};
