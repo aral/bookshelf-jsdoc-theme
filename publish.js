@@ -647,6 +647,8 @@ exports.publish = function(taffyData, opts, tutorials) {
   var indexUrl = helper.getUniqueFilename('index');
   var globalUrl = helper.getUniqueFilename('global');
   var tutorialsUrl = helper.getUniqueFilename('tutorials');
+  var apiUrl = helper.getUniqueFilename('api');
+
   helper.registerLink('global', globalUrl);
 
   // set up templating
@@ -871,13 +873,13 @@ exports.publish = function(taffyData, opts, tutorials) {
   var files = find({kind: 'file'});
   var packages = find({kind: 'package'});
   var changelog = new tutorial.Tutorial(null, fs.readFileSync(opts.changelog, opts.encoding), tutorial.TYPES.MARKDOWN);
-  var readmeAndTutorials = [{
+  var readme = [{
     kind: 'mainpage',
     readme: addHeadingIds(opts.readme),
-    longname: opts.mainpagetitle ? opts.mainpagetitle : 'Main Page'
+    longname: opts.mainPageTitle || 'Main Page'
   }];
   var changelogDoc = {kind: 'mainpage', changelog: changelog};
-  var docs = packages.concat(readmeAndTutorials, topLevelClasses, files, changelogDoc);
+  var home = packages.concat(readme, files, changelogDoc);
 
-  generate('index', 'Bookshelf.js', docs, indexUrl);
+  generate('index', opts.title || 'Home', home, indexUrl);
 };
