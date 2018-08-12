@@ -31,25 +31,38 @@
     <link type="text/css" rel="stylesheet" href="styles/main.css">
   </head>
   <body class="minami">
-
-    <a class="fork-me" href="https://github.com/tgriesser/bookshelf">
-      Fork me on GitHub
-    </a>
-
-    <nav class="sidebar">
-      <?js= this.partial('nav-header.tmpl') ?>
-      <?js if (type !== 'Source') { ?>
-        <?js= this.nav ?>
+    <nav class="main-navbar">
+      <a href="index.html" class="<?js= type === 'index' ? 'active' : '' ?>">
+        <img class="nav-logo" src="images/bookshelf-icon-inverted.svg" />Bookshelf.js
+      </a>
+      <?js if (this.hasTutorials) { ?>
+        <a href="tutorials.html" class="<?js= type === 'tutorial' ? 'active' : '' ?>">
+          <i class="fa fa-file-text" aria-hidden="true"></i><?js= this.tutorialsTitle ?>
+        </a>
       <?js } ?>
+      <?js if (this.hasReference) {?>
+        <a href="api.html" class="<?js= type === 'api' ? 'active' : '' ?>">
+          <i class="fa fa-book" aria-hidden="true"></i>API Reference
+        </a>
+      <?js } ?>
+      <a href="https://github.com/bookshelf/bookshelf"><span class="fa fa-github"></span></a>
     </nav>
 
-    <div class="main-container <?js= className ?>">
-      <div class="main-column">
-        <?js if (type === 'Source') { ?>
-          <h1 class="page-title"><?js= title ?></h1>
+    <div class="page-content">
+      <nav class="sidebar">
+        <?js if (type !== 'Source') { ?>
+          <?js= this.sidenav ?>
         <?js } ?>
+      </nav>
 
-        <?js= content ?>
+      <div class="main-container <?js= className ?>">
+        <div class="main-column">
+          <?js if (type === 'Source') { ?>
+            <h1 class="page-title"><?js= title ?></h1>
+          <?js } ?>
+
+          <?js= content ?>
+        </div>
       </div>
     </div>
 
@@ -66,12 +79,6 @@
         ?>
           on
         <?js= this.moment().format('MMMM Do YYYY') ?><?js } ?>
-      </div>
-      <div>
-        <a href="https://github.com/aral/fork-me-on-github-retina-ribbons">
-          "Fork me on GitHub" ribbon
-        </a>
-        Copyright © 2013 Aral Balkan
       </div>
     </footer>
 

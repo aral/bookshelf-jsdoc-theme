@@ -3,38 +3,13 @@
     display: none;
   }
 
-  @include card(2);
-
-  // Appearance
   background-color: $sidebar-background-color;
-  font-family: $sans-font-family;
   line-height: 1.5rem;
-
-  // Size
   width: $sidebar-width;
-
-  // Position
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
-
-  // Layout
+  float: left;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-bottom: 4rem;
-
-  header {
-    text-align: center;
-    margin-top: $main-top-margin;
-    margin-bottom: 1rem;
-
-    img {
-      height: $header-height;
-      width: auto;
-    }
-  }
+  padding: $navbar-height / 2 0 4rem 20px;
 
   a {
     text-decoration: inherit;
@@ -64,8 +39,10 @@
 
   li {
     color: black;
+
     a {
       display: block;
+
       &:hover {
         text-decoration: underline;
       }
@@ -76,16 +53,13 @@
     list-style: none;
   }
 
-  >ul {
-    width: $sidebar-width - 40px;
-    margin: 0 auto;
+  > ul {
     margin-bottom: 1rem;
 
-    &.readme,
-    &.main>li {
+    &.readme, &.main > li {
       margin-bottom: 1.5rem;
 
-      >ul {
+      > ul {
         margin-bottom: 1rem;
       }
     }

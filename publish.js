@@ -847,8 +847,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
   view.moment = require('moment');
-
-  view.nav = buildNav(members, opts.readme);
+  view.sidenav = buildNav(members, opts.readme);
 
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
 

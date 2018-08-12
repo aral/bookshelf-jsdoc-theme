@@ -1,0 +1,38 @@
+nav.main-navbar {
+  background-color: $_bookshelf-orange;
+  font-size: 20px;
+  position: fixed;
+  height: $navbar-height;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+
+  a {
+    color: white;
+    float: left;
+    line-height: 50px;
+    padding: 10px 20px;
+    text-decoration: none;
+
+    &:first-child {
+      width: $sidebar-width;
+    }
+
+    i, img {
+      margin-right: 5px;
+    }
+
+    img {
+      vertical-align: middle;
+      width: 42px;
+    }
+
+    &.active {
+      pointer-events: none;
+    }
+
+    &:hover, &.active {
+      background-color: $navbar-button-hover-color;
+    }
+  }
+}

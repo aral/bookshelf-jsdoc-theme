@@ -7,13 +7,21 @@
 @import 'source';
 @import 'params';
 @import 'details';
+@import 'navbar';
 @import 'sidebar';
 @import 'changelog';
 @import 'footer';
 @import 'fork';
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 17px;
+  font-family: $sans-font-family;
   line-height: 1.76rem;
   background-color: $main-background-color;
   -webkit-text-size-adjust: 100%;
@@ -23,8 +31,6 @@ html {
   }
 }
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+.page-content {
+  margin-top: $navbar-height;
 }
