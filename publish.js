@@ -5,6 +5,7 @@ var doop = require('jsdoc/util/doop');
 var fs = require('jsdoc/fs');
 var helper = require('jsdoc/util/templateHelper');
 var logger = require('jsdoc/util/logger');
+var parseMarkdown = require('jsdoc/util/markdown').getParser()
 var path = require('jsdoc/path');
 var taffy = require('taffydb').taffy;
 var template = require('jsdoc/template');
@@ -872,14 +873,14 @@ exports.publish = function(taffyData, opts, tutorials) {
   // index page displays information from package.json and lists files
   var files = find({kind: 'file'});
   var packages = find({kind: 'package'});
-  var changelog = new tutorial.Tutorial(null, fs.readFileSync(opts.changelog, opts.encoding), tutorial.TYPES.MARKDOWN);
+  var rawChangelog = fs.readFileSync(opts.changelog, opts.encoding);
   var readme = [{
     kind: 'mainpage',
     readme: addHeadingIds(opts.readme),
     longname: opts.mainPageTitle || 'Main Page'
   }];
-  var changelogDoc = {kind: 'mainpage', changelog: changelog};
-  var home = packages.concat(readme, files, changelogDoc);
+  var changelog = {kind: 'mainpage', changelog: parseMarkdown(rawChangelog)};
+  var home = packages.concat(readme, files, changelog);
 
   generate('index', opts.title || 'Home', home, indexUrl);
 };
