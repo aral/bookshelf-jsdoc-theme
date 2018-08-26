@@ -27,10 +27,6 @@ nav.main-navbar {
       width: 42px;
     }
 
-    &.active {
-      pointer-events: none;
-    }
-
     &:hover, &.active {
       background-color: $navbar-button-hover-color;
     }
