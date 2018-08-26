@@ -12,7 +12,6 @@ var template = require('jsdoc/template');
 var util = require('util');
 var _ = require('lodash');
 var catharsis = require('catharsis');
-var tutorial = require('jsdoc/tutorial');
 var htmlsafe = helper.htmlsafe;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
 var hasOwnProp = Object.prototype.hasOwnProperty;
@@ -82,8 +81,38 @@ function formatType(type) {
   }
 }
 
-function generateTutorial(tutorial) {
-  return helper.resolveLinks(tutorial.parse());
+function generateTutorial(title, tutorial, filename) {
+  var tutorialData = {
+    className: '',
+    type: 'tutorial',
+    title: title,
+    header: tutorial.title,
+    content: tutorial.parse(),
+    children: tutorial.children
+  };
+  var tutorialPath = path.join(outdir, filename);
+  var html = view.render('tutorial.tmpl', tutorialData);
+
+  html = helper.resolveLinks(html);
+  fs.writeFileSync(tutorialPath, html, 'utf8');
+}
+
+/**
+ * Recursively generate all tutorials starting with the base one.
+ */
+function generateTutorials(tutorial) {
+  tutorial.children.forEach(function(child) {
+    generateTutorial(child.title, child, helper.tutorialToUrl(child.name));
+    generateTutorials(child);
+  });
+}
+
+function tutoriallink(tutorial) {
+  return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' });
+}
+
+function linkToTutorial(longName, name) {
+  return tutoriallink(name);
 }
 
 function createLink(doclet) {
@@ -92,7 +121,6 @@ function createLink(doclet) {
 }
 
 function linkto() {
-
   var target = arguments[0];
   var display = arguments[1] || target;
 
@@ -396,6 +424,17 @@ function getPathFromDoclet(doclet) {
     doclet.meta.filename;
 }
 
+function generateTutorialsIndex(title, tutorials, filename) {
+  var outpath = path.join(outdir, filename);
+  var html = view.render('tutorials.tmpl', {
+    title: title || '',
+    type: 'tutorial',
+    tutorialsIndex: buildTutorialsNav(tutorials.children),
+    className: ''
+  });
+  fs.writeFileSync(outpath, html, 'utf8');
+}
+
 function generate(type, title, docs, filename, resolveLinks, className) {
   resolveLinks = resolveLinks === false ? false : true;
 
@@ -494,13 +533,13 @@ function buildNavItemList(items, className, linktoFn) {
 }
 
 function buildTutorialsNav(tutorials) {
-  return tutorials.reduce(function(html, tutorial) {
-    var result = util.format('<li><h3>%s</h3>', linkto(tutorial.longname, tutorial.title));
-    if (tutorial.children) {
-      result += buildNavItemList(tutorial.children, 'sections', linkto);
-    }
-    return html + result + '</li>';
+  var listItems = tutorials.reduce(function(html, tutorial) {
+    var result = linkToTutorial(null, tutorial.longname);
+    if (tutorial.children) result += buildTutorialsNav(tutorial.children);
+    return html + '<li>' + result + '</li>';
   }, '');
+
+  return util.format('<ul class="tutorials">%s</ul>', listItems);
 }
 
 function buildReadmeNav(readme) {
@@ -602,8 +641,8 @@ function buildNav(members, readme) {
 
   nav += buildReadmeNav(readme);
   nav += buildChangelogNav()
-  nav += '<ul class="main">';
   nav += buildTutorialsNav(members.tutorials);
+  nav += '<ul class="main">';
   nav += buildMemberNavs(members.topLevelClasses);
   nav += '</ul>';
 
@@ -658,14 +697,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     'layout.tmpl';
 
   helper.setTutorials(tutorials);
-
-  function registerTutorial(tutorial) {
-    var url = createLink(tutorial);
-    helper.registerLink(tutorial.longname, url);
-    tutorial.children.forEach(registerTutorial);
-  }
-
-  tutorials.children.forEach(registerTutorial);
 
   data = helper.prune(data);
   data.sort('longname, version, since');
@@ -853,6 +884,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.moment = require('moment');
   view.sidenav = buildNav(members, opts.readme);
   view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
+  view.tutoriallink = tutoriallink
 
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
 
@@ -862,12 +894,14 @@ exports.publish = function(taffyData, opts, tutorials) {
   }
 
   if (members.globals.length) {
-    generate('', 'Global', [{kind: 'globalobj'}], globalUrl);
+    generate('global', 'Global', [{kind: 'globalobj'}], globalUrl);
   }
 
   if (members.tutorials.length) {
     view.hasTutorials = true;
-    generate('tutorial', view.tutorialsTitle, members.tutorials, tutorialsUrl);
+
+    generateTutorialsIndex(opts.tutorialsTitle, tutorials, tutorialsUrl);
+    generateTutorials(tutorials);
   }
 
   // index page displays information from package.json and lists files
