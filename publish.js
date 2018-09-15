@@ -642,7 +642,6 @@ function buildNav(members, readme) {
 
   nav += buildReadmeNav(readme);
   nav += buildChangelogNav()
-  nav += buildTutorialsNav(members.tutorials);
   nav += '<ul class="main">';
   nav += buildMemberNavs(members.topLevelClasses);
   nav += '</ul>';
@@ -882,8 +881,9 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.outputSourceFiles = outputSourceFiles;
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
-  view.moment = require('moment');
+  view.moment = require('moment'); // TODO: Remove moment
   view.sidenav = buildNav(members, opts.readme);
+  view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
   view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
   view.tutoriallink = tutoriallink
 
