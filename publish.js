@@ -102,6 +102,7 @@ function generateTutorial(title, tutorial, filename) {
  */
 function generateTutorials(tutorial) {
   tutorial.children.forEach(function(child) {
+    if (child.longname === 'index') return;
     generateTutorial(child.title, child, helper.tutorialToUrl(child.name));
     generateTutorials(child);
   });
@@ -426,10 +427,14 @@ function getPathFromDoclet(doclet) {
 
 function generateTutorialsIndex(title, tutorials, filename) {
   var outpath = path.join(outdir, filename);
+  var indexTutorial = tutorials.children.find(function(tutorial) {
+    return tutorial.longname === 'index';
+  });
   var html = view.render('tutorials.tmpl', {
     title: title || '',
     type: 'tutorial',
     tutorialsIndex: buildTutorialsNav(tutorials.children),
+    text: indexTutorial && indexTutorial.parse(),
     className: ''
   });
   fs.writeFileSync(outpath, html, 'utf8');
@@ -534,6 +539,7 @@ function buildNavItemList(items, className, linktoFn) {
 
 function buildTutorialsNav(tutorials) {
   var listItems = tutorials.reduce(function(html, tutorial) {
+    if (tutorial.longname === 'index') return html;
     var result = linkToTutorial(null, tutorial.longname);
     if (tutorial.children) result += buildTutorialsNav(tutorial.children);
     return html + '<li>' + result + '</li>';
