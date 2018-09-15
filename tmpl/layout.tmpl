@@ -50,14 +50,14 @@
 
     <div class="page-content">
       <nav class="sidebar">
-        <?js if (type !== 'Source') { ?>
+        <?js if (type !== 'source') { ?>
           <?js= this.sidenav ?>
         <?js } ?>
       </nav>
 
-      <div class="main-container <?js if (type === 'Source') print('source-page') ?>">
+      <div class="main-container <?js if (type === 'source') print('source-page') ?>">
         <div class="main-column">
-          <?js if (type === 'Source') { ?>
+          <?js if (type === 'source') { ?>
             <h1 class="page-title"><?js= title ?></h1>
           <?js } ?>
 
