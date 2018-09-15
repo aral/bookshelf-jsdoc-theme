@@ -83,7 +83,6 @@ function formatType(type) {
 
 function generateTutorial(title, tutorial, filename) {
   var tutorialData = {
-    className: '',
     type: 'tutorial',
     title: title,
     header: tutorial.title,
@@ -434,25 +433,21 @@ function generateTutorialsIndex(title, tutorials, filename) {
     title: title || '',
     type: 'tutorial',
     tutorialsIndex: buildTutorialsNav(tutorials.children),
-    text: indexTutorial && indexTutorial.parse(),
-    className: ''
+    text: indexTutorial && indexTutorial.parse()
   });
   fs.writeFileSync(outpath, html, 'utf8');
 }
 
-function generate(type, title, docs, filename, resolveLinks, className) {
-  resolveLinks = resolveLinks === false ? false : true;
-
+function generate(type, title, docs, filename, resolveLinks) {
   var docData = {
     type: type,
     title: title,
-    docs: docs,
-    className: className
+    docs: docs
   };
   var outpath = path.join(outdir, filename)
   var html = view.render('container.tmpl', docData);
 
-  if (resolveLinks) {
+  if (resolveLinks !== false) {
     html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
   }
 
@@ -478,7 +473,7 @@ function generateSourceFiles(sourceFiles, encoding) {
       logger.error('Error while generating source file %s: %s', file, e.message);
     }
 
-    generate('Source', sourceFiles[file].shortened, [source], sourceOutfile, false, 'source-page');
+    generate('Source', sourceFiles[file].shortened, [source], sourceOutfile, false);
   });
 }
 
