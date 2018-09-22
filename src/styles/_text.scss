@@ -93,7 +93,7 @@ body .main-container {
     margin-top: 0.5rem;
   }
 
-  h4, .lodash-method {
+  .api h4, .lodash-method {
     color: $body-text-color;
     font-family: $code-font-family;
 
@@ -116,7 +116,7 @@ body .main-container {
   }
 
   // Function signature
-  h4 {
+  .api h4 {
     @include fill-parent;
     $function-header-height: 3.25rem;
     $source-link-width: 3.5rem;

@@ -1,14 +1,12 @@
 .changelog {
-  article > p {
+  > p {
+    border-bottom: 1px solid $_gray;
     margin-top: 2rem;
     margin-bottom: 1.2rem;
-  }
 
-  ul {
-    @include fine-bullets;
-    li {
-      padding-left: 1.1rem;
-      margin-bottom: 0.2rem;
+    > strong {
+      font-size: 1.5rem;
+      margin-right: 0.25rem;
     }
   }
 }
