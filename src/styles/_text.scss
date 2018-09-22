@@ -1,4 +1,4 @@
-body .main-container {
+.main-container {
   @mixin fill-parent {
     margin-left: -$method-margin;
     margin-right: -$method-margin;
@@ -10,6 +10,15 @@ body .main-container {
     margin-left: $sidebar-width;
   }
 
+  ul {
+    @include fine-bullets;
+    margin-bottom: 1rem;
+
+    ul {
+      margin-bottom: 0;
+    }
+  }
+
   .main-column {
     width: 100%;
     max-width: $main-width;
@@ -17,12 +26,6 @@ body .main-container {
     padding-left: 2rem;
     padding-right: 2rem;
     font-family: $sans-font-family;
-  }
-
-  .readme {
-    ul {
-      @include fine-bullets;
-    }
   }
 
   .readme ul, p {
