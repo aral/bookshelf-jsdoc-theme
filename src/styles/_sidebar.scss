@@ -1,4 +1,4 @@
-.minami .sidebar {
+.sidebar {
   @media screen and (max-width: 650px) {
     display: none;
   }
@@ -53,15 +53,7 @@
     list-style: none;
   }
 
-  > ul {
+  > ul, h2 {
     margin-bottom: 1rem;
-
-    &.readme, &.main > li {
-      margin-bottom: 1.5rem;
-
-      > ul {
-        margin-bottom: 1rem;
-      }
-    }
   }
 }

@@ -546,17 +546,14 @@ function buildTutorialsNav(tutorials) {
 function buildReadmeNav(readme) {
   var headings = getHeadings(readme, 2);
   var items = headings.map(function(heading) {
-    return util.format(
-      '<li><h3><a href="%s">%s</a></h3></li>',
-      createLink(headingId(heading)),
-      heading
-    );
+    return util.format('<li><a href="%s">%s</a></li>', createLink(headingId(heading)), heading);
   }).join('\n');
-  return util.format('<ul class="readme">%s</ul>', items);
+
+  return items;
 }
 
 function buildChangelogNav() {
-  return '<ul class="changelog"><li><h3><a href="#changelog">Change log</a></h3></li></ul>';
+  return '<li><a href="#changelog">Change log</a></li>';
 }
 
 function buildMemberNav(item) {
@@ -619,54 +616,25 @@ function buildMemberNav(item) {
 }
 
 function buildMemberNavs(items) {
-  return items.length ? items.map(buildMemberNav).join('') : '';
+  if (!items.length) return '';
+
+  var navItems = items.map(buildMemberNav).join('');
+  return util.format('<ul>%s</ul>', navItems);
 }
 
 /**
- * Create the navigation sidebar.
- * @param {object} members The members that will be used to create the sidebar.
- * @param {array<object>} members.classes
- * @param {array<object>} members.externals
- * @param {array<object>} members.globals
- * @param {array<object>} members.mixins
- * @param {array<object>} members.modules
- * @param {array<object>} members.namespaces
- * @param {array<object>} members.tutorials
- * @param {array<object>} members.events
- * @param {array<object>} members.interfaces
+ * Create the navigation sidebar for the home page.
+ *
+ * @param {object} readme The readme file in the project.
  * @return {string} The HTML for the navigation sidebar.
  */
-function buildNav(members, readme) {
+function buildNav(readme) {
   var nav = '';
-  var seen = {};
 
   nav += buildReadmeNav(readme);
-  nav += buildChangelogNav()
-  nav += '<ul class="main">';
-  nav += buildMemberNavs(members.topLevelClasses);
-  nav += '</ul>';
+  nav += buildChangelogNav();
 
-  if (members.globals.length) {
-    var globalNav = '';
-
-    members.globals.forEach(function(g) {
-      if (g.kind !== 'typedef' && !hasOwnProp.call(seen, g.longname)) {
-        globalNav += '<li>' + linkto(g.longname, g.name) + '</li>';
-      }
-
-      seen[g.longname] = true;
-    });
-
-    if (!globalNav) {
-      // turn the heading into a link so you can actually get to the global page
-      nav += '<h3>' + linkto('global', 'Global') + '</h3>';
-    }
-    else {
-      nav += '<h3>Global</h3><ul>' + globalNav + '</ul>';
-    }
-  }
-
-  return nav;
+  return util.format('<h2>Home</h2><ul>%s</ul>', nav);
 }
 
 /**
@@ -882,7 +850,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
   view.moment = require('moment'); // TODO: Remove moment
-  view.sidenav = buildNav(members, opts.readme);
+  view.sidenav = buildNav(opts.readme);
   view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
   view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
   view.tutoriallink = tutoriallink
