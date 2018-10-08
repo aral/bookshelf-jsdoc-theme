@@ -32,18 +32,12 @@
   </head>
   <body class="minami">
     <nav class="main-navbar">
-      <a href="index.html" class="<?js= type === 'index' ? 'active' : '' ?>">
-        <img class="nav-logo" src="images/bookshelf-icon-inverted.svg" />Bookshelf.js
-      </a>
+      <?js= this.linkto('index', this.partial('navbar/index.tmpl'), type === 'index' ? 'active' : '') ?>
       <?js if (this.hasTutorials) { ?>
-        <a href="tutorials.html" class="<?js= type === 'tutorial' ? 'active' : '' ?>">
-          <i class="fa fa-file-text" aria-hidden="true"></i><?js= this.tutorialsTitle ?>
-        </a>
+        <?js= this.linkto('tutorials', this.partial('navbar/tutorials.tmpl'), type === 'tutorial' ? 'active' : '') ?>
       <?js } ?>
       <?js if (this.hasReference) {?>
-        <a href="api.html" class="<?js= type === 'api' ? 'active' : '' ?>">
-          <i class="fa fa-book" aria-hidden="true"></i>API Reference
-        </a>
+        <?js= this.linkto('api', this.partial('navbar/api.tmpl'), type === 'api' ? 'active' : '') ?>
       <?js } ?>
       <a href="https://github.com/bookshelf/bookshelf"><span class="fa fa-github"></span></a>
     </nav>
