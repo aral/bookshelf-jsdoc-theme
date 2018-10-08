@@ -643,35 +643,29 @@ function buildNav(readme) {
     @param {Tutorial} tutorials
  */
 exports.publish = function(taffyData, opts, tutorials) {
-  data = taffyData;
+  var sections = ['index', 'api', 'tutorials'];
   var conf = env.conf.templates || {};
-  conf.default = conf.default || {};
   var templatePath = path.normalize(opts.template);
+  var sourceFiles = {};
+  var sourceFilePaths = [];
+  var urls = {};
+  data = helper.prune(taffyData);
+  conf.default = conf.default || {};
   view = new template.Template(path.join(templatePath, 'tmpl'));
 
-  // Claim some special filenames in advance, so the All-Powerful Overseer of Filename Uniqueness
-  // doesn't try to hand them out later.
-  // Don't call registerLink() on this one! 'index' is also a valid longname
-  var indexUrl = helper.getUniqueFilename('index');
-  var globalUrl = helper.getUniqueFilename('global');
-  var tutorialsUrl = helper.getUniqueFilename('tutorials');
-  var apiUrl = helper.getUniqueFilename('api');
-
-  helper.registerLink('global', globalUrl);
-
-  // set up templating
   view.layout = conf.default.layoutFile ?
     path.getResourcePath(path.dirname(conf.default.layoutFile), path.basename(conf.default.layoutFile)) :
     'layout.tmpl';
 
-  helper.setTutorials(tutorials);
+  sections.forEach(function(section) {
+    urls[section] = helper.getUniqueFilename(section);
+    helper.registerLink(section, urls[section]);
+  });
 
-  data = helper.prune(data);
-  data.sort('longname, version, since');
+  helper.setTutorials(tutorials);
   helper.addEventListeners(data);
 
-  var sourceFiles = {};
-  var sourceFilePaths = [];
+  data.sort('longname, version, since');
 
   data().each(function(doclet) {
     doclet.attribs = '';
@@ -837,6 +831,8 @@ exports.publish = function(taffyData, opts, tutorials) {
 
   // add template helpers
   view.find = find;
+  view.hasReference = topLevelClasses.length;
+  view.hasTutorials = members.tutorials.length;
   view.linkto = linkto;
   view.updateItemName = updateItemName;
   view.elementId = elementId;
@@ -851,9 +847,11 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.generateTutorial = generateTutorial;
   view.moment = require('moment'); // TODO: Remove moment
   view.sidenav = buildNav(opts.readme);
+  view.indexTitle = opts.title || 'Home';
+  view.apiTitle = opts.apiTitle || 'API Reference';
   view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
   view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
-  view.tutoriallink = tutoriallink
+  view.tutoriallink = tutoriallink;
 
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
 
@@ -862,14 +860,12 @@ exports.publish = function(taffyData, opts, tutorials) {
     generateSourceFiles(sourceFiles, opts.encoding);
   }
 
-  if (members.globals.length) {
-    generate('global', 'Global', [{kind: 'globalobj'}], globalUrl);
+  if (view.hasReference) {
+    generate('api', 'API', topLevelClasses, urls.api);
   }
 
-  if (members.tutorials.length) {
-    view.hasTutorials = true;
-
-    generateTutorialsIndex(opts.tutorialsTitle, tutorials, tutorialsUrl);
+  if (view.hasTutorials) {
+    generateTutorialsIndex(opts.tutorialsTitle, tutorials, urls.tutorials);
     generateTutorials(tutorials);
   }
 
@@ -884,5 +880,5 @@ exports.publish = function(taffyData, opts, tutorials) {
   var changelog = {kind: 'mainpage', changelog: parseMarkdown(rawChangelog)};
   var home = packages.concat(readme, files, changelog);
 
-  generate('index', opts.title || 'Home', home, indexUrl);
+  generate('index', view.indexTitle, home, urls.index);
 };
