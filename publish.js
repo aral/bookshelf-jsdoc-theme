@@ -628,7 +628,7 @@ function buildMemberNavs(items) {
  * @param {object} readme The readme file in the project.
  * @return {string} The HTML for the navigation sidebar.
  */
-function buildNav(readme) {
+function buildIndexNav(readme) {
   var nav = '';
 
   nav += buildReadmeNav(readme);
@@ -823,8 +823,6 @@ exports.publish = function(taffyData, opts, tutorials) {
     });
   }
 
-  members.topLevelClasses = topLevelClasses;
-
   // output pretty-printed source files by default
   var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false;
   var showInheritedFrom = conf.default && conf.default.showInheritedFrom !== false;
@@ -846,8 +844,9 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
   view.moment = require('moment'); // TODO: Remove moment
-  view.sidenav = buildNav(opts.readme);
+  view.indexSidenav = buildIndexNav(opts.readme);
   view.indexTitle = opts.title || 'Home';
+  view.apiSidenav = buildMemberNavs(topLevelClasses);
   view.apiTitle = opts.apiTitle || 'API Reference';
   view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
   view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';

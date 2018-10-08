@@ -48,8 +48,10 @@
           <?js if (type === 'tutorial') { ?>
             <h2><?js= this.tutorialsTitle ?></h2>
             <?js= this.tutorialsSidenav ?>
+          <?js } else if (type === 'api') { ?>
+            <?js= this.apiSidenav ?>
           <?js } else { ?>
-            <?js= this.sidenav ?>
+            <?js= this.indexSidenav ?>
           <?js } ?>
         </nav>
       <?js } ?>
