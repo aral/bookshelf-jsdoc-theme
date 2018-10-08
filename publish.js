@@ -879,8 +879,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   var rawChangelog = fs.readFileSync(opts.changelog, opts.encoding);
   var readme = [{
     kind: 'mainpage',
-    readme: addHeadingIds(opts.readme),
-    longname: opts.mainPageTitle || 'Main Page'
+    readme: addHeadingIds(opts.readme)
   }];
   var changelog = {kind: 'mainpage', changelog: parseMarkdown(rawChangelog)};
   var home = packages.concat(readme, files, changelog);
