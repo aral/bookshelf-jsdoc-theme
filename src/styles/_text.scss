@@ -121,26 +121,15 @@
   // Function signature
   &.api h4 {
     @include fill-parent;
-    $function-header-height: 3.25rem;
     $source-link-width: 3.5rem;
 
     position: relative;
     display: block;
     background-color: $function-signature-background-color;
     margin-bottom: 1rem;
-    padding: 0 $source-link-width 0 0;
+    padding: 1rem $source-link-width 1rem 1rem;
     font-size: 1.125rem;
-    line-height: $function-header-height;
-    height: $function-header-height;
     font-weight: bold;
-
-    .signature {
-      display: block;
-      // Shitty fix for very long signatures.
-      white-space: nowrap;
-      overflow-x: auto;
-      padding: 0 1rem;
-    }
 
     .source-link {
       display: block;
