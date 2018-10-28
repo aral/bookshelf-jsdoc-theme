@@ -56,7 +56,7 @@
         </nav>
       <?js } ?>
 
-      <div class="main-container <?js if (type === 'source') print('source-page') ?>">
+      <div class="main-container <?js= type ?>">
         <div class="main-column">
           <?js if (type === 'source') { ?>
             <h1 class="page-title"><?js= title ?></h1>

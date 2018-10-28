@@ -96,7 +96,7 @@
     margin-top: 0.5rem;
   }
 
-  .api h4, .lodash-method {
+  &.api h4, .lodash-method {
     color: $body-text-color;
     font-family: $code-font-family;
 
@@ -119,7 +119,7 @@
   }
 
   // Function signature
-  .api h4 {
+  &.api h4 {
     @include fill-parent;
     $function-header-height: 3.25rem;
     $source-link-width: 3.5rem;
