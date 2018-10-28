@@ -178,7 +178,9 @@
 
     .example {
       @include fill-parent;
+      margin-top: -1rem;
       background-color: $code-background-color;
+
       h5 {
         color: #9A9A9A;
         margin-bottom: 0;
@@ -190,18 +192,20 @@
       }
     }
 
-    pre {
-      @include fill-parent;
-    }
+    &.has-description {
+      .item-description > *:last-child {
+        margin-bottom: 0;
+      }
 
-    &.has-description .attributes:after {
-      content: '* * *';
-      display: block;
-      text-align: center;
-      font-family: $code-font-family;
-      font-size: 1.25rem;
-      color: $stars-color;
-      line-height: 3rem;
+      .attributes:after {
+        content: '* * *';
+        display: block;
+        text-align: center;
+        font-family: $code-font-family;
+        font-size: 1.25rem;
+        color: $stars-color;
+        line-height: 3rem;
+      }
     }
   }
 
