@@ -4,12 +4,14 @@
   }
 
   background-color: $sidebar-background-color;
+  bottom: 0;
   line-height: 1.5rem;
   width: $sidebar-width;
-  float: left;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: $navbar-height / 2 0 4rem 20px;
+  padding: 20px;
+  position: fixed;
+  top: $navbar-height;
 
   a {
     text-decoration: inherit;
