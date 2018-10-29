@@ -844,8 +844,9 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
   view.moment = require('moment'); // TODO: Remove moment
+  view.projectTitle = opts.title;
   view.indexSidenav = buildIndexNav(opts.readme);
-  view.indexTitle = opts.title || 'Home';
+  view.indexTitle = opts.mainPageTitle || 'Home';
   view.apiSidenav = buildMemberNavs(topLevelClasses);
   view.apiTitle = opts.apiTitle || 'API Reference';
   view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
@@ -860,7 +861,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   }
 
   if (view.hasReference) {
-    generate('api', 'API', topLevelClasses, urls.api);
+    generate('api', view.apiTitle, topLevelClasses, urls.api);
   }
 
   if (view.hasTutorials) {

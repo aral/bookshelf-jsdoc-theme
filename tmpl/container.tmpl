@@ -18,6 +18,7 @@
 <?js } else { ?>
 
 <header>
+    <h1><?js= self.apiTitle ?></h1>
     <?js if (!doc.longname || doc.kind !== 'module') { ?>
         <h2 id="<?js= self.sectionId(doc) ?>"><?js if (doc.ancestors && doc.ancestors.length) { ?>
             <span class="ancestors"><?js= doc.ancestors.join('')
