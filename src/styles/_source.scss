@@ -15,42 +15,35 @@ code {
       color: $code-main-color;
     }
   }
-  section {
-    @include card(5);
-  }
 }
 
-body .main-container .attributes {
-  code {
-    font-family: $code-font-family;
+.main-container {
+  &.source {
+    margin-left: 0;
   }
-
-  code a,
-  a code {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  p a code {
-    text-decoration: inherit;
+  .attributes {
+    code {
+      font-family: $code-font-family;
+    }
+    code a, a code {
+      color: inherit;
+      text-decoration: underline;
+    }
+    p a code {
+      text-decoration: inherit;
+    }
   }
 }
 
 pre.prettyprint {
-
-  // Layout
   padding: 1rem;
   margin: 2em 0;
   overflow-x: auto;
-
-  // Appearance.
   font-family: $code-font-family;
   font-size: 0.9rem;
   line-height: 1.8em;
-
-  // Colors
   background-color: $code-background-color;
-  color:            $code-main-color;
+  color: $code-main-color;
 
   .pun { color: $code-punctuation-color; }
   .pln { color: inherit; }
