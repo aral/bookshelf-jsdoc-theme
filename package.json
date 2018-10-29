@@ -25,12 +25,12 @@
   "homepage": "https://github.com/Nijikokun/minami",
   "devDependencies": {
     "font-awesome": "^4.3.0",
-    "node-sass": "^3.2.0"
+    "node-sass": "^4.9.4"
   },
   "dependencies": {
     "catharsis": "^0.8.7",
-    "eslint": "^4.14.0",
-    "lodash": "^3.10.0",
+    "eslint": "^5.8.0",
+    "lodash": "^4.17.11",
     "taffydb": "https://github.com/hegemonic/taffydb/tarball/7d100bcee0e997ee4977e273cdce60bd8933050e"
   }
 }

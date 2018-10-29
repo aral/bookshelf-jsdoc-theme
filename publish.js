@@ -196,7 +196,7 @@ function hashToLink(doclet, hash) {
 
 function isLodashMethod(doclet) {
   return !!_.find(doclet.see, function(name) {
-    return _.contains(name, 'lodash.com');
+    return _.includes(name, 'lodash.com');
   });
 }
 
@@ -396,7 +396,7 @@ function addAttribs(f) {
   var attribs = helper.getAttribs(f);
 
   // Manually assign `isStatic`.
-  f.isStatic = _.contains(attribs, 'static');
+  f.isStatic = _.includes(attribs, 'static');
   if (f.isStatic) _.pull(attribs, 'static');
 
   // Remove `static` from list. TODO: Do this for all 'attributes'.
