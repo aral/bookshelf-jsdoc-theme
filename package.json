@@ -5,14 +5,27 @@
   "main": "publish.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "styles": "rm -f src/styles/main.css && $(npm bin)/node-sass src/styles/main.scss static/styles/main.css",
+    "styles": "rm -f src/styles/main.css && node-sass src/styles/main.scss static/styles/main.css",
     "build": "npm run styles"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bookshelf/bookshelf-jsdoc-theme.git"
+    "url": "git@github.com:bookshelf/bookshelf-jsdoc-theme.git"
   },
-  "author": "Nijiko Yonskai <nijikokun@gmail.com>",
+  "author": {
+    "name": "Nijiko Yonskai",
+    "email": "nijikokun@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Rhys van der Waerden",
+      "url": "https://github.com/rhys-vdw"
+    },
+    {
+      "name": "Ricardo Graça",
+      "email": "ricardo@devius.net"
+    }
+  ],
   "licenses": [
     {
       "type": "Apache-2.0",
@@ -20,9 +33,9 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/Nijikokun/minami/issues"
+    "url": "https://github.com/bookshelf/bookshelf-jsdoc-theme/issues"
   },
-  "homepage": "https://github.com/Nijikokun/minami",
+  "homepage": "https://github.com/bookshelf/bookshelf-jsdoc-theme",
   "devDependencies": {
     "font-awesome": "^4.3.0",
     "node-sass": "^4.9.4"
