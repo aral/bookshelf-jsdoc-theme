@@ -843,7 +843,6 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.outputSourceFiles = outputSourceFiles;
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
-  view.moment = require('moment'); // TODO: Remove moment
   view.projectTitle = opts.title;
   view.indexSidenav = buildIndexNav(opts.readme);
   view.indexTitle = opts.mainPageTitle || 'Home';
@@ -852,6 +851,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
   view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
   view.tutoriallink = tutoriallink;
+  view.showGeneratedDate = conf.default && conf.default.includeDate !== false;
 
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
 
