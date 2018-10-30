@@ -18,6 +18,8 @@ var hasOwnProp = Object.prototype.hasOwnProperty;
 var data;
 var view;
 var outdir = path.normalize(env.opts.destination);
+var sections = ['index', 'api', 'tutorials'];
+var urls = {};
 
 // These next two are lifted out of jsdoc3/util/templateHelper.js
 function isComplexTypeExpression(expr) {
@@ -117,7 +119,7 @@ function linkToTutorial(longName, name) {
 
 function createLink(doclet) {
   var id = _.isString(doclet) ? doclet : elementId(doclet);
-  return util.format('#%s', id);
+  return util.format('%s#%s', urls.api, id);
 }
 
 function linkto() {
@@ -643,12 +645,10 @@ function buildIndexNav(readme) {
     @param {Tutorial} tutorials
  */
 exports.publish = function(taffyData, opts, tutorials) {
-  var sections = ['index', 'api', 'tutorials'];
   var conf = env.conf.templates || {};
   var templatePath = path.normalize(opts.template);
   var sourceFiles = {};
   var sourceFilePaths = [];
-  var urls = {};
   data = helper.prune(taffyData);
   conf.default = conf.default || {};
   view = new template.Template(path.join(templatePath, 'tmpl'));
