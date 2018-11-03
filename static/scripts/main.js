@@ -8,4 +8,6 @@
 
   window.addEventListener('hashchange', scrollWithOffset, false)
   window.addEventListener('DOMContentLoaded', scrollWithOffset, false)
+
+  document.getElementById('show-menu').checked = false
 }())

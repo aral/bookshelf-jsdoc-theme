@@ -17,3 +17,15 @@
     }
   }
 }
+
+@mixin navbar-button {
+  color: white;
+  font-size: 20px;
+  line-height: 50px;
+  padding: 10px 20px;
+  text-decoration: none;
+
+  @media screen and (max-width: $screen-breakpoint) {
+    display: block;
+  }
+}

@@ -26,20 +26,32 @@
     <!-- Import fonts from Open Font Library -->
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/carlito" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/average-mono" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 
     <link type="text/css" rel="stylesheet" href="styles/main.css">
   </head>
   <body class="minami">
     <nav class="main-navbar">
       <?js= this.linkto('index', this.partial('navbar/index.tmpl'), type === 'index' ? 'active' : '') ?>
-      <?js if (this.hasTutorials) { ?>
-        <?js= this.linkto('tutorials', this.partial('navbar/tutorials.tmpl'), type === 'tutorial' ? 'active' : '') ?>
-      <?js } ?>
-      <?js if (this.hasReference) {?>
-        <?js= this.linkto('api', this.partial('navbar/api.tmpl'), type === 'api' ? 'active' : '') ?>
-      <?js } ?>
-      <a href="https://github.com/bookshelf/bookshelf"><span class="fa fa-github"></span></a>
+      <label for="show-menu" class="show-menu">
+        <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+      </label>
+      <input type="checkbox" id="show-menu" role="button" checked>
+      <ul id="menu">
+        <?js if (this.hasTutorials) { ?>
+          <li>
+            <?js= this.linkto('tutorials', this.partial('navbar/tutorials.tmpl'), type === 'tutorial' ? 'active' : '') ?>
+          </li>
+        <?js } ?>
+        <?js if (this.hasReference) {?>
+          <li>
+            <?js= this.linkto('api', this.partial('navbar/api.tmpl'), type === 'api' ? 'active' : '') ?>
+          </li>
+        <?js } ?>
+        <li>
+          <a href="https://github.com/bookshelf/bookshelf"><span class="fa fa-github"></span></a>
+        </li>
+      </ul>
     </nav>
 
     <div class="page-content">

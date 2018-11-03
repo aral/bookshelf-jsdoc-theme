@@ -1,5 +1,5 @@
 .sidebar {
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: $screen-breakpoint) {
     display: none;
   }
 
