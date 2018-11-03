@@ -54,8 +54,9 @@
 
 .main-container h1 {
   text-transform: uppercase;
-  line-height: 153px;
-  padding-top: 30px;
+  line-height: 1.25;
+  padding-bottom: 30px;
+  padding-top: 45px;
   font-size: 3.75rem;
   letter-spacing: 0.125rem;
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.13); }
@@ -107,7 +108,8 @@
   margin-bottom: 1rem;
   padding: 1rem 3.5rem 1rem 1rem;
   font-size: 1.125rem;
-  font-weight: bold; }
+  font-weight: bold;
+  overflow: hidden; }
   .main-container.api h4 .source-link {
     display: block;
     padding: 2.2rem 0.4rem 0 0.4rem;
@@ -290,20 +292,57 @@ pre.prettyprint {
 
 nav.main-navbar {
   background-color: #E56515;
-  font-size: 20px;
+  font-size: 0;
   position: fixed;
   height: 70px;
   top: 0;
   width: 100%;
   z-index: 1; }
-  nav.main-navbar a {
+  nav.main-navbar .show-menu {
     color: white;
-    float: left;
+    font-size: 20px;
     line-height: 50px;
     padding: 10px 20px;
-    text-decoration: none; }
-    nav.main-navbar a:first-child {
-      width: 190px; }
+    text-decoration: none;
+    cursor: pointer;
+    display: none; }
+    @media screen and (max-width: 650px) {
+      nav.main-navbar .show-menu {
+        display: block; } }
+  nav.main-navbar label {
+    position: absolute;
+    right: 0;
+    top: 0; }
+  nav.main-navbar input[type=checkbox] {
+    display: none; }
+  @media screen and (max-width: 650px) {
+    nav.main-navbar input[type=checkbox]:checked ~ #menu {
+      border-top: 1px solid #ce5b13;
+      display: block; } }
+  nav.main-navbar ul {
+    background-color: #E56515;
+    list-style-type: none;
+    display: inline-block; }
+    @media screen and (max-width: 650px) {
+      nav.main-navbar ul {
+        display: none; } }
+  nav.main-navbar li {
+    display: inline; }
+    @media screen and (max-width: 650px) {
+      nav.main-navbar li {
+        display: block; } }
+  nav.main-navbar > a:first-child {
+    width: 190px; }
+  nav.main-navbar a {
+    color: white;
+    font-size: 20px;
+    line-height: 50px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block; }
+    @media screen and (max-width: 650px) {
+      nav.main-navbar a {
+        display: block; } }
     nav.main-navbar a i, nav.main-navbar a img {
       margin-right: 5px; }
     nav.main-navbar a img {
@@ -374,7 +413,7 @@ footer {
     color: #4A4A4A; }
 
 article.tutorial header {
-  padding-top: 30px; }
+  padding-top: 45px; }
 
 article.tutorial nav ul {
   list-style: none; }
