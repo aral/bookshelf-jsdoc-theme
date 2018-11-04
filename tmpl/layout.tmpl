@@ -1,103 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta charset="utf-8">
-      <link rel="icon" href="<?js= subdir ?>images/favicon.ico" />
-      <link rel="canonical" href="http://bookshelfjs.org" />
-      <title><?js= title ?></title>
-      <!--
-      ._.                                                      ._.
-      | |    ______             _        _          _  __      | |
-      | |    | ___ \           | |      | |        | |/ _|     | |
-      | |    | |_/ / ___   ___ | | _____| |__   ___| | |_      | |
-      | |    | ___ \/ _ \ / _ \| |/ / __| '_ \ / _ \ |  _|     | |
-      | |    | |_/ / (_) | (_) |   <\__ \ | | |  __/ | |       | |
-      | |____\____/_\___/_\___/|_|\_\___/_|_|_|\___|_|_|_______| |
-      |                                                          |
-      \________\  /__________________________________\  /________/
-                \/                                    \/
-      -->
-      <script src="<?js= subdir ?>scripts/prettify/prettify.js"></script>
-      <script src="<?js= subdir ?>scripts/prettify/lang-css.js"></script>
-      <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-      <![endif]-->
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" />
+    <link rel="canonical" href="http://bookshelfjs.org" />
+    <title><?js= this.projectTitle ?> | <?js= title ?></title>
+    <!--
+    ._.                                                      ._.
+    | |    ______             _        _          _  __      | |
+    | |    | ___ \           | |      | |        | |/ _|     | |
+    | |    | |_/ / ___   ___ | | _____| |__   ___| | |_      | |
+    | |    | ___ \/ _ \ / _ \| |/ / __| '_ \ / _ \ |  _|     | |
+    | |    | |_/ / (_) | (_) |   <\__ \ | | |  __/ | |       | |
+    | |____\____/_\___/_\___/|_|\_\___/_|_|_|\___|_|_|_______| |
+    |                                                          |
+    \________\  /__________________________________\  /________/
+              \/                                    \/
+    -->
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-      <!-- Import fonts from Open Font Library -->
-      <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/carlito" rel="stylesheet" type="text/css"/>
-      <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/average-mono" rel="stylesheet" type="text/css"/>
-      <link rel="stylesheet" media="screen" href="http://openfontlibrary.org/face/noto-serif" rel="stylesheet" type="text/css"/>
-      <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Import fonts from Open Font Library -->
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/carlito" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/average-mono" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 
-      <link type="text/css" rel="stylesheet" href="<?js= subdir ?>styles/main.css">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
   </head>
   <body class="minami">
-
-    <a class="fork-me" href="https://github.com/tgriesser/bookshelf">
-      Fork me on GitHub
-    </a>
-
-    <!--
-      Not sure what this is.
-
-      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-      <label for="nav-trigger" class="navicon-button x">
-        <div class="navicon"></div>
+    <nav class="main-navbar">
+      <?js= this.linkto('index', this.partial('navbar/index.tmpl'), type === 'index' ? 'active' : '') ?>
+      <label for="show-menu" class="show-menu">
+        <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
       </label>
-
-      <label for="nav-trigger" class="overlay"></label>
-    -->
-
-    <nav class="sidebar">
-      <?js= this.partial('nav-header.tmpl', {subdir: subdir, rootdir: rootdir} ) ?>
-      <?js if (type !== 'Source') { ?>
-        <?js= this.nav ?>
-      <?js } ?>
+      <input type="checkbox" id="show-menu" role="button" checked>
+      <ul id="menu">
+        <?js if (this.hasTutorials) { ?>
+          <li>
+            <?js= this.linkto('tutorials', this.partial('navbar/tutorials.tmpl'), type === 'tutorial' ? 'active' : '') ?>
+          </li>
+        <?js } ?>
+        <?js if (this.hasReference) {?>
+          <li>
+            <?js= this.linkto('api', this.partial('navbar/api.tmpl'), type === 'api' ? 'active' : '') ?>
+          </li>
+        <?js } ?>
+        <li>
+          <a href="https://github.com/bookshelf/bookshelf"><span class="fa fa-github"></span></a>
+        </li>
+      </ul>
     </nav>
 
-    <div class="main-container <?js= className ?>">
-      <div class="main-column">
-        <?js if (type === 'Source') { ?>
-          <h1 class="page-title"><?js= title ?></h1>
-        <?js } ?>
+    <div class="page-content">
+      <?js if (type !== 'source') { ?>
+        <nav class="sidebar">
+          <?js if (type === 'tutorial') { ?>
+            <h2><?js= this.tutorialsTitle ?></h2>
+            <?js= this.tutorialsSidenav ?>
+          <?js } else if (type === 'api') { ?>
+            <?js= this.apiSidenav ?>
+          <?js } else { ?>
+            <?js= this.indexSidenav ?>
+          <?js } ?>
+        </nav>
+      <?js } ?>
 
-        <?js= content ?>
+      <div class="main-container <?js= type ?>">
+        <div class="main-column">
+          <?js if (type === 'source') { ?>
+            <h1 class="page-title"><?js= title ?></h1>
+          <?js } ?>
+
+          <?js= content ?>
+        </div>
       </div>
-
-      <footer>
-        <div>
-          Documentation generated by
-          <a href="https://github.com/jsdoc3/jsdoc">JSDoc <?js= env.version.number ?></a>
-          <?js
-            if (
-              env.conf.templates &&
-              env.conf.templates.default &&
-              env.conf.templates.default.includeDate !== false
-            ) {
-          ?>
-            on
-          <?js= this.moment().format('MMMM Do YYYY') ?><?js } ?>
-        </div>
-        <div>
-          <a href="https://github.com/aral/fork-me-on-github-retina-ribbons">
-            "Fork me on GitHub" ribbon
-          </a>
-          Copyright © 2013 Aral Balkan
-        </div>
-      </footer>
     </div>
 
+    <footer>
+      <div>
+        Documentation generated by
+        <a href="https://github.com/jsdoc3/jsdoc">JSDoc <?js= env.version.number ?></a>
+        <?js if (this.showGeneratedDate) { ?>
+          on
+          <?js= new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) ?>
+        <?js } ?>
+      </div>
+    </footer>
+
     <script>prettyPrint();</script>
-    <script src="<?js= subdir ?>scripts/linenumber.js"></script>
-
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.7.0/lodash.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/bluebird/2.9.24/bluebird.min.js"></script>
-    <script src="<?js= subdir ?>assets/knex.min.js"></script>
-    <script src="<?js= rootdir ?>build/bookshelf.js"></script>
-    <script>
-      var knex = Knex({client: 'websql'});
-      var bookshelf = Bookshelf(knex);
-    </script>
-
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/main.js"></script>
   </body>
 </html>

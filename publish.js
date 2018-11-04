@@ -1,24 +1,25 @@
-/*global env: true */
+/* global env: true */
 'use strict';
 
 var doop = require('jsdoc/util/doop');
 var fs = require('jsdoc/fs');
 var helper = require('jsdoc/util/templateHelper');
 var logger = require('jsdoc/util/logger');
+var parseMarkdown = require('jsdoc/util/markdown').getParser()
 var path = require('jsdoc/path');
 var taffy = require('taffydb').taffy;
 var template = require('jsdoc/template');
 var util = require('util');
 var _ = require('lodash');
 var catharsis = require('catharsis');
-var tutorial = require('jsdoc/tutorial');
 var htmlsafe = helper.htmlsafe;
 var resolveAuthorLinks = helper.resolveAuthorLinks;
 var hasOwnProp = Object.prototype.hasOwnProperty;
 var data;
 var view;
-var indexdir = path.normalize(env.opts.destination);
-var outdir = path.join(indexdir, 'docs');
+var outdir = path.normalize(env.opts.destination);
+var sections = ['index', 'api', 'tutorials'];
+var urls = {};
 
 // These next two are lifted out of jsdoc3/util/templateHelper.js
 function isComplexTypeExpression(expr) {
@@ -82,17 +83,46 @@ function formatType(type) {
   }
 }
 
-function generateTutorial(tutorial) {
-  return helper.resolveLinks(tutorial.parse());
+function generateTutorial(title, tutorial, filename) {
+  var tutorialData = {
+    type: 'tutorial',
+    title: title,
+    header: tutorial.title,
+    content: tutorial.parse(),
+    children: tutorial.children
+  };
+  var tutorialPath = path.join(outdir, filename);
+  var html = view.render('tutorial.tmpl', tutorialData);
+
+  html = helper.resolveLinks(html);
+  fs.writeFileSync(tutorialPath, html, 'utf8');
+}
+
+/**
+ * Recursively generate all tutorials starting with the base one.
+ */
+function generateTutorials(tutorial) {
+  tutorial.children.forEach(function(child) {
+    if (child.longname === 'index') return;
+    generateTutorial(child.title, child, helper.tutorialToUrl(child.name));
+    generateTutorials(child);
+  });
+}
+
+function tutoriallink(tutorial) {
+  return helper.toTutorial(tutorial, null, { tag: 'em', classname: 'disabled', prefix: 'Tutorial: ' });
+}
+
+function linkToTutorial(longName, name) {
+  return tutoriallink(name);
 }
 
 function createLink(doclet) {
   var id = _.isString(doclet) ? doclet : elementId(doclet);
-  return util.format('#%s', id);
+  return util.format('%s#%s', urls.api, id);
 }
 
 function linkto() {
-
   var target = arguments[0];
   var display = arguments[1] || target;
 
@@ -168,7 +198,7 @@ function hashToLink(doclet, hash) {
 
 function isLodashMethod(doclet) {
   return !!_.find(doclet.see, function(name) {
-    return _.contains(name, 'lodash.com');
+    return _.includes(name, 'lodash.com');
   });
 }
 
@@ -368,7 +398,7 @@ function addAttribs(f) {
   var attribs = helper.getAttribs(f);
 
   // Manually assign `isStatic`.
-  f.isStatic = _.contains(attribs, 'static');
+  f.isStatic = _.includes(attribs, 'static');
   if (f.isStatic) _.pull(attribs, 'static');
 
   // Remove `static` from list. TODO: Do this for all 'attributes'.
@@ -396,21 +426,30 @@ function getPathFromDoclet(doclet) {
     doclet.meta.filename;
 }
 
-function generate(type, title, docs, filename, resolveLinks, className) {
-  resolveLinks = resolveLinks === false ? false : true;
+function generateTutorialsIndex(title, tutorials, filename) {
+  var outpath = path.join(outdir, filename);
+  var indexTutorial = tutorials.children.find(function(tutorial) {
+    return tutorial.longname === 'index';
+  });
+  var html = view.render('tutorials.tmpl', {
+    title: title || '',
+    type: 'tutorial',
+    tutorialsIndex: buildTutorialsNav(tutorials.children),
+    text: indexTutorial && indexTutorial.parse()
+  });
+  fs.writeFileSync(outpath, html, 'utf8');
+}
 
+function generate(type, title, docs, filename, resolveLinks) {
   var docData = {
     type: type,
     title: title,
-    docs: docs,
-    className: className,
-    subdir: type == 'index' ? 'docs/' : '',
-    rootdir: type == 'index' ? '' : '../'
+    docs: docs
   };
-  var outpath = filename
+  var outpath = path.join(outdir, filename)
   var html = view.render('container.tmpl', docData);
 
-  if (resolveLinks) {
+  if (resolveLinks !== false) {
     html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>
   }
 
@@ -422,7 +461,7 @@ function generateSourceFiles(sourceFiles, encoding) {
   Object.keys(sourceFiles).forEach(function(file) {
     var source;
     // links are keyed to the shortened path in each doclet's `meta.shortpath` property
-    var sourceOutfile = path.join('docs', helper.getUniqueFilename(sourceFiles[file].shortened));
+    var sourceOutfile = path.join(helper.getUniqueFilename(sourceFiles[file].shortened));
 
     helper.registerLink(sourceFiles[file].shortened, sourceOutfile);
 
@@ -436,7 +475,7 @@ function generateSourceFiles(sourceFiles, encoding) {
       logger.error('Error while generating source file %s: %s', file, e.message);
     }
 
-    generate('Source', sourceFiles[file].shortened, [source], sourceOutfile, false, 'source-page');
+    generate('source', sourceFiles[file].shortened, [source], sourceOutfile, false);
   });
 }
 
@@ -496,29 +535,27 @@ function buildNavItemList(items, className, linktoFn) {
 }
 
 function buildTutorialsNav(tutorials) {
-  return tutorials.reduce(function(html, tutorial) {
-    var result = util.format('<li><h3>%s</h3>', linkto(tutorial.longname, tutorial.title));
-    if (tutorial.children) {
-      result += buildNavItemList(tutorial.children, 'sections', linkto);
-    }
-    return html + result + '</li>';
+  var listItems = tutorials.reduce(function(html, tutorial) {
+    if (tutorial.longname === 'index') return html;
+    var result = linkToTutorial(null, tutorial.longname);
+    if (tutorial.children) result += buildTutorialsNav(tutorial.children);
+    return html + '<li>' + result + '</li>';
   }, '');
+
+  return util.format('<ul class="tutorials">%s</ul>', listItems);
 }
 
 function buildReadmeNav(readme) {
   var headings = getHeadings(readme, 2);
   var items = headings.map(function(heading) {
-    return util.format(
-      '<li><h3><a href="%s">%s</a></h3></li>',
-      createLink(headingId(heading)),
-      heading
-    );
+    return util.format('<li><a href="#%s">%s</a></li>', headingId(heading), heading);
   }).join('\n');
-  return util.format('<ul class="readme">%s</ul>', items);
+
+  return items;
 }
 
 function buildChangelogNav() {
-  return '<ul class="changelog"><li><h3><a href="#changelog">Change log</a></h3></li></ul>';
+  return '<li><a href="#changelog">Change log</a></li>';
 }
 
 function buildMemberNav(item) {
@@ -536,7 +573,7 @@ function buildMemberNav(item) {
   var events = find({kind:'event', memberof: item.longname});
   var classes = find({kind:'class', memberof: item.longname});
   var initialize = find({
-    kind:'function',
+    kind: 'function',
     isInitialize: true,
     isLodashMethod: false,
     isStatic: false,
@@ -581,55 +618,25 @@ function buildMemberNav(item) {
 }
 
 function buildMemberNavs(items) {
-  return items.length ? items.map(buildMemberNav).join('') : '';
+  if (!items.length) return '';
+
+  var navItems = items.map(buildMemberNav).join('');
+  return util.format('<ul>%s</ul>', navItems);
 }
 
 /**
- * Create the navigation sidebar.
- * @param {object} members The members that will be used to create the sidebar.
- * @param {array<object>} members.classes
- * @param {array<object>} members.externals
- * @param {array<object>} members.globals
- * @param {array<object>} members.mixins
- * @param {array<object>} members.modules
- * @param {array<object>} members.namespaces
- * @param {array<object>} members.tutorials
- * @param {array<object>} members.events
- * @param {array<object>} members.interfaces
+ * Create the navigation sidebar for the home page.
+ *
+ * @param {object} readme The readme file in the project.
  * @return {string} The HTML for the navigation sidebar.
  */
-function buildNav(members, readme) {
+function buildIndexNav(readme) {
   var nav = '';
-  var seen = {};
 
   nav += buildReadmeNav(readme);
-  nav += buildChangelogNav()
-  nav += '<ul class="main">';
-  nav += buildTutorialsNav(members.tutorials);
-  nav += buildMemberNavs(members.topLevelClasses);
-  nav += '</ul>';
+  nav += buildChangelogNav();
 
-  if (members.globals.length) {
-    var globalNav = '';
-
-    members.globals.forEach(function(g) {
-      if (g.kind !== 'typedef' && !hasOwnProp.call(seen, g.longname)) {
-        globalNav += '<li>' + linkto(g.longname, g.name) + '</li>';
-      }
-
-      seen[g.longname] = true;
-    });
-
-    if (!globalNav) {
-      // turn the heading into a link so you can actually get to the global page
-      nav += '<h3>' + linkto('global', 'Global') + '</h3>';
-    }
-    else {
-      nav += '<h3>Global</h3><ul>' + globalNav + '</ul>';
-    }
-  }
-
-  return nav;
+  return util.format('<h2>Home</h2><ul>%s</ul>', nav);
 }
 
 /**
@@ -638,40 +645,27 @@ function buildNav(members, readme) {
     @param {Tutorial} tutorials
  */
 exports.publish = function(taffyData, opts, tutorials) {
-  data = taffyData;
   var conf = env.conf.templates || {};
-  conf.default = conf.default || {};
   var templatePath = path.normalize(opts.template);
+  var sourceFiles = {};
+  var sourceFilePaths = [];
+  data = helper.prune(taffyData);
+  conf.default = conf.default || {};
   view = new template.Template(path.join(templatePath, 'tmpl'));
 
-  // Claim some special filenames in advance, so the All-Powerful Overseer of Filename Uniqueness
-  // doesn't try to hand them out later.
-  // Don't call registerLink() on this one! 'index' is also a valid longname
-  var indexUrl = helper.getUniqueFilename('index');
-  var globalUrl = helper.getUniqueFilename('global');
-  helper.registerLink('global', globalUrl);
-
-  // set up templating
   view.layout = conf.default.layoutFile ?
     path.getResourcePath(path.dirname(conf.default.layoutFile), path.basename(conf.default.layoutFile)) :
     'layout.tmpl';
 
+  sections.forEach(function(section) {
+    urls[section] = helper.getUniqueFilename(section);
+    helper.registerLink(section, urls[section]);
+  });
+
   helper.setTutorials(tutorials);
-
-  function registerTutorial(tutorial) {
-    var url = createLink(tutorial);
-    helper.registerLink(tutorial.longname, url);
-    tutorial.children.forEach(registerTutorial);
-  }
-
-  tutorials.children.forEach(registerTutorial);
-
-  data = helper.prune(data);
-  data.sort('longname, version, since');
   helper.addEventListeners(data);
 
-  var sourceFiles = {};
-  var sourceFilePaths = [];
+  data.sort('longname, version, since');
 
   data().each(function(doclet) {
     doclet.attribs = '';
@@ -829,14 +823,14 @@ exports.publish = function(taffyData, opts, tutorials) {
     });
   }
 
-  members.topLevelClasses = topLevelClasses;
-
   // output pretty-printed source files by default
   var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false;
   var showInheritedFrom = conf.default && conf.default.showInheritedFrom !== false;
 
   // add template helpers
   view.find = find;
+  view.hasReference = topLevelClasses.length;
+  view.hasTutorials = members.tutorials.length;
   view.linkto = linkto;
   view.updateItemName = updateItemName;
   view.elementId = elementId;
@@ -849,9 +843,15 @@ exports.publish = function(taffyData, opts, tutorials) {
   view.outputSourceFiles = outputSourceFiles;
   view.showInheritedFrom = showInheritedFrom;
   view.generateTutorial = generateTutorial;
-  view.moment = require('moment');
-
-  view.nav = buildNav(members, opts.readme);
+  view.projectTitle = opts.title;
+  view.indexSidenav = buildIndexNav(opts.readme);
+  view.indexTitle = opts.mainPageTitle || 'Home';
+  view.apiSidenav = buildMemberNavs(topLevelClasses);
+  view.apiTitle = opts.apiTitle || 'API Reference';
+  view.tutorialsSidenav = buildTutorialsNav(members.tutorials);
+  view.tutorialsTitle = opts.tutorialsTitle || 'Tutorials';
+  view.tutoriallink = tutoriallink;
+  view.showGeneratedDate = conf.default && conf.default.includeDate !== false;
 
   attachModuleSymbols(find({longname: {left: 'module:'}}), members.modules);
 
@@ -860,22 +860,25 @@ exports.publish = function(taffyData, opts, tutorials) {
     generateSourceFiles(sourceFiles, opts.encoding);
   }
 
-  if (members.globals.length) {
-    generate('', 'Global', [{kind: 'globalobj'}], globalUrl);
+  if (view.hasReference) {
+    generate('api', view.apiTitle, topLevelClasses, urls.api);
+  }
+
+  if (view.hasTutorials) {
+    generateTutorialsIndex(opts.tutorialsTitle, tutorials, urls.tutorials);
+    generateTutorials(tutorials);
   }
 
   // index page displays information from package.json and lists files
   var files = find({kind: 'file'});
   var packages = find({kind: 'package'});
-  var changelog = new tutorial.Tutorial(null, fs.readFileSync(opts.changelog, opts.encoding), tutorial.TYPES.MARKDOWN);
-  var readmeAndTutorials = [{
+  var rawChangelog = fs.readFileSync(opts.changelog, opts.encoding);
+  var readme = [{
     kind: 'mainpage',
-    readme: addHeadingIds(opts.readme),
-    tutorials: tutorials,
-    longname: opts.mainpagetitle ? opts.mainpagetitle : 'Main Page'
+    readme: addHeadingIds(opts.readme)
   }];
-  var changelogDoc = {kind: 'mainpage', changelog: changelog};
-  var docs = packages.concat(readmeAndTutorials, topLevelClasses, files, changelogDoc);
+  var changelog = {kind: 'mainpage', changelog: parseMarkdown(rawChangelog)};
+  var home = packages.concat(readme, files, changelog);
 
-  generate('index', 'Bookshelf.js', docs, indexUrl);
+  generate('index', view.indexTitle, home, urls.index);
 };

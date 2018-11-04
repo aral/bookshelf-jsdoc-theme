@@ -1,0 +1,72 @@
+nav.main-navbar {
+  background-color: $_bookshelf-orange;
+  font-size: 0;
+  position: fixed;
+  height: $navbar-height;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+
+  .show-menu {
+    @include navbar-button;
+    cursor: pointer;
+    display: none;
+  }
+
+  label {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  input[type=checkbox]{
+    display: none;
+  }
+
+  @media screen and (max-width: $screen-breakpoint) {
+    input[type=checkbox]:checked ~ #menu{
+      border-top: 1px solid $navbar-button-hover-color;
+      display: block;
+    }
+  }
+
+  ul {
+    background-color: $_bookshelf-orange;
+    list-style-type: none;
+    display: inline-block;
+
+    @media screen and (max-width: $screen-breakpoint) {
+      display: none;
+    }
+  }
+
+  li {
+    display: inline;
+
+    @media screen and (max-width: $screen-breakpoint) {
+      display: block;
+    }
+  }
+
+  > a:first-child {
+    width: $sidebar-width;
+  }
+
+  a {
+    @include navbar-button;
+    display: inline-block;
+
+    i, img {
+      margin-right: 5px;
+    }
+
+    img {
+      vertical-align: middle;
+      width: 42px;
+    }
+
+    &:hover, &.active {
+      background-color: $navbar-button-hover-color;
+    }
+  }
+}

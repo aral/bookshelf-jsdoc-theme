@@ -1,15 +1,14 @@
-<?js
-  var tutorial = obj;
-  var self = this;
-?>
-
 <article class="tutorial">
-  <h2 id="<?js= tutorial.longname ?>"><?js= tutorial.title ?></h2>
-  <?js= self.generateTutorial(tutorial) ?>
-  <?js if (tutorial.children.length) tutorial.children.forEach(function(child) { ?>
-    <section class="sections">
-      <h3 id="<?js= child.longname ?>"><?js= child.title ?></h3>
-      <?js= self.generateTutorial(child) ?>
-    </section>
-  <?js }); ?>
+  <h2><?js= header ?></h2>
+  <section class="content"><?js= content ?></section>
+  <?js if (children.length) { ?>
+    <h3>More details about this topic on the following sections:</h3>
+    <nav>
+      <ul>
+        <?js children.forEach(function(child) { ?>
+          <li><?js= this.tutoriallink(child.name) ?></li>
+        <?js }, this); ?>
+      </ul>
+    </nav>
+  <?js } ?>
 </article>

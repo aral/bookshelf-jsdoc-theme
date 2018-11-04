@@ -1,0 +1,27 @@
+article.tutorial {
+  header {
+    padding-top: $main-top-spacing;
+  }
+
+  nav ul {
+    list-style: none;
+  }
+}
+
+ul.tutorials {
+  li > ul {
+    margin-left: $indented-list-margin / 3;
+  }
+}
+
+.main-column > ul {
+  list-style-type: none;
+
+  li > ul {
+    margin-left: $indented-list-margin;
+  }
+
+  > li > a {
+    font-size: 1.25em;
+  }
+}

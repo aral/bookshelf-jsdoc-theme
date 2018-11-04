@@ -7,24 +7,31 @@
 @import 'source';
 @import 'params';
 @import 'details';
+@import 'navbar';
 @import 'sidebar';
 @import 'changelog';
 @import 'footer';
-@import 'fork';
-
-html {
-  font-size: 17px;
-  line-height: 1.76rem;
-  background-color: $main-background-color;
-  -webkit-text-size-adjust: 100%;
-
-  @media screen and (max-width: 650px) {
-    font-size: 15px;
-  }
-}
+@import 'tutorials';
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-size: 17px;
+  font-family: $sans-font-family;
+  line-height: 1.76rem;
+  background-color: $main-background-color;
+  -webkit-text-size-adjust: 100%;
+
+  @media screen and (max-width: $screen-breakpoint) {
+    font-size: 15px;
+  }
+}
+
+.page-content {
+  margin-top: $navbar-height;
+  overflow-x: hidden;
 }

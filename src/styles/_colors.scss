@@ -22,10 +22,11 @@ $stars-color:                #F2B188;
 $subsection-title-color:     $_bookshelf-orange;
 $footer-color:               $_gray;
 
-// Sidebar colors.
-$sidebar-background-color: white;
+// Nav bars colors.
+$sidebar-background-color: #eee;
 $sidebar-class-name-color: $_bookshelf-orange;
 $sidebar-group-name-color: rgba($_bookshelf-orange, 0.7);
+$navbar-button-hover-color: darken($_bookshelf-orange, 5%);
 
 // Methods.
 $function-signature-background-color:  $_faint-orange;

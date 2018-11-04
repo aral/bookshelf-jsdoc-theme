@@ -1,40 +1,17 @@
-.minami .sidebar {
-  @media screen and (max-width: 650px) {
+.sidebar {
+  @media screen and (max-width: $screen-breakpoint) {
     display: none;
   }
 
-  @include card(2);
-
-  // Appearance
   background-color: $sidebar-background-color;
-  font-family: $sans-font-family;
-  line-height: 1.5rem;
-
-  // Size
-  width: $sidebar-width;
-
-  // Position
-  position: fixed;
-  top: 0;
-  left: 0;
   bottom: 0;
-  z-index: 99;
-
-  // Layout
+  line-height: 1.5rem;
+  width: $sidebar-width;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-bottom: 4rem;
-
-  header {
-    text-align: center;
-    margin-top: $main-top-margin;
-    margin-bottom: 1rem;
-
-    img {
-      height: $header-height;
-      width: auto;
-    }
-  }
+  padding: 20px;
+  position: fixed;
+  top: $navbar-height;
 
   a {
     text-decoration: inherit;
@@ -64,8 +41,10 @@
 
   li {
     color: black;
+
     a {
       display: block;
+
       &:hover {
         text-decoration: underline;
       }
@@ -76,18 +55,7 @@
     list-style: none;
   }
 
-  >ul {
-    width: $sidebar-width - 40px;
-    margin: 0 auto;
+  > ul, h2 {
     margin-bottom: 1rem;
-
-    &.readme,
-    &.main>li {
-      margin-bottom: 1.5rem;
-
-      >ul {
-        margin-bottom: 1rem;
-      }
-    }
   }
 }

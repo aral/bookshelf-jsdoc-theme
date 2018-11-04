@@ -1,5 +1,4 @@
-body .main-container {
-
+.main-container {
   @mixin fill-parent {
     margin-left: -$method-margin;
     margin-right: -$method-margin;
@@ -7,12 +6,18 @@ body .main-container {
     padding-right: $method-margin;
   }
 
-  // Layout
   @media screen and (min-width: 651px) {
     margin-left: $sidebar-width;
   }
 
-  // Base font style.
+  ul {
+    @include fine-bullets;
+    margin-bottom: 1rem;
+
+    ul {
+      margin-bottom: 0;
+    }
+  }
 
   .main-column {
     width: 100%;
@@ -21,36 +26,22 @@ body .main-container {
     padding-left: 2rem;
     padding-right: 2rem;
     font-family: $sans-font-family;
-
   }
 
-  .readme {
-    ul {
-      @include fine-bullets;
-    }
-  }
-
-  .readme ul,
-  p {
-
-    // Layout
+  .readme ul, p {
     margin-bottom: 2rem;
-
-    // Appearance.
     font-family: $body-font-family;
     color: $body-text-color;
 
     code {
-      background-color: rgb(249, 242, 236); 
+      background-color: rgb(249, 242, 236);
       display: inline-block;
       border-radius: 5px;
-      /* height: 23px; */
       padding: 0 4px;
       text-decoration: inherit;
     }
   }
 
-  // Anchors.
   a {
     color: $body-anchor-color;
     text-decoration: none;
@@ -60,8 +51,6 @@ body .main-container {
     }
   }
 
-
-  // Headings.
   h1, h2, h3, h4, h5, h6 {
     font-family: $title-font-family;
     color: $body-title-color;
@@ -71,12 +60,11 @@ body .main-container {
     a { color: inherit; }
   }
 
-  $title-text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.13);
-
   h1 {
     text-transform: uppercase;
-    line-height: 153px;
-    padding-top: $main-top-margin;
+    line-height: 1.25;
+    padding-bottom: 30px;
+    padding-top: $main-top-spacing;
     font-size: 3.75rem;
     letter-spacing: 0.125rem;
     text-shadow: $title-text-shadow;
@@ -86,7 +74,6 @@ body .main-container {
     font-size: 2.6rem;
     line-height: 4rem;
     text-shadow: $title-text-shadow;
-    margin-top: 3rem;
   }
 
   h3 {
@@ -110,10 +97,7 @@ body .main-container {
     margin-top: 0.5rem;
   }
 
-
-
-  h4, .lodash-method {
-
+  &.api h4, .lodash-method {
     color: $body-text-color;
     font-family: $code-font-family;
 
@@ -121,13 +105,7 @@ body .main-container {
       color: inherit;
     }
 
-    .new,
-    .comma,
-    .parenthesis,
-    .member-of,
-    .fat-arrow,
-    .event-on,
-    .optional-bracket {
+    .new, .comma, .parenthesis, .member-of, .fat-arrow, .event-on, .optional-bracket {
       color: $function-signature-punctuation-color;
     }
 
@@ -142,50 +120,25 @@ body .main-container {
   }
 
   // Function signature
-  h4 {
+  &.api h4 {
     @include fill-parent;
-    $function-header-height: 3.25rem;
     $source-link-width: 3.5rem;
 
-    // Position
     position: relative;
-
-    // Display
     display: block;
-
-    // Appearance
     background-color: $function-signature-background-color;
-
-    // Layout
     margin-bottom: 1rem;
-    padding: 0 $source-link-width 0 0;
-
-    // Appearance
+    padding: 1rem $source-link-width 1rem 1rem;
     font-size: 1.125rem;
-    line-height: $function-header-height;
-    height: $function-header-height;
     font-weight: bold;
-
-    .signature {
-      display: block;
-      // Shitty fix for very long signatures.
-      white-space: nowrap;
-      overflow-x: auto;
-      padding: 0 1rem;
-    }
+    overflow: hidden;
 
     .source-link {
-
-      // Layout
       display: block;
       padding: 2.2rem 0.4rem 0 0.4rem;
-
-      // Position
       position: absolute;
       top: 0; bottom: 0; right: 0;
       width: $source-link-width;
-
-      // Appearance
       color: $function-signature-source-link-color;
       background-color: $function-signature-background-color;
       font-size: 0.5em;
@@ -216,7 +169,9 @@ body .main-container {
 
     .example {
       @include fill-parent;
+      margin-top: -1rem;
       background-color: $code-background-color;
+
       h5 {
         color: #9A9A9A;
         margin-bottom: 0;
@@ -228,13 +183,12 @@ body .main-container {
       }
     }
 
-    pre {
-      @include fill-parent;
-    }
+    &.has-description {
+      .item-description > *:last-child {
+        margin-bottom: 0;
+      }
 
-    &.has-description .attributes {
-
-      &:after {
+      .attributes:after {
         content: '* * *';
         display: block;
         text-align: center;
@@ -252,4 +206,3 @@ body .main-container {
     padding-left: 2rem;
   }
 }
-

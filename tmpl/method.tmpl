@@ -10,7 +10,6 @@ var hasDescription = !_.isEmpty(data.description)
 
         <h4 id="<?js= id ?>" class="item-header">
           <?js= data.attribs ?>
-          <span class="signature">
           <?js if (kind === 'class') { ?>
             <span class="new">new</span>
           <?js } ?>
@@ -22,10 +21,8 @@ var hasDescription = !_.isEmpty(data.description)
                 >.</span><?js
                }
             ?><?js= data.signature || '' ?>
-          </span
-          ><?js=
-            self.linkto(meta.shortpath, 'source', 'source-link', 'line' + meta.lineno)
-        ?></h4>
+          <?js= self.linkto(meta.shortpath, 'source', 'source-link', 'line' + meta.lineno) ?>
+        </h4>
 
         <?js if (data.summary) { ?>
         <p class="summary"><?js= summary ?></p>

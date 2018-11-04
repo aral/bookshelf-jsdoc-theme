@@ -1,7 +1,9 @@
 @mixin fine-bullets {
   list-style: none;
   padding-left: 0.6rem;
+
   li {
+    padding-left: 0.6rem;
     position: relative;
 
     &:before {
@@ -10,20 +12,20 @@
       font-size: 0.6rem;
       width: 0.6rem;
       position: absolute;
-      left: -0.9rem;
+      left: -0.6rem;
       line-height: 1.7rem;
     }
   }
 }
 
-@mixin fine-bullets-a {
-  list-style: none;
-  li a {
+@mixin navbar-button {
+  color: white;
+  font-size: 20px;
+  line-height: 50px;
+  padding: 10px 20px;
+  text-decoration: none;
 
-    &:before {
-      display: inline-block;
-      content: '\22C5';
-      width: 0.6em;
-    }
+  @media screen and (max-width: $screen-breakpoint) {
+    display: block;
   }
 }

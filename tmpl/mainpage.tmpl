@@ -4,9 +4,9 @@ var self = this;
 ?>
 
 <?js if (data.readme) { ?>
-    <section class="readme">
-        <article><?js= data.readme ?></article>
-    </section>
+  <section class="readme">
+    <?js= data.readme ?>
+  </section>
 <?js } ?>
 
 <?js if (data.tutorials) { ?>
@@ -18,7 +18,7 @@ var self = this;
 <?js } ?>
 
 <?js if (data.changelog) { ?>
-    <section id="changelog" class="changelog">
-        <?js= self.partial('tutorial.tmpl', changelog) ?>
-    </section>
+  <section id="changelog" class="changelog">
+    <?js= data.changelog ?>
+  </section>
 <?js } ?>
