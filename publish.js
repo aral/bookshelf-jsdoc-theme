@@ -548,7 +548,7 @@ function buildTutorialsNav(tutorials) {
 function buildReadmeNav(readme) {
   var headings = getHeadings(readme, 2);
   var items = headings.map(function(heading) {
-    return util.format('<li><a href="%s">%s</a></li>', createLink(headingId(heading)), heading);
+    return util.format('<li><a href="#%s">%s</a></li>', headingId(heading), heading);
   }).join('\n');
 
   return items;
