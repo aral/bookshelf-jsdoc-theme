@@ -1,6 +1,6 @@
 {
   "name": "bookshelf-jsdoc-theme",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "JSDoc theme used by bookshelfjs.org, the homepage of the Bookshelf.js ORM http://bookshelfjs.org",
   "main": "publish.js",
   "scripts": {
