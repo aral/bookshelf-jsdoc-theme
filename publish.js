@@ -872,7 +872,7 @@ exports.publish = function(taffyData, opts, tutorials) {
   // index page displays information from package.json and lists files
   var files = find({kind: 'file'});
   var packages = find({kind: 'package'});
-  var rawChangelog = fs.readFileSync(opts.changelog, opts.encoding);
+  var rawChangelog = opts.changelog ? fs.readFileSync(opts.changelog, opts.encoding) : '';
   var readme = [{
     kind: 'mainpage',
     readme: addHeadingIds(opts.readme)
